@@ -7,16 +7,16 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float _movementSpeed = 5f;
     [SerializeField] float _acceleration = 5f;
+    [SerializeField] InputAction moveAction;
+    [SerializeField] InputActionAsset playerControls;
+    [SerializeField] AudioSource _explosionSound;
+    [SerializeField] AudioSource _shieldChargeSound;
 
-    public InputAction moveAction;
-    public InputActionAsset playerControls;
-    private InputAction move;
-
+    InputAction move;
     Rigidbody2D _rb;
     Quaternion toQuaternion;
     Animator _anim;
     ParticleSystem _particleSystem;
-    AudioSource _explosionSound;
     bool _dead = false;
     int _healthRemaining = 1;
     int maxHealth = 1;
@@ -28,7 +28,6 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
         _particleSystem = GetComponent<ParticleSystem>();
-        _explosionSound = GetComponent<AudioSource>();
     }
 
     private void OnDisable()
@@ -67,6 +66,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void ChargeShield()
+    {
+        _shieldChargeSound.Play();
+    }
+
     private void ReadInput()
     {
         var moveDirection = moveAction.ReadValue<Vector2>();
@@ -88,11 +92,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnParticleTrigger()
-    {
-        Debug.Log("here we are");
-    }
-
     public void TakeDamage()
     {
         _healthRemaining--;
@@ -111,7 +110,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator GoToMenu()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(0);
     }
 }

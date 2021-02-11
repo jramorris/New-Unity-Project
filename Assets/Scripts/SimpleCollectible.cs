@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
 
 public class SimpleCollectible : Collectible
@@ -16,6 +17,8 @@ public class SimpleCollectible : Collectible
     int[] choices = new int[] { -1, 1 };
     AudioSource _audioSource;
     float _colliderRadius;
+    Light _light;
+    Collider2D _collider;
     int wallHits;
 
 
@@ -25,6 +28,8 @@ public class SimpleCollectible : Collectible
         this.OnExitPool += SetVelocityAndTag;
         _audioSource = GetComponent<AudioSource>();
         _colliderRadius = GetComponent<CircleCollider2D>().radius;
+        _light = GetComponentInChildren<Light>();
+        _collider = GetComponent<Collider2D>();
     }
 
     protected override void Collect()
@@ -68,10 +73,9 @@ public class SimpleCollectible : Collectible
 
     void SetInactive()
     {
-        gameObject.SetActive(false);
-        gameObject.tag = "Untagged";
-        _audioSource.volume = 0f;
-        //_audioSource.Stop();
+        _collider.enabled = false;
+        _light.enabled = false;
+        StartCoroutine("VolumeToZero");
         wallHits = 0;
         Spawner.shouldSpawnCollectible = true;
     }
@@ -86,5 +90,17 @@ public class SimpleCollectible : Collectible
         Rigidbody2D _rb = GetComponent<Rigidbody2D>();
         _rb.velocity = _rb.velocity * _velocity;
         gameObject.tag = "Collectible";
+    }
+
+    IEnumerator VolumeToZero()
+    {
+        while (_audioSource.volume > 0)
+        {
+            _audioSource.volume -= Time.deltaTime;
+            Debug.Log(_audioSource.volume);
+            yield return null;
+
+        }
+        gameObject.SetActive(false);
     }
 }
