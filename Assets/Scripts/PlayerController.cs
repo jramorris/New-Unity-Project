@@ -111,6 +111,8 @@ public class PlayerController : MonoBehaviour
         _anim.SetTrigger("Explode");
         _explosionSound.Play();
         _dead = true;
+        GameObject.FindGameObjectWithTag("Score").GetComponent<Score>().ZeroScore();
+        
         transform.localScale = new Vector3(1, 1, transform.localScale.z);
         StartCoroutine("GoToMenu");
     }

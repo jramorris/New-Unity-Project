@@ -9,6 +9,7 @@ TagManager:
   - Background
   - ScoreText
   - Wall
+  - Score
   layers:
   - Default
   - TransparentFX
