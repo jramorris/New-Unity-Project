@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] InputActionAsset playerControls;
     [SerializeField] AudioSource _explosionSound;
     [SerializeField] AudioSource _shieldChargeSound;
+    [SerializeField] AudioSource _pulseSoundEffect;
 
     InputAction move;
     Rigidbody2D _rb;
@@ -68,7 +69,12 @@ public class PlayerController : MonoBehaviour
 
     public void ChargeShield()
     {
-        _shieldChargeSound.Play();
+        _shieldChargeSound.PlayOneShot(_shieldChargeSound.clip, 1f);
+    }
+
+    public void ShieldsUp()
+    {
+        _shieldChargeSound.PlayOneShot(_shieldChargeSound.clip, 1f);
     }
 
     private void ReadInput()
@@ -81,6 +87,7 @@ public class PlayerController : MonoBehaviour
     public void PulseBomb()
     {
         _particleSystem.Play();
+        _pulseSoundEffect.PlayDelayed(.1f);
     }
 
     private void OnParticleCollision(GameObject other)

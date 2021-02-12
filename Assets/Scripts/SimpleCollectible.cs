@@ -8,18 +8,15 @@ public class SimpleCollectible : Collectible
     [SerializeField] float _velocity = 5f;
     [SerializeField] float _collectibleDistance = .5f;
     [SerializeField] float _audioDamper = .5f; // lessen audio output
+    [SerializeField] float _audioRadius = 2;
     [SerializeField] int maxWallHits = 2;
 
-    public override int pointsToGive => 1;
-    Vector3 newPosition;
-    float width;
-    float height;
-    int[] choices = new int[] { -1, 1 };
     AudioSource _audioSource;
-    float _colliderRadius;
+    public override int pointsToGive => 1;
     Light _light;
     Collider2D _collider;
     int wallHits;
+    GameObject _player;
 
 
     void Awake()
@@ -27,35 +24,37 @@ public class SimpleCollectible : Collectible
         // adjust velocity after "Instantiated" from pool
         this.OnExitPool += SetVelocityAndTag;
         _audioSource = GetComponent<AudioSource>();
-        _colliderRadius = GetComponent<CircleCollider2D>().radius;
         _light = GetComponentInChildren<Light>();
         _collider = GetComponent<Collider2D>();
+        _player = GameObject.FindGameObjectWithTag("Player");
+        OnCollected.AddListener(_player.GetComponent<PlayerController>().ChargeShield);
+    }
+
+    private void Update()
+    {
+        float distance = Vector3.Distance(_player.transform.position, gameObject.transform.position);
+        if (_collider.enabled && distance <= _audioRadius)
+        {
+            _audioSource.volume = ((_audioRadius - distance) / (_audioRadius)) * _audioDamper;
+            if (!_audioSource.isPlaying)
+                _audioSource.Play();
+        } else if (_audioSource.isPlaying)
+            _audioSource.Stop();
     }
 
     protected override void Collect()
     {
+        SetInactive();
         Score.IncrementScore(pointsToGive);
         OnCollected?.Invoke();
-        SetInactive();
         Spawner.shouldSpawnCollectible = true;
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player"))
-            return;
-
-        float distance = Vector3.Distance(collision.transform.position, gameObject.transform.position);
-        if (distance <= _collectibleDistance)
+        if (collision.CompareTag("Player"))
             Collect();
 
-        _audioSource.volume = ((_colliderRadius * 2 - distance) / (_colliderRadius * 2)) * _audioDamper;
-        if (!_audioSource.isPlaying)
-            _audioSource.Play();
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
         if (collision.CompareTag("Wall"))
             CheckSetInactive();
     }
@@ -64,7 +63,7 @@ public class SimpleCollectible : Collectible
     {
         // hack to ignore initial wall hit on spawn
         wallHits++;
-
+        Debug.Log($"Hit {wallHits}");
         if (wallHits >= maxWallHits)
         {
             Invoke("SetInactive", 2f);
@@ -97,7 +96,6 @@ public class SimpleCollectible : Collectible
         while (_audioSource.volume > 0)
         {
             _audioSource.volume -= Time.deltaTime;
-            Debug.Log(_audioSource.volume);
             yield return null;
 
         }
