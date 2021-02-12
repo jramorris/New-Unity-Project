@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
 
 
@@ -8,16 +9,15 @@ public class SimpleCollectible : Collectible
     [SerializeField] float _velocity = 5f;
     [SerializeField] float _collectibleDistance = .5f;
     [SerializeField] float _audioDamper = .5f; // lessen audio output
+    [SerializeField] float _audioRadius = 2;
     [SerializeField] int maxWallHits = 2;
 
-    public override int pointsToGive => 1;
-    Vector3 newPosition;
-    float width;
-    float height;
-    int[] choices = new int[] { -1, 1 };
     AudioSource _audioSource;
-    float _colliderRadius;
+    public override int pointsToGive => 1;
+    Light _light;
+    Collider2D _collider;
     int wallHits;
+    GameObject _player;
 
 
     void Awake()
@@ -25,43 +25,46 @@ public class SimpleCollectible : Collectible
         // adjust velocity after "Instantiated" from pool
         this.OnExitPool += SetVelocityAndTag;
         _audioSource = GetComponent<AudioSource>();
-        _colliderRadius = GetComponent<CircleCollider2D>().radius;
+        _light = GetComponentInChildren<Light>();
+        _collider = GetComponent<Collider2D>();
+        _player = GameObject.FindGameObjectWithTag("Player");
+        OnCollected.AddListener(_player.GetComponent<PlayerController>().ChargeShield);
+    }
+
+    private void Update()
+    {
+        float distance = Vector3.Distance(_player.transform.position, gameObject.transform.position);
+        if (_collider.enabled && distance <= _audioRadius)
+        {
+            _audioSource.volume = ((_audioRadius - distance) / (_audioRadius)) * _audioDamper;
+            if (!_audioSource.isPlaying)
+                _audioSource.Play();
+        } else if (_audioSource.isPlaying)
+            _audioSource.Stop();
     }
 
     protected override void Collect()
     {
+        SetInactive();
         Score.IncrementScore(pointsToGive);
         OnCollected?.Invoke();
-        SetInactive();
         Spawner.shouldSpawnCollectible = true;
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player"))
-            return;
-
-        float distance = Vector3.Distance(collision.transform.position, gameObject.transform.position);
-        if (distance <= _collectibleDistance)
+        if (collision.CompareTag("Player"))
             Collect();
 
-        _audioSource.volume = ((_colliderRadius * 2 - distance) / (_colliderRadius * 2)) * _audioDamper;
-        if (!_audioSource.isPlaying)
-            _audioSource.Play();
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {  
-        Debug.Log(collision.OverlapCollider);
-        // if (!collision.OverlapCollider.CompareTag("Wall") && !collision.OverlapCollider.CompareTag("Player"))
-        //     CheckSetInactive();
+        if (collision.CompareTag("Wall"))
+            CheckSetInactive();
     }
 
     void CheckSetInactive()
     {
         // hack to ignore initial wall hit on spawn
         wallHits++;
-
+        Debug.Log($"Hit {wallHits}");
         if (wallHits >= maxWallHits)
         {
             Invoke("SetInactive", 2f);
@@ -70,10 +73,9 @@ public class SimpleCollectible : Collectible
 
     void SetInactive()
     {
-        gameObject.SetActive(false);
-        gameObject.tag = "Untagged";
-        _audioSource.volume = 0f;
-        //_audioSource.Stop();
+        _collider.enabled = false;
+        _light.enabled = false;
+        StartCoroutine("VolumeToZero");
         wallHits = 0;
         Spawner.shouldSpawnCollectible = true;
     }
@@ -88,5 +90,16 @@ public class SimpleCollectible : Collectible
         Rigidbody2D _rb = GetComponent<Rigidbody2D>();
         _rb.velocity = _rb.velocity * _velocity;
         gameObject.tag = "Collectible";
+    }
+
+    IEnumerator VolumeToZero()
+    {
+        while (_audioSource.volume > 0)
+        {
+            _audioSource.volume -= Time.deltaTime;
+            yield return null;
+
+        }
+        gameObject.SetActive(false);
     }
 }

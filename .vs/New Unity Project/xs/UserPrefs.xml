@@ -1,12 +1,8 @@
 ﻿<Properties StartupConfiguration="{B2B58FB2-4462-6B0C-A872-40DD957E5FE0}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SimpleCollectible.cs">
     <Files>
-      <File FileName="Assets/Scripts/SimpleCollectible.cs" Line="75" Column="47" />
-      <File FileName="Assets/Scripts/PlayerController.cs" />
-      <File FileName="Assets/Scripts/IndicatePowerCell.cs" />
-      <File FileName="Assets/Scripts/BlackHole.cs" />
-      <File FileName="Assets/Scripts/ICollectible.cs" />
-      <File FileName="Assets/Scripts/Pooling/PooledMonoBehavior.cs" />
+      <File FileName="Assets/Scripts/SimpleCollectible.cs" Line="42" Column="33" />
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="90" Column="42" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -25,7 +21,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="82fa9685-8bdb-4a6f-9af8-1d4dcea6485a" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="67de3850-9cbe-48e7-a0a6-bea56b6e23cf" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
