@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
+
 public class SimpleCollectible : Collectible
 {
     [SerializeField] UnityEvent OnCollected;
@@ -50,9 +51,10 @@ public class SimpleCollectible : Collectible
     }
 
     void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Wall"))
-            CheckSetInactive();
+    {  
+        Debug.Log(collision.OverlapCollider);
+        // if (!collision.OverlapCollider.CompareTag("Wall") && !collision.OverlapCollider.CompareTag("Player"))
+        //     CheckSetInactive();
     }
 
     void CheckSetInactive()
