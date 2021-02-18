@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+
+    public static bool offMap = false;
+
     [SerializeField] float _movementSpeed = 5f;
     [SerializeField] float _acceleration = 5f;
     [SerializeField] InputAction moveAction;
@@ -12,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AudioSource _explosionSound;
     [SerializeField] AudioSource _shieldChargeSound;
     [SerializeField] AudioSource _pulseSoundEffect;
+    [SerializeField] float _maxOffMapTime = 2.5f;
 
     InputAction move;
     Rigidbody2D _rb;
@@ -23,6 +28,7 @@ public class PlayerController : MonoBehaviour
     int maxHealth = 1;
     float horizontal;
     float vertical;
+    float _offMapTime;
 
     private void Awake()
     {
@@ -119,5 +125,37 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(0);
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Map"))
+        {
+            offMap = true;
+            StartCoroutine("CrashAfterSeconds");
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Map"))
+        {
+            StopCoroutine("CrashAfterSeconds");
+            _offMapTime = 0;
+            offMap = false;
+        }
+    }
+
+    IEnumerator CrashAfterSeconds()
+    {
+        while (_offMapTime < _maxOffMapTime)
+        {
+            _offMapTime += Time.deltaTime;
+            float wiggleDistance = Random.Range(-.05f, .05f);
+            transform.position = new Vector3(transform.position.x + wiggleDistance, transform.position.y + wiggleDistance);
+            yield return null;
+
+        }
+        Die();
     }
 }

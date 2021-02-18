@@ -1,8 +1,12 @@
 ﻿<Properties StartupConfiguration="{B2B58FB2-4462-6B0C-A872-40DD957E5FE0}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SimpleCollectible.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Spawner.cs">
     <Files>
-      <File FileName="Assets/Scripts/SimpleCollectible.cs" Line="42" Column="33" />
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="90" Column="42" />
+      <File FileName="Assets/Scripts/SimpleCollectible.cs" Line="102" Column="37" />
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="154" Column="59" />
+      <File FileName="Assets/Scripts/Score.cs" />
+      <File FileName="Assets/Scripts/LoadLevel.cs" />
+      <File FileName="Assets/Scripts/AlertVignette.cs" Line="42" Column="23" />
+      <File FileName="Assets/Scripts/Spawner.cs" Line="58" Column="63" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -11,7 +15,7 @@
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
                 <Node name="Pooling" expanded="True" />
-                <Node name="SimpleCollectible.cs" selected="True" />
+                <Node name="Spawner.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -21,7 +25,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="67de3850-9cbe-48e7-a0a6-bea56b6e23cf" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="65533880-7289-4b0f-b703-653b61680173" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

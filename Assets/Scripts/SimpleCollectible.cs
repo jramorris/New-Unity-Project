@@ -39,8 +39,7 @@ public class SimpleCollectible : Collectible
             _audioSource.volume = ((_audioRadius - distance) / (_audioRadius)) * _audioDamper;
             if (!_audioSource.isPlaying)
                 _audioSource.Play();
-        } else if (_audioSource.isPlaying)
-            _audioSource.Stop();
+        }
     }
 
     protected override void Collect()

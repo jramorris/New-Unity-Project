@@ -9,6 +9,8 @@ TagManager:
   - Background
   - ScoreText
   - Wall
+  - Map
+  - PostProcessing
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - 
   - Background
   - Enemy
-  - 
+  - PostProcess
   - 
   - 
   - 
