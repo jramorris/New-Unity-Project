@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\BaseEnemy.cs" />
     <Compile Include="Assets\Scripts\BlackHole.cs" />
     <Compile Include="Assets\Scripts\Camera.cs" />
+    <Compile Include="Assets\Scripts\CircularProgressBar.cs" />
     <Compile Include="Assets\Scripts\Constants.cs" />
     <Compile Include="Assets\Scripts\HighScoreText.cs" />
     <Compile Include="Assets\Scripts\ICollectible.cs" />

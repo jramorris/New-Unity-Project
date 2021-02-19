@@ -193,6 +193,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8780300675697604595, guid: bbd11727853014ad0a3fae3350fbb258,
+          type: 3}
+        m_MethodName: IncrementPowerBar
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _velocity: 3
   _collectibleDistance: 0.5
   _audioDamper: 0.7

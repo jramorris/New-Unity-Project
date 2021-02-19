@@ -12,13 +12,13 @@ public class SimpleCollectible : Collectible
     [SerializeField] float _audioRadius = 2;
     [SerializeField] int maxWallHits = 2;
 
-    AudioSource _audioSource;
     public override int pointsToGive => 1;
+    AudioSource _audioSource;
     Light _light;
     Collider2D _collider;
     int wallHits;
     GameObject _player;
-
+    GameObject _powerIndicator;
 
     void Awake()
     {
@@ -29,6 +29,8 @@ public class SimpleCollectible : Collectible
         _collider = GetComponent<Collider2D>();
         _player = GameObject.FindGameObjectWithTag("Player");
         OnCollected.AddListener(_player.GetComponent<PlayerController>().ChargeShield);
+        _powerIndicator = GameObject.FindGameObjectWithTag("ProgressBar");
+        OnCollected.AddListener(_powerIndicator.GetComponent<CircularProgressBar>().IncrementPowerBar);
     }
 
     private void Update()
