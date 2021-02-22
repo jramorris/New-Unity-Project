@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
@@ -12,44 +12,50 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float _movementSpeed = 5f;
     [SerializeField] float _acceleration = 5f;
     [SerializeField] InputAction moveAction;
-    [SerializeField] InputActionAsset playerControls;
     [SerializeField] AudioSource _explosionSound;
-    [SerializeField] AudioSource _shieldChargeSound;
+    [SerializeField] AudioSource _chargeUpSound;
     [SerializeField] AudioSource _pulseSoundEffect;
+    [SerializeField] AudioSource _shieldHitSound;
     [SerializeField] float _maxOffMapTime = 2.5f;
+    [SerializeField] Animator _shieldContainerAnim;
+    [SerializeField] public int _maxCharge = 10;
+    [SerializeField] int _powerToChargeShield = 5;
 
-    InputAction move;
-    Rigidbody2D _rb;
-    Quaternion toQuaternion;
-    Animator _anim;
-    ParticleSystem _particleSystem;
-    bool _dead = false;
-    int _healthRemaining = 1;
-    int maxHealth = 1;
+    // movement
     float horizontal;
     float vertical;
+
+    // health & power
+    bool _dead = false;
+    int _healthRemaining = 1;
+    int _maxHealth = 1;
+    int _currentCharge;
+    int _shieldCharges;
+    public static event Action<int> OnChargeChange;
+
+    Rigidbody2D _rb;
+    Quaternion toQuaternion;
+    Animator _playerAnim;
+    ParticleSystem _particleSystem;
     float _offMapTime;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _anim = GetComponent<Animator>();
+        _playerAnim = GetComponent<Animator>();
         _particleSystem = GetComponent<ParticleSystem>();
     }
 
     private void OnDisable()
     {
         moveAction.Disable();
-        move.Disable();
     }
 
     void FixedUpdate()
     {
-        if (move == null)
+        if (!moveAction.enabled)
         {
             // input system doesnt allow enabling in Awake/Start, etc.
-            move = playerControls.FindActionMap("Player").FindAction("Move");
-            move.Enable();
             moveAction.Enable();
         }
 
@@ -73,14 +79,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ChargeShield()
+    public void CollectPower()
     {
-        _shieldChargeSound.PlayOneShot(_shieldChargeSound.clip, 1f);
+        if (_currentCharge < _maxCharge)
+        {
+            _currentCharge++;
+            OnChargeChange(_currentCharge);
+        }
+
+        if (_currentCharge % _powerToChargeShield == 0)
+            _shieldCharges++;
+
+        _chargeUpSound.PlayOneShot(_chargeUpSound.clip, 1f);
     }
 
     public void ShieldsUp()
     {
-        _shieldChargeSound.PlayOneShot(_shieldChargeSound.clip, 1f);
+        _chargeUpSound.PlayOneShot(_chargeUpSound.clip, 1f);
     }
 
     private void ReadInput()
@@ -92,8 +107,11 @@ public class PlayerController : MonoBehaviour
 
     public void PulseBomb()
     {
-        _particleSystem.Play();
-        _pulseSoundEffect.PlayDelayed(.1f);
+        if (_currentCharge == _maxCharge)
+        {
+            _particleSystem.Play();
+            _pulseSoundEffect.PlayDelayed(.1f);
+        }
     }
 
     private void OnParticleCollision(GameObject other)
@@ -107,14 +125,30 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage()
     {
-        _healthRemaining--;
-        if (_healthRemaining == 0)
-            Die();
+        if (_shieldCharges > 0)
+            ShieldHit();
+        else
+        {
+            _healthRemaining--;
+            if (_healthRemaining == 0)
+                Die();
+        }
+
+    }
+
+    private void ShieldHit()
+    {
+        
+        _currentCharge -= _powerToChargeShield;
+        OnChargeChange(_currentCharge);
+        _shieldCharges--;
+        _shieldContainerAnim.SetTrigger("ShieldHit");
+        _shieldHitSound.Play();
     }
 
     void Die()
     {
-        _anim.SetTrigger("Explode");
+        _playerAnim.SetTrigger("Explode");
         _explosionSound.Play();
         _dead = true;
         transform.localScale = new Vector3(1, 1, transform.localScale.z);
@@ -151,7 +185,7 @@ public class PlayerController : MonoBehaviour
         while (_offMapTime < _maxOffMapTime)
         {
             _offMapTime += Time.deltaTime;
-            float wiggleDistance = Random.Range(-.05f, .05f);
+            float wiggleDistance = UnityEngine.Random.Range(-.05f, .05f);
             transform.position = new Vector3(transform.position.x + wiggleDistance, transform.position.y + wiggleDistance);
             yield return null;
 

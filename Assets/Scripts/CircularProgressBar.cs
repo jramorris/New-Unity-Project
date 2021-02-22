@@ -1,21 +1,32 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class CircularProgressBar : MonoBehaviour
 {
-    [SerializeField] int _maxPower = 10;
-
     Image _image;
+    int _maxCharge;
 
-    // Start is called before the first frame update
     void Start()
     {
         _image = GetComponent<Image>();
+        _maxCharge = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>()._maxCharge;
     }
 
-    // Update is called once per frame
-    public void IncrementPowerBar()
+    private void OnEnable()
     {
-        _image.fillAmount += .1f;
+        PlayerController.OnChargeChange += UpdatePower;
+    }
+
+    private void OnDisable()
+    {
+        PlayerController.OnChargeChange -= UpdatePower;
+    }
+
+    public void UpdatePower(int newPowerLevel)
+    {
+        decimal fillDecimal = decimal.Divide(newPowerLevel, _maxCharge);
+        float fillAmount = Convert.ToSingle(fillDecimal);
+        _image.fillAmount = fillAmount;
     }
 }

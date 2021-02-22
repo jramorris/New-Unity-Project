@@ -18,7 +18,6 @@ public class SimpleCollectible : Collectible
     Collider2D _collider;
     int wallHits;
     GameObject _player;
-    GameObject _powerIndicator;
 
     void Awake()
     {
@@ -28,9 +27,7 @@ public class SimpleCollectible : Collectible
         _light = GetComponentInChildren<Light>();
         _collider = GetComponent<Collider2D>();
         _player = GameObject.FindGameObjectWithTag("Player");
-        OnCollected.AddListener(_player.GetComponent<PlayerController>().ChargeShield);
-        _powerIndicator = GameObject.FindGameObjectWithTag("ProgressBar");
-        OnCollected.AddListener(_powerIndicator.GetComponent<CircularProgressBar>().IncrementPowerBar);
+        OnCollected.AddListener(_player.GetComponent<PlayerController>().CollectPower);
     }
 
     private void Update()
