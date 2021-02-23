@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     int _maxHealth = 1;
     int _currentCharge;
     int _shieldCharges;
+    int _maxShieldCharges = 2;
     public static event Action<int> OnChargeChange;
 
     Rigidbody2D _rb;
@@ -111,6 +112,8 @@ public class PlayerController : MonoBehaviour
         {
             _particleSystem.Play();
             _pulseSoundEffect.PlayDelayed(.1f);
+            _currentCharge = 0;
+            OnChargeChange(_currentCharge);
         }
     }
 

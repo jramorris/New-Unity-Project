@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class SimpleCollectible : Collectible
 {
@@ -14,19 +14,21 @@ public class SimpleCollectible : Collectible
 
     public override int pointsToGive => 1;
     AudioSource _audioSource;
-    Light _light;
+    Light2D _light;
     Collider2D _collider;
     int wallHits;
     GameObject _player;
+    SpriteRenderer _spriteRenderer;
 
     void Awake()
     {
         // adjust velocity after "Instantiated" from pool
         this.OnExitPool += SetVelocityAndTag;
         _audioSource = GetComponent<AudioSource>();
-        _light = GetComponentInChildren<Light>();
+        _light = GetComponentInChildren<Light2D>();
         _collider = GetComponent<Collider2D>();
         _player = GameObject.FindGameObjectWithTag("Player");
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         OnCollected.AddListener(_player.GetComponent<PlayerController>().CollectPower);
     }
 
@@ -73,6 +75,7 @@ public class SimpleCollectible : Collectible
     {
         _collider.enabled = false;
         _light.enabled = false;
+        _spriteRenderer.enabled = false;
         StartCoroutine("VolumeToZero");
         wallHits = 0;
         Spawner.shouldSpawnCollectible = true;
