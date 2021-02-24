@@ -18,8 +18,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AudioSource _shieldHitSound;
     [SerializeField] float _maxOffMapTime = 2.5f;
     [SerializeField] Animator _shieldContainerAnim;
-    [SerializeField] public int _maxCharge = 10;
     [SerializeField] int _powerToChargeShield = 5;
+    [SerializeField] public int _maxCharge = 10;
+    [SerializeField] public int _maxShieldCharges = 2;
 
     // movement
     float horizontal;
@@ -31,20 +32,28 @@ public class PlayerController : MonoBehaviour
     int _maxHealth = 1;
     int _currentCharge;
     int _shieldCharges;
-    int _maxShieldCharges = 2;
     public static event Action<int> OnChargeChange;
+    public static event Action<int> OnShieldChargeChange;
 
     Rigidbody2D _rb;
     Quaternion toQuaternion;
     Animator _playerAnim;
     ParticleSystem _particleSystem;
+    Renderer _spriteRenderer;
     float _offMapTime;
+    Color _shieldColor = new Color(0, 181, 195);
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _playerAnim = GetComponent<Animator>();
         _particleSystem = GetComponent<ParticleSystem>();
+        _spriteRenderer = gameObject.GetComponent<Renderer>();
+    }
+
+    private void Start()
+    {
+        Initialize();
     }
 
     private void OnDisable()
@@ -80,6 +89,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void ReadInput()
+    {
+        var moveDirection = moveAction.ReadValue<Vector2>();
+        horizontal = moveDirection.x;
+        vertical = moveDirection.y;
+    }
+
     public void CollectPower()
     {
         if (_currentCharge < _maxCharge)
@@ -89,21 +105,19 @@ public class PlayerController : MonoBehaviour
         }
 
         if (_currentCharge % _powerToChargeShield == 0)
-            _shieldCharges++;
+        {
+            ShieldsUp();
+        }
 
         _chargeUpSound.PlayOneShot(_chargeUpSound.clip, 1f);
     }
 
     public void ShieldsUp()
     {
+        _shieldCharges++;
+        OnShieldChargeChange(_shieldCharges);
         _chargeUpSound.PlayOneShot(_chargeUpSound.clip, 1f);
-    }
-
-    private void ReadInput()
-    {
-        var moveDirection = moveAction.ReadValue<Vector2>();
-        horizontal = moveDirection.x;
-        vertical = moveDirection.y;
+        SetShieldColor();
     }
 
     public void PulseBomb()
@@ -144,7 +158,9 @@ public class PlayerController : MonoBehaviour
         
         _currentCharge -= _powerToChargeShield;
         OnChargeChange(_currentCharge);
+
         _shieldCharges--;
+        OnShieldChargeChange(_shieldCharges);
         _shieldContainerAnim.SetTrigger("ShieldHit");
         _shieldHitSound.Play();
     }
@@ -194,5 +210,25 @@ public class PlayerController : MonoBehaviour
 
         }
         Die();
+    }
+
+    // set initial game states
+    void Initialize()
+    {
+        OnChargeChange(_currentCharge);
+        OnShieldChargeChange(_shieldCharges);
+        SetShieldColor();
+    }
+
+    private void SetShieldColor()
+    {
+        // Found through trial and error
+        if (_shieldCharges == 0)
+            _spriteRenderer.material.SetColor("_Color", _shieldColor * 0f);
+        else if (_shieldCharges == 1)
+            _spriteRenderer.material.SetColor("_Color", _shieldColor * .01f);
+        else
+            _spriteRenderer.material.SetColor("_Color", _shieldColor * .1f);
+
     }
 }
