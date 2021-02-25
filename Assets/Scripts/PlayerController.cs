@@ -9,13 +9,16 @@ public class PlayerController : MonoBehaviour
 
     public static bool offMap = false;
 
-    [SerializeField] float _movementSpeed = 5f;
-    [SerializeField] float _acceleration = 5f;
-    [SerializeField] InputAction moveAction;
     [SerializeField] AudioSource _explosionSound;
     [SerializeField] AudioSource _chargeUpSound;
     [SerializeField] AudioSource _pulseSoundEffect;
     [SerializeField] AudioSource _shieldHitSound;
+    [SerializeField] AudioSource _shieldsUpSound;
+    [SerializeField] AudioClip _fullyChargedSound;
+
+    [SerializeField] float _movementSpeed = 5f;
+    [SerializeField] float _acceleration = 5f;
+    [SerializeField] InputAction moveAction;
     [SerializeField] float _maxOffMapTime = 2.5f;
     [SerializeField] Animator _shieldContainerAnim;
     [SerializeField] int _powerToChargeShield = 5;
@@ -41,7 +44,9 @@ public class PlayerController : MonoBehaviour
     ParticleSystem _particleSystem;
     Renderer _spriteRenderer;
     float _offMapTime;
+
     Color _shieldColor = new Color(0, 181, 195);
+    Coroutine shieldCoroutine;
 
     private void Awake()
     {
@@ -104,19 +109,21 @@ public class PlayerController : MonoBehaviour
             OnChargeChange(_currentCharge);
         }
 
-        if (_currentCharge % _powerToChargeShield == 0)
-        {
+        if (_currentCharge % _powerToChargeShield == 0 && _shieldCharges < _maxShieldCharges)
             ShieldsUp();
-        }
+        else
+           _chargeUpSound.PlayOneShot(_chargeUpSound.clip, 1f);
 
-        _chargeUpSound.PlayOneShot(_chargeUpSound.clip, 1f);
     }
 
     public void ShieldsUp()
     {
         _shieldCharges++;
         OnShieldChargeChange(_shieldCharges);
-        _chargeUpSound.PlayOneShot(_chargeUpSound.clip, 1f);
+        if (_shieldCharges == _maxShieldCharges)
+            _shieldsUpSound.PlayOneShot(_fullyChargedSound, 1f);
+        else
+            _shieldsUpSound.PlayOneShot(_shieldsUpSound.clip, 1f);
         SetShieldColor();
     }
 
@@ -126,8 +133,7 @@ public class PlayerController : MonoBehaviour
         {
             _particleSystem.Play();
             _pulseSoundEffect.PlayDelayed(.1f);
-            _currentCharge = 0;
-            OnChargeChange(_currentCharge);
+            ResetPower();
         }
     }
 
@@ -160,7 +166,9 @@ public class PlayerController : MonoBehaviour
         OnChargeChange(_currentCharge);
 
         _shieldCharges--;
+        SetShieldColor();
         OnShieldChargeChange(_shieldCharges);
+
         _shieldContainerAnim.SetTrigger("ShieldHit");
         _shieldHitSound.Play();
     }
@@ -215,6 +223,13 @@ public class PlayerController : MonoBehaviour
     // set initial game states
     void Initialize()
     {
+        ResetPower();
+    }
+
+    void ResetPower()
+    {
+        _currentCharge = 0;
+        _shieldCharges = 0;
         OnChargeChange(_currentCharge);
         OnShieldChargeChange(_shieldCharges);
         SetShieldColor();
@@ -224,11 +239,24 @@ public class PlayerController : MonoBehaviour
     {
         // Found through trial and error
         if (_shieldCharges == 0)
-            _spriteRenderer.material.SetColor("_Color", _shieldColor * 0f);
+            shieldCoroutine = StartCoroutine(ChargeShield(0f));
         else if (_shieldCharges == 1)
-            _spriteRenderer.material.SetColor("_Color", _shieldColor * .01f);
+            shieldCoroutine = StartCoroutine(ChargeShield(.01f));
         else
-            _spriteRenderer.material.SetColor("_Color", _shieldColor * .1f);
+            shieldCoroutine = StartCoroutine(ChargeShield(.1f));
 
+    }
+
+    IEnumerator ChargeShield(float intensityMultiplier)
+    {
+        float currentIntensity = 0f;
+
+        while (currentIntensity < intensityMultiplier)
+        {
+            currentIntensity += intensityMultiplier * .01f;
+            _spriteRenderer.material.SetColor("_Color", _shieldColor * currentIntensity);
+            yield return null;
+        }
+        _spriteRenderer.material.SetColor("_Color", _shieldColor * intensityMultiplier);
     }
 }

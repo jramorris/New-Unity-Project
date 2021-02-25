@@ -11,6 +11,8 @@ public class PowerIndicator : MonoBehaviour
 
     int _maxPower;
     int _maxShieldCharges;
+    Coroutine shieldCoroutine;
+    Coroutine powerCoroutine;
 
 
     void Awake()
@@ -34,20 +36,24 @@ public class PowerIndicator : MonoBehaviour
     private void UpdateShieldIndicator(int currentCharges)
     {
         float fillAmount = getCurrentDecimal(currentCharges, _maxShieldCharges);
-        StartCoroutine(FillIndicator(fillAmount, _shieldIndicator));
+        if (shieldCoroutine != null)
+            StopCoroutine(shieldCoroutine);
+        shieldCoroutine = StartCoroutine(FillIndicator(fillAmount, _shieldIndicator, 5.5f));
     }
 
     public void UpdatePowerIndicator(int newPowerLevel)
     {
         float fillAmount = getCurrentDecimal(newPowerLevel, _maxPower);
-        StartCoroutine(FillIndicator(fillAmount, _chargeProgressIndicator));
+        if (powerCoroutine != null)
+            StopCoroutine(powerCoroutine);
+        powerCoroutine = StartCoroutine(FillIndicator(fillAmount, _chargeProgressIndicator, 1.1f));
     }
 
-    IEnumerator FillIndicator(float fillAmount, Image indicatorImage)
+    IEnumerator FillIndicator(float fillAmount, Image indicatorImage, float rateMultiplier)
     {
         while (indicatorImage.fillAmount < fillAmount)
         {
-            indicatorImage.fillAmount += (Time.deltaTime * .1f);
+            indicatorImage.fillAmount += (Time.deltaTime * .1f * rateMultiplier);
             yield return null;
         }
         if (indicatorImage.fillAmount > fillAmount)
