@@ -9,6 +9,7 @@ public class PowerIndicator : MonoBehaviour
     [SerializeField] Image _chargeProgressIndicator;
     [SerializeField] Image _shieldIndicator;
 
+    Button _pulseButton;
     int _maxPower;
     int _maxShieldCharges;
     Coroutine shieldCoroutine;
@@ -19,16 +20,19 @@ public class PowerIndicator : MonoBehaviour
     {
         _maxPower = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>()._maxCharge;
         _maxShieldCharges = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>()._maxShieldCharges;
+        _pulseButton = GetComponentInChildren<Button>();
     }
 
     private void OnEnable()
     {
         PlayerController.OnChargeChange += UpdatePowerIndicator;
+        PlayerController.OnChargeChange += UpdatePulseButton;
         PlayerController.OnShieldChargeChange += UpdateShieldIndicator;
     }
 
     private void OnDisable()
     {
+        PlayerController.OnChargeChange += UpdatePulseButton;
         PlayerController.OnChargeChange -= UpdatePowerIndicator;
         PlayerController.OnShieldChargeChange -= UpdateShieldIndicator;
     }
@@ -65,5 +69,13 @@ public class PowerIndicator : MonoBehaviour
         decimal fillDecimal = decimal.Divide(currentInt, maxInt);
         float fillAmount = Convert.ToSingle(fillDecimal);
         return fillAmount;
+    }
+
+    void UpdatePulseButton(int powerLevel)
+    {
+        if (powerLevel == _maxPower)
+            _pulseButton.interactable = true;
+        else
+            _pulseButton.interactable = false;
     }
 }
