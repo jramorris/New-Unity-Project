@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -82,6 +83,7 @@ public class PlayerController : MonoBehaviour
         var moveDirection = moveAction.ReadValue<Vector2>();
         horizontal = moveDirection.x;
         vertical = moveDirection.y;
+
     }
 
     public void PulseBomb()
