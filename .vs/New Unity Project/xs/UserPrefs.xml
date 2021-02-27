@@ -1,8 +1,13 @@
 ﻿<Properties StartupConfiguration="{B2B58FB2-4462-6B0C-A872-40DD957E5FE0}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SimpleCollectible.cs">
     <Files>
-      <File FileName="Assets/Scripts/SimpleCollectible.cs" Line="42" Column="33" />
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="90" Column="42" />
+      <File FileName="Assets/Scripts/SimpleCollectible.cs" Line="75" Column="1" />
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="34" Column="31" />
+      <File FileName="Assets/Scripts/Score.cs" />
+      <File FileName="Assets/Scripts/LoadLevel.cs" />
+      <File FileName="Assets/Scripts/Spawner.cs" />
+      <File FileName="Assets/Scripts/ScoreText.cs" />
+      <File FileName="../../../../Applications/Unity/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/EventSystem/UIBehaviour.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -21,7 +26,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="67de3850-9cbe-48e7-a0a6-bea56b6e23cf" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="5344a211-9983-409e-8e9f-0648bc61295e" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

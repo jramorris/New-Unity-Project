@@ -9,7 +9,9 @@ TagManager:
   - Background
   - ScoreText
   - Wall
-  - Score
+  - Map
+  - PostProcessing
+  - ProgressBar
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - 
   - Background
   - Enemy
-  - 
+  - PostProcess
   - 
   - 
   - 

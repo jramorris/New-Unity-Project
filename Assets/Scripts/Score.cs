@@ -31,6 +31,11 @@ public class Score : MonoBehaviour
         SetHighScore();
     }
 
+    public static void ResetScore()
+    {
+        _score = 0;
+    }
+
     static void SetHighScore()
     {
         if (_score > _highScore)

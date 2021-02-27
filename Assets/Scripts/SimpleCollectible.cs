@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class SimpleCollectible : Collectible
 {
@@ -12,23 +12,24 @@ public class SimpleCollectible : Collectible
     [SerializeField] float _audioRadius = 2;
     [SerializeField] int maxWallHits = 2;
 
-    AudioSource _audioSource;
     public override int pointsToGive => 1;
-    Light _light;
+    AudioSource _audioSource;
+    Light2D _light;
     Collider2D _collider;
     int wallHits;
     GameObject _player;
-
+    SpriteRenderer _spriteRenderer;
 
     void Awake()
     {
         // adjust velocity after "Instantiated" from pool
         this.OnExitPool += SetVelocityAndTag;
         _audioSource = GetComponent<AudioSource>();
-        _light = GetComponentInChildren<Light>();
+        _light = GetComponentInChildren<Light2D>();
         _collider = GetComponent<Collider2D>();
         _player = GameObject.FindGameObjectWithTag("Player");
-        OnCollected.AddListener(_player.GetComponent<PlayerController>().ChargeShield);
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        OnCollected.AddListener(_player.GetComponent<PlayerController>().CollectPower);
     }
 
     private void Update()
@@ -39,8 +40,7 @@ public class SimpleCollectible : Collectible
             _audioSource.volume = ((_audioRadius - distance) / (_audioRadius)) * _audioDamper;
             if (!_audioSource.isPlaying)
                 _audioSource.Play();
-        } else if (_audioSource.isPlaying)
-            _audioSource.Stop();
+        }
     }
 
     protected override void Collect()
@@ -75,6 +75,7 @@ public class SimpleCollectible : Collectible
     {
         _collider.enabled = false;
         _light.enabled = false;
+        _spriteRenderer.enabled = false;
         StartCoroutine("VolumeToZero");
         wallHits = 0;
         Spawner.shouldSpawnCollectible = true;
