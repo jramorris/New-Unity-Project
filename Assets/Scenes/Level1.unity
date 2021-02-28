@@ -259,8 +259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c338afac6914a63a5a3bb799f504fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chargeProgressIndicator: {fileID: 1333137929}
-  _shieldIndicator: {fileID: 474811545}
+  _powerIndicator: {fileID: 1333137929}
+  _chargeIndicator: {fileID: 474811545}
 --- !u!1 &351114952
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,7 +600,7 @@ GameObject:
   - component: {fileID: 474811546}
   - component: {fileID: 474811545}
   m_Layer: 5
-  m_Name: Shield Indicator
+  m_Name: Charge Indicator
   m_TagString: ProgressBar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -637,8 +637,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 96dadec80d8c24d64b0a7a313ab18ae5, type: 2}
-  m_Color: {r: 0, g: 0.7490196, b: 0.69803923, a: 1}
+  m_Material: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  m_Color: {r: 0, g: 1, b: 0.9319372, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1404,7 +1404,7 @@ GameObject:
   - component: {fileID: 1333137930}
   - component: {fileID: 1333137929}
   m_Layer: 5
-  m_Name: Progress Bar
+  m_Name: Power Indicator
   m_TagString: ProgressBar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2303,6 +2303,11 @@ PrefabInstance:
       propertyPath: _fullyChargedSound
       value: 
       objectReference: {fileID: 8300000, guid: 3f456a128955e43f79ad6e8531da6e02, type: 3}
+    - target: {fileID: 5584265109048467926, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
+        type: 3}
+      propertyPath: _powerDecrementMultiplier
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5584265109048467930, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
         type: 3}
       propertyPath: m_LocalPosition.x

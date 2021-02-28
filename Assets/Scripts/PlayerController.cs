@@ -21,22 +21,28 @@ public class PlayerController : MonoBehaviour
     [SerializeField] InputAction moveAction;
     [SerializeField] float _maxOffMapTime = 2.5f;
     [SerializeField] Animator _shieldContainerAnim;
-    [SerializeField] int _powerToChargeShield = 5;
-    [SerializeField] public int _maxCharge = 10;
+
+    [SerializeField] public float _maxPower = 10;
+    [SerializeField] public float _maxCharge = 10;
     [SerializeField] public int _maxShieldCharges = 2;
+    [SerializeField] float _powerDecrementMultiplier = .5f;
+    [SerializeField] int _powerToChargeShield = 5;
 
     // movement
     float horizontal;
     float vertical;
 
-    // health & power
+    // health
     bool _dead = false;
     int _healthRemaining = 1;
     int _maxHealth = 1;
-    int _currentCharge;
+
+    // power (fly ship) & charge (shield, pulse)
+    public static event Action<float> OnCollectPower;
+    public static event Action<float> OnChargeChange;
+    public float _currentPower;
+    float _currentCharge;
     int _shieldCharges;
-    public static event Action<int> OnChargeChange;
-    public static event Action<int> OnShieldChargeChange;
 
     Rigidbody2D _rb;
     Quaternion toQuaternion;
@@ -66,8 +72,11 @@ public class PlayerController : MonoBehaviour
         moveAction.Disable();
     }
 
-    void FixedUpdate()
+    private void Update()
     {
+        ReadInput();
+        DecrementPower();
+
         if (!moveAction.enabled)
         {
             // input system doesnt allow enabling in Awake/Start, etc.
@@ -79,8 +88,10 @@ public class PlayerController : MonoBehaviour
             _rb.velocity = Vector2.zero;
             return;
         }
+    }
 
-        ReadInput();
+    void FixedUpdate()
+    {
         
         var newXVelocity = Mathf.Lerp(_rb.velocity.x, horizontal * _movementSpeed, Time.deltaTime * _acceleration);
         var newYVelocity = Mathf.Lerp(_rb.velocity.y, vertical * _movementSpeed, Time.deltaTime * _acceleration);
@@ -94,21 +105,37 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void DecrementPower()
+    {
+        _currentPower -= Time.deltaTime * _powerDecrementMultiplier;
+        if (_currentPower < 0)
+            _currentPower = 0;
+    }
+
     void ReadInput()
     {
         var moveDirection = moveAction.ReadValue<Vector2>();
-        horizontal = moveDirection.x;
-        vertical = moveDirection.y;
+        if (_currentPower > 0)
+        {
+            horizontal = moveDirection.x;
+            vertical = moveDirection.y;
+        } else
+        {
+            horizontal = vertical = 0;
+        }
+            
     }
 
     public void CollectPower()
     {
-        if (_currentCharge < _maxCharge)
-        {
-            _currentCharge++;
-            OnChargeChange(_currentCharge);
-        }
+        // power increment
+        _currentPower = Mathf.Clamp(_currentPower + 2f, 0f, _maxPower);
 
+        // charge increment
+        _currentCharge = Mathf.Clamp(_currentCharge + 1f, 0f, _maxCharge);
+        OnChargeChange(_currentCharge);
+
+        // TODO update to account for floats here?
         if (_currentCharge % _powerToChargeShield == 0 && _shieldCharges < _maxShieldCharges)
             ShieldsUp();
         else
@@ -119,7 +146,6 @@ public class PlayerController : MonoBehaviour
     public void ShieldsUp()
     {
         _shieldCharges++;
-        OnShieldChargeChange(_shieldCharges);
         if (_shieldCharges == _maxShieldCharges)
             _shieldsUpSound.PlayOneShot(_fullyChargedSound, 1f);
         else
@@ -163,11 +189,10 @@ public class PlayerController : MonoBehaviour
     {
         
         _currentCharge -= _powerToChargeShield;
-        OnChargeChange(_currentCharge);
+        OnCollectPower(_currentCharge);
 
         _shieldCharges--;
         SetShieldColor();
-        OnShieldChargeChange(_shieldCharges);
 
         _shieldContainerAnim.SetTrigger("ShieldHit");
         _shieldHitSound.Play();
@@ -228,10 +253,12 @@ public class PlayerController : MonoBehaviour
 
     void ResetPower()
     {
+        _currentPower = _maxPower;
         _currentCharge = 0;
         _shieldCharges = 0;
+        // TODO here
+        OnCollectPower(_currentCharge);
         OnChargeChange(_currentCharge);
-        OnShieldChargeChange(_shieldCharges);
         SetShieldColor();
     }
 

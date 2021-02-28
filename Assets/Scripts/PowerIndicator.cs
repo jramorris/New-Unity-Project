@@ -6,51 +6,58 @@ using UnityEngine.UI;
 
 public class PowerIndicator : MonoBehaviour
 {
-    [SerializeField] Image _chargeProgressIndicator;
-    [SerializeField] Image _shieldIndicator;
+    [SerializeField] Image _powerIndicator;
+    [SerializeField] Image _chargeIndicator;
 
+    PlayerController _playerController;
     Button _pulseButton;
-    int _maxPower;
-    int _maxShieldCharges;
+    float _maxPower;
+    float _maxCharge;
     Coroutine shieldCoroutine;
     Coroutine powerCoroutine;
 
 
     void Awake()
     {
-        _maxPower = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>()._maxCharge;
-        _maxShieldCharges = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>()._maxShieldCharges;
+
+        _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        _maxPower = _playerController._maxPower;
+        _maxCharge = _playerController._maxCharge;
         _pulseButton = GetComponentInChildren<Button>();
+    }
+
+    private void Update()
+    {
+        UpdatePowerIndicator(_playerController._currentPower);
     }
 
     private void OnEnable()
     {
-        PlayerController.OnChargeChange += UpdatePowerIndicator;
-        PlayerController.OnChargeChange += UpdatePulseButton;
-        PlayerController.OnShieldChargeChange += UpdateShieldIndicator;
+        PlayerController.OnCollectPower += UpdatePowerIndicator;
+        //PlayerController.OnChargeChange += UpdatePulseButton;
+        PlayerController.OnChargeChange += UpdateChargeIndicator;
     }
 
     private void OnDisable()
     {
-        PlayerController.OnChargeChange += UpdatePulseButton;
-        PlayerController.OnChargeChange -= UpdatePowerIndicator;
-        PlayerController.OnShieldChargeChange -= UpdateShieldIndicator;
+        PlayerController.OnCollectPower -= UpdatePowerIndicator;
+        //PlayerController.OnChargeChange += UpdatePulseButton;
+        PlayerController.OnChargeChange -= UpdateChargeIndicator;
     }
 
-    private void UpdateShieldIndicator(int currentCharges)
+    private void UpdateChargeIndicator(float currentCharge)
     {
-        float fillAmount = getCurrentDecimal(currentCharges, _maxShieldCharges);
         if (shieldCoroutine != null)
             StopCoroutine(shieldCoroutine);
-        shieldCoroutine = StartCoroutine(FillIndicator(fillAmount, _shieldIndicator, 5.5f));
+        shieldCoroutine = StartCoroutine(FillIndicator(currentCharge / _maxCharge, _chargeIndicator, 5.5f));
     }
 
-    public void UpdatePowerIndicator(int newPowerLevel)
+    public void UpdatePowerIndicator(float newPowerLevel)
     {
         float fillAmount = getCurrentDecimal(newPowerLevel, _maxPower);
         if (powerCoroutine != null)
             StopCoroutine(powerCoroutine);
-        powerCoroutine = StartCoroutine(FillIndicator(fillAmount, _chargeProgressIndicator, 1.1f));
+        powerCoroutine = StartCoroutine(FillIndicator(fillAmount, _powerIndicator, 3f));
     }
 
     IEnumerator FillIndicator(float fillAmount, Image indicatorImage, float rateMultiplier)
@@ -64,11 +71,9 @@ public class PowerIndicator : MonoBehaviour
             indicatorImage.fillAmount = fillAmount;
     }
 
-    private float getCurrentDecimal(int currentInt, int maxInt)
+    private float getCurrentDecimal(float currentFloat, float maxFloat)
     {
-        decimal fillDecimal = decimal.Divide(currentInt, maxInt);
-        float fillAmount = Convert.ToSingle(fillDecimal);
-        return fillAmount;
+        return currentFloat / maxFloat;
     }
 
     void UpdatePulseButton(int powerLevel)
