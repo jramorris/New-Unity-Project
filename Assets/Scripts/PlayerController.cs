@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     // power (fly ship) & charge (shield, pulse)
     public static event Action<float> OnCollectPower;
     public static event Action<float> OnChargeChange;
+    public static event Action OnFullCharge;
     public float _currentPower;
     float _currentCharge;
     int _shieldCharges;
@@ -129,7 +130,7 @@ public class PlayerController : MonoBehaviour
     public void CollectPower()
     {
         // power increment
-        _currentPower = Mathf.Clamp(_currentPower + 2f, 0f, _maxPower);
+        _currentPower = Mathf.Clamp(_currentPower + 2.5f, 0f, _maxPower);
 
         // charge increment
         _currentCharge = Mathf.Clamp(_currentCharge + 1f, 0f, _maxCharge);
@@ -139,8 +140,10 @@ public class PlayerController : MonoBehaviour
         if (_currentCharge % _powerToChargeShield == 0 && _shieldCharges < _maxShieldCharges)
             ShieldsUp();
         else
-           _chargeUpSound.PlayOneShot(_chargeUpSound.clip, 1f);
-
+        {
+            _chargeUpSound.PlayOneShot(_chargeUpSound.clip, 1f);
+            OnFullCharge();
+        }
     }
 
     public void ShieldsUp()
@@ -187,9 +190,8 @@ public class PlayerController : MonoBehaviour
 
     private void ShieldHit()
     {
-        
         _currentCharge -= _powerToChargeShield;
-        OnCollectPower(_currentCharge);
+        OnChargeChange(_currentCharge);
 
         _shieldCharges--;
         SetShieldColor();

@@ -24,6 +24,7 @@ public class PowerIndicator : MonoBehaviour
         _maxPower = _playerController._maxPower;
         _maxCharge = _playerController._maxCharge;
         _pulseButton = GetComponentInChildren<Button>();
+        _pulseButton.interactable = false;
     }
 
     private void Update()
@@ -34,14 +35,14 @@ public class PowerIndicator : MonoBehaviour
     private void OnEnable()
     {
         PlayerController.OnCollectPower += UpdatePowerIndicator;
-        //PlayerController.OnChargeChange += UpdatePulseButton;
+        PlayerController.OnFullCharge += UpdatePulseButton;
         PlayerController.OnChargeChange += UpdateChargeIndicator;
     }
 
     private void OnDisable()
     {
         PlayerController.OnCollectPower -= UpdatePowerIndicator;
-        //PlayerController.OnChargeChange += UpdatePulseButton;
+        PlayerController.OnFullCharge += UpdatePulseButton;
         PlayerController.OnChargeChange -= UpdateChargeIndicator;
     }
 
@@ -76,11 +77,8 @@ public class PowerIndicator : MonoBehaviour
         return currentFloat / maxFloat;
     }
 
-    void UpdatePulseButton(int powerLevel)
+    void UpdatePulseButton()
     {
-        if (powerLevel == _maxPower)
-            _pulseButton.interactable = true;
-        else
-            _pulseButton.interactable = false;
+        _pulseButton.interactable = true;
     }
 }
