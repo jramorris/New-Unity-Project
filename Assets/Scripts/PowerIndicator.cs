@@ -56,9 +56,13 @@ public class PowerIndicator : MonoBehaviour
     public void UpdatePowerIndicator(float newPowerLevel)
     {
         float fillAmount = getCurrentDecimal(newPowerLevel, _maxPower);
-        if (powerCoroutine != null)
-            StopCoroutine(powerCoroutine);
-        powerCoroutine = StartCoroutine(FillIndicator(fillAmount, _powerIndicator, 3f));
+        //if (powerCoroutine != null)
+        //    StopCoroutine(powerCoroutine);
+        //powerCoroutine = StartCoroutine(FillIndicator(fillAmount, _powerIndicator, 3f));
+        if (_powerIndicator.fillAmount < fillAmount)
+            _powerIndicator.fillAmount += (Time.deltaTime * .1f * 3f);
+        else
+            _powerIndicator.fillAmount = fillAmount;
     }
 
     IEnumerator FillIndicator(float fillAmount, Image indicatorImage, float rateMultiplier)

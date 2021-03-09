@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float _maxPower = 10;
     [SerializeField] public float _maxCharge = 10;
     [SerializeField] public int _maxShieldCharges = 2;
-    [SerializeField] float _powerDecrementMultiplier = .5f;
+    [SerializeField] float _baseDecrementMultiplier = .5f;
     [SerializeField] int _powerToChargeShield = 5;
 
     // movement
@@ -54,6 +54,8 @@ public class PlayerController : MonoBehaviour
 
     Color _shieldColor = new Color(0, 181, 195);
     Coroutine shieldCoroutine;
+    float _decrementMutliplier;
+    Coroutine _dieCoroutine;
 
     private void Awake()
     {
@@ -93,9 +95,18 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        float newXVelocity;
+        float newYVelocity;
+        if (_currentPower > 0f)
+        {
+            newXVelocity = Mathf.Lerp(_rb.velocity.x, horizontal * _movementSpeed, Time.deltaTime * _acceleration);
+            newYVelocity = Mathf.Lerp(_rb.velocity.y, vertical * _movementSpeed, Time.deltaTime * _acceleration);
+        } else
+        {
+            newXVelocity = Mathf.Lerp(_rb.velocity.x, 0, Time.deltaTime * .5f);
+            newYVelocity = Mathf.Lerp(_rb.velocity.y, 0, Time.deltaTime * .5f);
+        }
         
-        var newXVelocity = Mathf.Lerp(_rb.velocity.x, horizontal * _movementSpeed, Time.deltaTime * _acceleration);
-        var newYVelocity = Mathf.Lerp(_rb.velocity.y, vertical * _movementSpeed, Time.deltaTime * _acceleration);
         _rb.velocity = new Vector2(newXVelocity, newYVelocity);
 
         if (horizontal != 0 || vertical != 0)
@@ -108,23 +119,27 @@ public class PlayerController : MonoBehaviour
 
     private void DecrementPower()
     {
-        _currentPower -= Time.deltaTime * _powerDecrementMultiplier;
+        if (horizontal > 0 || vertical < 0)
+            _decrementMutliplier = _baseDecrementMultiplier * 5f;
+        else
+            _decrementMutliplier = _baseDecrementMultiplier;
+
+        _currentPower -= Time.deltaTime * _decrementMutliplier;
         if (_currentPower < 0)
+        {
             _currentPower = 0;
+            if (_dieCoroutine == null)
+            {
+                _dieCoroutine = StartCoroutine(DieAfterSeconds(1));
+            }
+        }
     }
 
     void ReadInput()
     {
         var moveDirection = moveAction.ReadValue<Vector2>();
-        if (_currentPower > 0)
-        {
-            horizontal = moveDirection.x;
-            vertical = moveDirection.y;
-        } else
-        {
-            horizontal = vertical = 0;
-        }
-            
+        horizontal = moveDirection.x;
+        vertical = moveDirection.y;
     }
 
     public void CollectPower()
@@ -183,7 +198,7 @@ public class PlayerController : MonoBehaviour
         {
             _healthRemaining--;
             if (_healthRemaining == 0)
-                Die();
+                Explode();
         }
 
     }
@@ -200,16 +215,27 @@ public class PlayerController : MonoBehaviour
         _shieldHitSound.Play();
     }
 
-    void Die()
+    void Explode()
     {
         _playerAnim.SetTrigger("Explode");
         _explosionSound.Play();
-        _dead = true;
         transform.localScale = new Vector3(1, 1, transform.localScale.z);
+        _dead = true;
+        Die();
+    }
+
+    IEnumerator DieAfterSeconds(int numSeconds)
+    {
+        yield return new WaitForSeconds(numSeconds);
+        Die();
+    }
+
+    void Die()
+    {
         StartCoroutine("GoToMenu");
     }
 
-    IEnumerator GoToMenu()
+     IEnumerator GoToMenu()
     {
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(0);
@@ -244,7 +270,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
 
         }
-        Die();
+        Explode();
     }
 
     // set initial game states
@@ -258,7 +284,6 @@ public class PlayerController : MonoBehaviour
         _currentPower = _maxPower;
         _currentCharge = 0;
         _shieldCharges = 0;
-        // TODO here
         OnCollectPower(_currentCharge);
         OnChargeChange(_currentCharge);
         SetShieldColor();

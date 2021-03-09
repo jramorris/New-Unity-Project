@@ -1,26 +1,31 @@
 ﻿using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+//using UnityEngine.Rendering;
+//using UnityEngine.Rendering.PostProcessing;
 
 public class AlertVignette : MonoBehaviour
 {
 
-    public PostProcessProfile _profile;
+    public VolumeProfile _volumeProfile;
 
-    Vignette _vignetteOverride;
-    FloatParameter _vignetteIntensity;
+    UnityEngine.Rendering.ClampedFloatParameter _vignetteIntensity;
     bool _vignetteIsGrowing;
     AudioSource _alertAudio;
 
     private void Start()
     {
-        _vignetteOverride = _profile.GetSetting<Vignette>();
-        _vignetteIntensity = _vignetteOverride.intensity;
-        _vignetteIsGrowing = _vignetteIntensity < .6f;
-        _alertAudio = GetComponent<AudioSource>();
+        if (_volumeProfile.TryGet<Vignette>(out Vignette vignette))
+        {
+            _vignetteIntensity = vignette.intensity;
+            _vignetteIsGrowing = _vignetteIntensity.value < .5f;
+            _alertAudio = GetComponent<AudioSource>();
+        }
     }
 
     void Update()
     {
+        // TODO move from update to event & coroutine
         if (PlayerController.offMap == true)
         {
             Alert();
@@ -32,12 +37,12 @@ public class AlertVignette : MonoBehaviour
 
     private void StopAlert()
     {
-        _vignetteOverride.enabled.value = false;
+        _vignetteIntensity.overrideState = false;
     }
 
     void Alert()
     {
-        if (_vignetteOverride.enabled == false)
+        if (_vignetteIntensity.overrideState == false)
             InitializeVignette();
         UpdateVignette();
     }
@@ -46,7 +51,7 @@ public class AlertVignette : MonoBehaviour
     {
         if (_vignetteIsGrowing == true)
         {
-            if (_vignetteIntensity.value < .6f)
+            if (_vignetteIntensity.value < .5f)
                 _vignetteIntensity.value += Time.deltaTime;
             else
                 _vignetteIsGrowing = false;
@@ -62,8 +67,8 @@ public class AlertVignette : MonoBehaviour
 
     private void InitializeVignette()
     {
+        _vignetteIntensity.overrideState = true;
         _vignetteIntensity.value = .4f;
-        _vignetteOverride.enabled.value = true;
         _vignetteIsGrowing = true;
         _alertAudio.Play();
     }
