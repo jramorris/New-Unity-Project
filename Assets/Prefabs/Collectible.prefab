@@ -162,6 +162,18 @@ MonoBehaviour:
   OnCollected:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: -8668614183104720973, guid: d93f33b7696fd364db1d01a5fd3db112,
+          type: 3}
+        m_MethodName: Spawn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 801105521005752609, guid: 073655039818e4f86b48875b07bb053a,
           type: 3}
         m_MethodName: Spawn

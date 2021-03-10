@@ -37,6 +37,7 @@ public class BlackHole : MonoBehaviour
 
     public void Spawn()
     {
+        Debug.Log("Damage, Captain");
         if (Score.CurrentScore() % 5 == 0)
             Instantiate(_prefab, RandomOnScreen(), Quaternion.identity);
     }
