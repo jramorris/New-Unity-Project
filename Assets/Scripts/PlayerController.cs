@@ -220,7 +220,6 @@ public class PlayerController : MonoBehaviour
         _playerAnim.SetTrigger("Explode");
         _explosionSound.Play();
         _dead = true;
-        GameObject.FindGameObjectWithTag("Score").GetComponent<Score>().ZeroScore();
         transform.localScale = new Vector3(1, 1, transform.localScale.z);
         _dead = true;
         Die();
@@ -235,9 +234,10 @@ public class PlayerController : MonoBehaviour
     void Die()
     {
         StartCoroutine("GoToMenu");
+        GameObject.FindGameObjectWithTag("Score").GetComponent<Score>().ZeroScore();
     }
 
-     IEnumerator GoToMenu()
+    IEnumerator GoToMenu()
     {
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(0);

@@ -1,11 +1,13 @@
 ﻿<Properties StartupConfiguration="{B2B58FB2-4462-6B0C-A872-40DD957E5FE0}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Spawner.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Score.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="223" Column="22" />
-      <File FileName="Assets/Scripts/PowerIndicator.cs" />
-      <File FileName="Assets/Scripts/SimpleCollectible.cs" />
-      <File FileName="Assets/Scripts/AlertVignette.cs" />
-      <File FileName="Assets/Scripts/Spawner.cs" Line="6" Column="23" />
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="210" Column="1" />
+      <File FileName="Assets/Scripts/BlackHole.cs" Line="25" Column="84" />
+      <File FileName="Assets/Scripts/BaseEnemy.cs" Line="11" Column="69" />
+      <File FileName="Assets/Scripts/Spawner.cs" Line="3" Column="14" />
+      <File FileName="Assets/Scripts/ICollectible.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/SimpleCollectible.cs" Line="49" Column="12" />
+      <File FileName="Assets/Scripts/Score.cs" Line="24" Column="27" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -13,8 +15,7 @@
           <Node name="New Unity Project" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="Pooling" expanded="True" />
-                <Node name="Spawner.cs" selected="True" />
+                <Node name="Score.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -24,7 +25,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="2a21bca4-8116-4777-91d0-e991496021b4" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="fbcf2174-324a-450e-a79c-2d5cb87c9dd9" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
