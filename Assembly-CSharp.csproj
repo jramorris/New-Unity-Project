@@ -72,7 +72,6 @@
     <Compile Include="Assets\Scripts\BaseEnemy.cs" />
     <Compile Include="Assets\Scripts\BlackHole.cs" />
     <Compile Include="Assets\Scripts\Camera.cs" />
-    <Compile Include="Assets\Scripts\CircularProgressBar.cs" />
     <Compile Include="Assets\Scripts\Constants.cs" />
     <Compile Include="Assets\Scripts\HighScoreText.cs" />
     <Compile Include="Assets\Scripts\ICollectible.cs" />
@@ -83,6 +82,7 @@
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Pooling\Pool.cs" />
     <Compile Include="Assets\Scripts\Pooling\PooledMonoBehavior.cs" />
+    <Compile Include="Assets\Scripts\PowerIndicator.cs" />
     <Compile Include="Assets\Scripts\RedEnemy.cs" />
     <Compile Include="Assets\Scripts\Score.cs" />
     <Compile Include="Assets\Scripts\ScoreText.cs" />

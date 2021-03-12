@@ -6,6 +6,8 @@ public class Spawner : MonoBehaviour
     float _spawnTimer;
     float _spawnWaitTime = 2f;
 
+    [SerializeField] bool pauseSpawns;
+
     // spawn vars
     int[] choices = new int[] { -1, 1 };
     float width;
@@ -23,6 +25,9 @@ public class Spawner : MonoBehaviour
 
     void Update()
     {
+        if (pauseSpawns)
+            return;
+
         _spawnTimer += Time.deltaTime;
 
         if (shouldSpawnAsteroid())

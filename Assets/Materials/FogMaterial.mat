@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShieldIndicator
-  m_Shader: {fileID: -6465566751694194690, guid: 71000d0e9ca4f4ec4b6a83e5b18761ee,
+  m_Name: FogMaterial
+  m_Shader: {fileID: -6465566751694194690, guid: ba277d1dac53945dfa4e322ead689406,
     type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
@@ -20,14 +20,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Emission:
-        m_Texture: {fileID: 2800000, guid: a62c8c1bc7e3543cea5499bd2532f019, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: f5b8110104d5141a0a5786835c4d4002, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Floats: []
+    m_Floats:
+    - _FogSize: 10
+    - _InvFade: 1
     m_Colors:
-    - Color_4A114FE0: {r: 0, g: 0.7490196, b: 0.69803923, a: 0.14117648}
+    - _Color: {r: 2.1960785, g: 2.1960785, b: 2.1960785, a: 0.19215687}
+    - _FogSpeed: {r: 0, g: 2, b: 0, a: 0}
+    - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
