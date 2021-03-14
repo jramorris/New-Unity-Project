@@ -12,6 +12,7 @@ TagManager:
   - Map
   - PostProcessing
   - ProgressBar
+  - Asteroid
   layers:
   - Default
   - TransparentFX
