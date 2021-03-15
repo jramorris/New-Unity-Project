@@ -63,7 +63,6 @@ public class SimpleCollectible : Collectible
             StopCoroutine(_becomeInactiveCoroutine);
             _becomeInactiveCoroutine = null;
         }
-            
     }
 
     private void OnTriggerExit2D(Collider2D collision)
