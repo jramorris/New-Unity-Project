@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07921d309488f4e4e8a18be3bff2f0e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _vignetteShrinkRate: 0.03
   _volumeProfile: {fileID: 11400000, guid: d84387d929f2749ac8218a0f8b123f94, type: 2}
 --- !u!82 &49653896
 AudioSource:
