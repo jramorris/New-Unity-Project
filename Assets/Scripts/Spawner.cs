@@ -42,7 +42,8 @@ public class Spawner : MonoBehaviour
 
     private bool shouldSpawnAsteroid()
     {
-        return _spawnTimer > _spawnWaitTime;
+        // Debug.Log((1.8f - (1.8f/((Score.CurrentScore() * .25f )+1f))));
+        return _spawnTimer > _spawnWaitTime - (1.8f - (1.8f/((Score.CurrentScore() * .25f )+1f)));
     }
 
     void Spawn(PooledMonoBehavior objectPrefab)
@@ -60,7 +61,7 @@ public class Spawner : MonoBehaviour
 
     Vector2 RandomOnScreenEdge()
     {
-        Vector2 bgSize = GameObject.FindGameObjectWithTag("Map").GetComponent<SpriteRenderer>().bounds.size;
+        Vector2 bgSize = GameObject.FindGameObjectWithTag("Background").GetComponent<SpriteRenderer>().bounds.size;
         int randomInt = Random.Range(0, 2);
 
         if (randomInt > 0)
