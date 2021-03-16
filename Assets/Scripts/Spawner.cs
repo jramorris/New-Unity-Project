@@ -43,7 +43,7 @@ public class Spawner : MonoBehaviour
     private bool shouldSpawnAsteroid()
     {
         // Debug.Log((1.8f - (1.8f/((Score.CurrentScore() * .25f )+1f))));
-        return _spawnTimer > _spawnWaitTime - (1.8f - (1.8f/((Score.CurrentScore() * .25f )+1f)));
+        return _spawnTimer > (_spawnWaitTime - (1.8f - (1.8f/((Score.CurrentScore() * .25f )+1f))));
     }
 
     void Spawn(PooledMonoBehavior objectPrefab)
