@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
 
     Color _shieldColor = new Color(0, 181, 195);
     Coroutine shieldCoroutine;
-    float _decrementMutliplier;
+    float _decrementMultiplier;
     Coroutine _dieCoroutine;
 
     private void Awake()
@@ -119,12 +119,12 @@ public class PlayerController : MonoBehaviour
 
     private void DecrementPower()
     {
-        if (horizontal > 0 || vertical < 0)
-            _decrementMutliplier = _baseDecrementMultiplier * 5f;
+        if (horizontal != 0 || vertical != 0)
+            _decrementMultiplier = _baseDecrementMultiplier * 5f;
         else
-            _decrementMutliplier = _baseDecrementMultiplier;
+            _decrementMultiplier = _baseDecrementMultiplier;
 
-        _currentPower -= Time.deltaTime * _decrementMutliplier;
+        _currentPower -= Time.deltaTime * _decrementMultiplier;
         if (_currentPower < 0)
         {
             _currentPower = 0;
