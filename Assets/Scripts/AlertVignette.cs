@@ -7,8 +7,9 @@ using UnityEngine.Rendering.Universal;
 public class AlertVignette : MonoBehaviour
 {
 
-    public VolumeProfile _volumeProfile;
+    [SerializeField] float _vignetteShrinkRate = .07f;
 
+    public VolumeProfile _volumeProfile;
     UnityEngine.Rendering.ClampedFloatParameter _vignetteIntensity;
     bool _vignetteIsGrowing;
     AudioSource _alertAudio;
@@ -59,7 +60,7 @@ public class AlertVignette : MonoBehaviour
         else
         {
             if (_vignetteIntensity.value > .4f)
-                _vignetteIntensity.value = Mathf.Lerp(_vignetteIntensity.value, .35f, .07f);
+                _vignetteIntensity.value = Mathf.Lerp(_vignetteIntensity.value, .35f, _vignetteShrinkRate);
             else
                 _vignetteIsGrowing = true;
         }

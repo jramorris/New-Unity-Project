@@ -1,34 +1,37 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class BaseEnemy : PooledMonoBehavior
 {
-    int wallHits;
-    [SerializeField] int maxWallHits = 2;
+    Coroutine _becomeInactiveCoroutine;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
             collision.GetComponent<PlayerController>().TakeDamage();
 
-        if (collision.CompareTag("Wall"))
-            CheckSetInactive();
+        if (collision.CompareTag("Map") && _becomeInactiveCoroutine != null)
+        {
+            StopCoroutine(_becomeInactiveCoroutine);
+            _becomeInactiveCoroutine = null;
+        }
     }
 
-    void CheckSetInactive()
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        // hack to ignore initial wall hit on spawn
-        wallHits++;
+        if (collision.CompareTag("Map"))
+            _becomeInactiveCoroutine = StartCoroutine("BecomeInactive");
+    }
 
-        if (wallHits >= maxWallHits)
-        {
-            Invoke("SetInactive", .5f);
-        }
+    IEnumerator BecomeInactive()
+    {
+        yield return new WaitForSeconds(2f);
+        SetInactive();
     }
 
     void SetInactive()
     {
         gameObject.SetActive(false);
-        wallHits = 0;
     }
 
     void OnCollisionEnter2D(Collision2D collision)

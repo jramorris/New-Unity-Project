@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Experimental.Rendering.Universal;
@@ -19,6 +20,7 @@ public class SimpleCollectible : Collectible
     int wallHits;
     GameObject _player;
     SpriteRenderer _spriteRenderer;
+    private Coroutine _becomeInactiveCoroutine;
 
     void Awake()
     {
@@ -56,19 +58,23 @@ public class SimpleCollectible : Collectible
         if (collision.CompareTag("Player"))
             Collect();
 
-        if (collision.CompareTag("Wall"))
-            CheckSetInactive();
+        if (collision.CompareTag("Map") && _becomeInactiveCoroutine != null)
+        {
+            StopCoroutine(_becomeInactiveCoroutine);
+            _becomeInactiveCoroutine = null;
+        }
     }
 
-    void CheckSetInactive()
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        // hack to ignore initial wall hit on spawn
-        wallHits++;
-        Debug.Log($"Hit {wallHits}");
-        if (wallHits >= maxWallHits)
-        {
-            Invoke("SetInactive", 2f);
-        }
+        if (collision.CompareTag("Map"))
+            _becomeInactiveCoroutine = StartCoroutine("BecomeInactive");
+    }
+
+    IEnumerator BecomeInactive()
+    {
+        yield return new WaitForSeconds(2f);
+        SetInactive();
     }
 
     void SetInactive()
