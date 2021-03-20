@@ -25,7 +25,7 @@ TagManager:
   - Background
   - Enemy
   - PostProcess
-  - 
+  - SmallEnemy
   - 
   - 
   - 
@@ -52,4 +52,7 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Foreground
+    uniqueID: 3475473715
     locked: 0
