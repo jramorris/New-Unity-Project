@@ -1,14 +1,15 @@
 ﻿<Properties StartupConfiguration="{B2B58FB2-4462-6B0C-A872-40DD957E5FE0}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Spawner.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BaseEnemy.cs">
     <Files>
       <File FileName="Assets/Scripts/AlertVignette.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/PlayerController.cs" Line="234" Column="15" />
       <File FileName="Assets/Scripts/PowerIndicator.cs" />
-      <File FileName="Assets/Scripts/RedEnemy.cs" Line="52" Column="9" />
-      <File FileName="Assets/Scripts/BaseEnemy.cs" Line="41" Column="53" />
+      <File FileName="Assets/Scripts/RedEnemy.cs" Line="58" Column="9" />
+      <File FileName="Assets/Scripts/BaseEnemy.cs" Line="43" Column="6" />
       <File FileName="Assets/Scripts/Pooling/PooledMonoBehavior.cs" />
       <File FileName="Assets/Scripts/SimpleCollectible.cs" Line="7" Column="45" />
-      <File FileName="Assets/Scripts/Spawner.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Spawner.cs" Line="59" Column="81" />
+      <File FileName="Assets/Scripts/SmallAsteroid.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -17,7 +18,7 @@
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
                 <Node name="Pooling" expanded="True" />
-                <Node name="Spawner.cs" selected="True" />
+                <Node name="BaseEnemy.cs" selected="True" />
               </Node>
             </Node>
           </Node>

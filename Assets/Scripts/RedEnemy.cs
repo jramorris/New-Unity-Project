@@ -3,6 +3,7 @@
 public class RedEnemy : BaseEnemy
 {
     [SerializeField] int _velocityMagnitude = 5;
+    [SerializeField] int _smallRockSpawnVelocityMagnifier = 5;
     [SerializeField] GameObject enemyPrefab;
 
     ParticleSystem _particleSystem;
@@ -27,15 +28,14 @@ public class RedEnemy : BaseEnemy
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-
         if (collision.collider.CompareTag("Player"))
         {
             collision.collider.GetComponent<PlayerController>().TakeDamage();
-            BreakUp();
+            BreakUp(collision);
         }
     }
 
-    void BreakUp()
+    void BreakUp(Collision2D collision)
     {
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;
@@ -43,8 +43,11 @@ public class RedEnemy : BaseEnemy
         for (int i = 0; i < childCount; i++)
         {
             var child = transform.GetChild(0);
-            Debug.Log($"loop {child.gameObject.name}");
             child.gameObject.SetActive(true);
+            Debug.Log($"normal: {collision.contacts[0].normal}");
+            Debug.Log($"magni: {collision.relativeVelocity.magnitude}");
+            child.GetComponent<Rigidbody2D>().velocity = collision.contacts[0].normal * (1f + (collision.relativeVelocity.magnitude * .1f));
+            Debug.Log($"velo: {child.GetComponent<Rigidbody2D>().velocity}");
             child.parent = null;
         }
         //Debug.Log("ended loop");
@@ -55,6 +58,6 @@ public class RedEnemy : BaseEnemy
         //    child.gameObject.SetActive(true);
         //    child.parent = null;
         //}
-        //_particleSystem.Play();
+        _particleSystem.Play();
     }
 }
