@@ -43,6 +43,8 @@ public class BlackHole : MonoBehaviour
 
     Vector2 RandomOnScreen()
     {
+        // this checks to see if we are spawning the black hole in a place with a collider within the radius of the black hole 10 times and if 
+        // we find a spot that doesn't have a collider, spawn the black hole 
         var width = UnityEngine.Random.Range(-20, 20);
         var height = UnityEngine.Random.Range(-15, 15);
         var overlap = Physics2D.OverlapCircle(new Vector2(width, height), 2f);
