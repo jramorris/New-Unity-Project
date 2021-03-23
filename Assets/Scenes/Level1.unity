@@ -15289,7 +15289,7 @@ GameObject:
   - component: {fileID: 765446019}
   - component: {fileID: 765446018}
   m_Layer: 11
-  m_Name: Small Rock (2)
+  m_Name: Other Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15307,7 +15307,7 @@ Transform:
   m_LocalScale: {x: 0.58801115, y: 0.58801115, z: 0.5880114}
   m_Children: []
   m_Father: {fileID: 420055994}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &765446018
 Rigidbody2D:
@@ -15682,7 +15682,7 @@ Transform:
   m_LocalScale: {x: 0.58801115, y: 0.58801115, z: 0.5880114}
   m_Children: []
   m_Father: {fileID: 420055994}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &1179035757
 CircleCollider2D:

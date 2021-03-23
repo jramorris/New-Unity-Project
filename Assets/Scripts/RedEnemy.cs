@@ -30,20 +30,31 @@ public class RedEnemy : BaseEnemy
 
         if (collision.collider.CompareTag("Player"))
         {
-            BreakUp();
             collision.collider.GetComponent<PlayerController>().TakeDamage();
+            BreakUp();
         }
     }
 
     void BreakUp()
     {
-        _particleSystem.Play();
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;
-        foreach (Transform child in transform)
+        int childCount = transform.childCount;
+        for (int i = 0; i < childCount; i++)
         {
+            var child = transform.GetChild(0);
+            Debug.Log($"loop {child.gameObject.name}");
             child.gameObject.SetActive(true);
             child.parent = null;
         }
+        //Debug.Log("ended loop");
+        //Transform[] children = GetComponentsInChildren<Transform>();
+        //foreach (Transform child in children)
+        //{
+        //    Debug.Log($"loop {child.gameObject.name}");
+        //    child.gameObject.SetActive(true);
+        //    child.parent = null;
+        //}
+        //_particleSystem.Play();
     }
 }

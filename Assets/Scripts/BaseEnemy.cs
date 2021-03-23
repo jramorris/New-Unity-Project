@@ -25,7 +25,6 @@ public class BaseEnemy : PooledMonoBehavior
 
     IEnumerator BecomeInactive()
     {
-        Debug.Log("b3coming inactive");
         yield return new WaitForSeconds(2f);
         SetInactive();
     }

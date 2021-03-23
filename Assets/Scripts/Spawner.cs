@@ -60,7 +60,7 @@ public class Spawner : MonoBehaviour
 
     Vector2 RandomOnScreenEdge()
     {
-        Vector2 bgSize = GameObject.FindGameObjectWithTag("Map").GetComponent<SpriteRenderer>().bounds.size;
+        Vector2 bgSize = GameObject.FindGameObjectWithTag("Background").GetComponent<SpriteRenderer>().bounds.size;
         int randomInt = Random.Range(0, 2);
 
         if (randomInt > 0)
