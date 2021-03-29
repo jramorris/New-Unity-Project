@@ -35,29 +35,29 @@ public class RedEnemy : BaseEnemy
         }
     }
 
-    void BreakUp(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.CompareTag("BlackHole"))
+        {
+            BreakUp();
+        }
+    }
+
+    public void BreakUp(Collision2D collision = null)
     {
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;
         int childCount = transform.childCount;
-        for (int i = 0; i < childCount; i++)
+        if (collision != null)
         {
-            var child = transform.GetChild(0);
-            child.gameObject.SetActive(true);
-            Debug.Log($"normal: {collision.contacts[0].normal}");
-            Debug.Log($"magni: {collision.relativeVelocity.magnitude}");
-            child.GetComponent<Rigidbody2D>().velocity = collision.contacts[0].normal * (1f + (collision.relativeVelocity.magnitude * .1f));
-            Debug.Log($"velo: {child.GetComponent<Rigidbody2D>().velocity}");
-            child.parent = null;
+            for (int i = 0; i < childCount; i++)
+            {
+                var child = transform.GetChild(0);
+                child.gameObject.SetActive(true);
+                child.GetComponent<Rigidbody2D>().velocity = collision.contacts[0].normal * (1f + (collision.relativeVelocity.magnitude * .1f));
+                child.parent = null;
+            }
         }
-        //Debug.Log("ended loop");
-        //Transform[] children = GetComponentsInChildren<Transform>();
-        //foreach (Transform child in children)
-        //{
-        //    Debug.Log($"loop {child.gameObject.name}");
-        //    child.gameObject.SetActive(true);
-        //    child.parent = null;
-        //}
         _particleSystem.Play();
     }
 }

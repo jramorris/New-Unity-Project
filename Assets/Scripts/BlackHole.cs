@@ -5,6 +5,7 @@ public class BlackHole : MonoBehaviour
 {
     [SerializeField] float _gravityForce = 5f;
     [SerializeField] GameObject _prefab;
+    [SerializeField] int _spawnEveryInt = 5;
 
     List<Collider2D> _bodiesToForce = new List<Collider2D>();
 
@@ -37,14 +38,14 @@ public class BlackHole : MonoBehaviour
 
     public void Spawn()
     {
-        if (Score.CurrentScore() %  5 == 0)
+        if (Score.CurrentScore() %  _spawnEveryInt == 0)
             Instantiate(_prefab, RandomOnScreen(), Quaternion.identity);
     }
 
     Vector2 RandomOnScreen()
     {
         // this checks to see if we are spawning the black hole in a place with a collider within the radius of the black hole 10 times and if 
-        // we find a spot that doesn't have a collider, spawn the black hole 
+        // we find a spot that doesn't have a collider, spawn the black hole
         var width = UnityEngine.Random.Range(-20, 20);
         var height = UnityEngine.Random.Range(-15, 15);
         var overlap = Physics2D.OverlapCircle(new Vector2(width, height), 2f);

@@ -185,8 +185,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.layer == 9)
         {
-            other.GetComponent<Renderer>().enabled = false;
-            other.GetComponent<Collider2D>().enabled = false;
+            other.GetComponent<RedEnemy>().BreakUp();
         }
     }
 

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 526393742513124331}
   m_Layer: 9
   m_Name: CollisionDetector
-  m_TagString: Untagged
+  m_TagString: BlackHole
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61,7 +61,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialPoolSize: 50
-  maxWallHits: 2
 --- !u!1 &7928685435195019319
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,7 +75,7 @@ GameObject:
   - component: {fileID: -8668614183104720973}
   - component: {fileID: 6695180446703784665}
   m_Layer: 9
-  m_Name: BalckHole-ReddishColor_Real
+  m_Name: BlackHole-ReddishColor_Real
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -181,6 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gravityForce: 15
   _prefab: {fileID: 7928685435195019319}
+  _spawnEveryInt: 5
 --- !u!58 &6695180446703784665
 CircleCollider2D:
   m_ObjectHideFlags: 0
