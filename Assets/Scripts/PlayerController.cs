@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     // movement
     float horizontal;
     float vertical;
+    float _movementModifier = 1;
 
     // health
     bool _dead = false;
@@ -63,6 +64,12 @@ public class PlayerController : MonoBehaviour
         _playerAnim = GetComponent<Animator>();
         _particleSystem = GetComponent<ParticleSystem>();
         _spriteRenderer = gameObject.GetComponent<Renderer>();
+        OnChargeChange += UpdateMovementModifier;
+    }
+
+    void Destroy()
+    {
+        OnChargeChange -= UpdateMovementModifier;
     }
 
     private void Start()
@@ -99,8 +106,8 @@ public class PlayerController : MonoBehaviour
         float newYVelocity;
         if (_currentPower > 0f)
         {
-            newXVelocity = Mathf.Lerp(_rb.velocity.x, horizontal * _movementSpeed, Time.deltaTime * _acceleration);
-            newYVelocity = Mathf.Lerp(_rb.velocity.y, vertical * _movementSpeed, Time.deltaTime * _acceleration);
+            newXVelocity = Mathf.Lerp(_rb.velocity.x, horizontal * _movementSpeed * _movementModifier, Time.deltaTime * _acceleration);
+            newYVelocity = Mathf.Lerp(_rb.velocity.y, vertical * _movementSpeed * _movementModifier, Time.deltaTime * _acceleration);
         } else
         {
             newXVelocity = Mathf.Lerp(_rb.velocity.x, 0, Time.deltaTime * .5f);
@@ -159,6 +166,13 @@ public class PlayerController : MonoBehaviour
             _chargeUpSound.PlayOneShot(_chargeUpSound.clip, 1f);
             OnFullCharge();
         }
+
+    }
+
+    void UpdateMovementModifier(float currentCharge)
+    {
+        _movementModifier = 1 + (.1f * _currentCharge);
+        Debug.Log($"Movement Mod: {_movementModifier}");
     }
 
     public void ShieldsUp()

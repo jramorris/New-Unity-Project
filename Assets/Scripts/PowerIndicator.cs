@@ -42,7 +42,7 @@ public class PowerIndicator : MonoBehaviour
     private void OnDisable()
     {
         PlayerController.OnCollectPower -= UpdatePowerIndicator;
-        PlayerController.OnFullCharge += UpdatePulseButton;
+        PlayerController.OnFullCharge -= UpdatePulseButton;
         PlayerController.OnChargeChange -= UpdateChargeIndicator;
     }
 
