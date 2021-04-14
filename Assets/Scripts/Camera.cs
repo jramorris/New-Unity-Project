@@ -12,7 +12,7 @@ public class Camera : MonoBehaviour
     {
         _transform = GetComponent<Transform>();
     }
-    // Update is called once per frame
+
     void Update()
     {
         var desiredPosition = new Vector3(_playerTransform.position.x, _playerTransform.position.y, -10);

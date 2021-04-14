@@ -5,7 +5,6 @@ public class Pool : MonoBehaviour
 {
     static Dictionary<PooledMonoBehavior, Pool> pools = new Dictionary<PooledMonoBehavior, Pool>();
 
-
     Queue<PooledMonoBehavior> objects = new Queue<PooledMonoBehavior>();
 
     private PooledMonoBehavior prefab;

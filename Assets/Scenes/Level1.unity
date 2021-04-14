@@ -10676,7 +10676,7 @@ GameObject:
   - component: {fileID: 825796465}
   m_Layer: 5
   m_Name: IndicatorPanel
-  m_TagString: Untagged
+  m_TagString: IndicatorPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10714,6 +10714,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1318487113}
   _playerTransform: {fileID: 1687578072}
+  _prefab: {fileID: -1249828171971480254, guid: 961e232c636294631a5ae99ee726de68,
+    type: 3}
+  asteroids: []
 --- !u!222 &825796467
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16229,7 +16232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c4940f7977749d9a000501377f639c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseSpawns: 1
+  pauseSpawns: 0
   asteroidPrefab: {fileID: 2095608107, guid: f3493adf3ade54cf3bb34eece0add342, type: 3}
   collectiblePrefab: {fileID: 4044605095859939926, guid: 68a1dda669b2c4b61902dba16f4b5814,
     type: 3}

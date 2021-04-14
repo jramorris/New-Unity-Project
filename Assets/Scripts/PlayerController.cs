@@ -172,7 +172,6 @@ public class PlayerController : MonoBehaviour
     void UpdateMovementModifier(float currentCharge)
     {
         _movementModifier = 1 + (.1f * _currentCharge);
-        Debug.Log($"Movement Mod: {_movementModifier}");
     }
 
     public void ShieldsUp()

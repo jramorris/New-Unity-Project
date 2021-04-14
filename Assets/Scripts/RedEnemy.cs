@@ -7,17 +7,23 @@ public class RedEnemy : BaseEnemy
     [SerializeField] GameObject enemyPrefab;
 
     ParticleSystem _particleSystem;
+    ManageIndicators indicatorPanel;
 
     void Awake()
     {
         // adjust velocity after "Instantiated" from pool
         this.OnExitPool += SetVelocity;
+        this.OnExitPool += NotifyIndicatorManager;
+        this.OnReturnToPool += RemoveFromIndicator;
         _particleSystem = GetComponent<ParticleSystem>();
+        indicatorPanel = GameObject.FindGameObjectWithTag("IndicatorPanel").GetComponent<ManageIndicators>();
     }
 
     private void OnDestroy()
     {
         this.OnExitPool -= SetVelocity;
+        this.OnExitPool -= NotifyIndicatorManager;
+        this.OnReturnToPool -= RemoveFromIndicator;
     }
 
     private void SetVelocity()
@@ -59,5 +65,17 @@ public class RedEnemy : BaseEnemy
             }
         }
         _particleSystem.Play();
+    }
+
+    void NotifyIndicatorManager()
+    {
+        // add self to asteroid list on exit queue
+        indicatorPanel.asteroids.Add(transform);
+    }
+
+    void RemoveFromIndicator(PooledMonoBehavior obj)
+    {
+        // A better workflow would be to have manager listen for OnExitPool?
+        indicatorPanel.asteroids.Remove(transform);
     }
 }
