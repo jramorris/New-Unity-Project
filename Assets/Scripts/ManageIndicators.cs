@@ -6,11 +6,11 @@ public class ManageIndicators : MonoBehaviour
 {
     [SerializeField] UnityEngine.Camera mainCamera;
     [SerializeField] Transform _playerTransform;
-    [SerializeField] Indy _prefab;
+    [SerializeField] AsteroidIndicator _prefab;
 
-    Indy indicator;
+    AsteroidIndicator indicator;
     Vector3 normalizer = new Vector3(0.5f, 0.5f, 0);
-    List<Indy> _indicators = new List<Indy>();
+    List<AsteroidIndicator> _indicators = new List<AsteroidIndicator>();
     public List<Transform> asteroids = new List<Transform>();
 
     private float xPos;
@@ -19,22 +19,13 @@ public class ManageIndicators : MonoBehaviour
 
     void LateUpdate()
     {
-        // TODO instantiate and track arrows
-        // - prefill queue?
-        // TODO add asteroid to queue in OnDequeue (OnExitPool)
-        // - done (kinda)
-        // TODO set asteroid . indicator
-        // TODO set indicators to inactive
-        // - done
-
-        //var asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
         currentIndex = 0;
 
         // asteroids add themselves to this List via their OnExitPool event
         // it's not really a separation of concerns...
         foreach (Transform asteroidTransform in asteroids)
         {
-            // get relevant indicator
+            // get relevant indicator or instantiate new one
             try
             {
                 indicator = _indicators[currentIndex];
@@ -46,8 +37,11 @@ public class ManageIndicators : MonoBehaviour
             }
 
             Vector3 screenPosition = mainCamera.WorldToViewportPoint(asteroidTransform.position);
+
+            // if visible in game (via main camera)
             if (screenPosition.x < 0 || screenPosition.x > 1 || screenPosition.y < 0 || screenPosition.y > 1)
             {
+                indicator.gameObject.SetActive(true);
                 indicator.GetComponent<Renderer>().enabled = true;
 
                 screenPosition -= normalizer;
@@ -92,6 +86,7 @@ public class ManageIndicators : MonoBehaviour
             currentIndex += 1;
         }
 
+        // set extra indicators to inactive
         for (int i = currentIndex; i < _indicators.Count; i++)
         {
             indicator = _indicators[currentIndex];

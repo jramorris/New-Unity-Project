@@ -70,6 +70,7 @@
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
     <Compile Include="Assets\Scripts\AlertVignette.cs" />
+    <Compile Include="Assets\Scripts\AsteroidIndicator.cs" />
     <Compile Include="Assets\Scripts\BaseEnemy.cs" />
     <Compile Include="Assets\Scripts\BlackHole.cs" />
     <Compile Include="Assets\Scripts\Camera.cs" />
@@ -77,7 +78,6 @@
     <Compile Include="Assets\Scripts\HighScoreText.cs" />
     <Compile Include="Assets\Scripts\ICollectible.cs" />
     <Compile Include="Assets\Scripts\IndicatePowerCell.cs" />
-    <Compile Include="Assets\Scripts\Indy.cs" />
     <Compile Include="Assets\Scripts\LoadLevel.cs" />
     <Compile Include="Assets\Scripts\ManageIndicators.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />

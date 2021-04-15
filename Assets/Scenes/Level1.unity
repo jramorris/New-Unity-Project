@@ -10714,7 +10714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1318487113}
   _playerTransform: {fileID: 1687578072}
-  _prefab: {fileID: -1249828171971480254, guid: 961e232c636294631a5ae99ee726de68,
+  _prefab: {fileID: -8456021999728816517, guid: 961e232c636294631a5ae99ee726de68,
     type: 3}
   asteroids: []
 --- !u!222 &825796467

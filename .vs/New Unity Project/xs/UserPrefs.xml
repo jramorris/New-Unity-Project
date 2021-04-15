@@ -1,14 +1,15 @@
 ﻿<Properties StartupConfiguration="{B2B58FB2-4462-6B0C-A872-40DD957E5FE0}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Pooling/Pool.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/AsteroidIndicator.cs">
     <Files>
       <File FileName="Assets/Shaders/Shader1.shader" Line="1" Column="1" />
       <File FileName="Assets/Scripts/BlackHole.cs" Line="10" Column="5" />
-      <File FileName="Assets/Scripts/ManageIndicators.cs" Line="23" Column="28" />
-      <File FileName="Assets/Scripts/indy.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/RedEnemy.cs" Line="3" Column="31" />
+      <File FileName="Assets/Scripts/ManageIndicators.cs" Line="35" Column="50" />
+      <File FileName="Assets/Scripts/RedEnemy.cs" Line="4" Column="2" />
       <File FileName="Assets/Scripts/BaseEnemy.cs" Line="4" Column="36" />
-      <File FileName="Assets/Scripts/Pooling/PooledMonoBehavior.cs" Line="13" Column="22" />
-      <File FileName="Assets/Scripts/Pooling/Pool.cs" Line="8" Column="1" />
+      <File FileName="Assets/Scripts/Pooling/PooledMonoBehavior.cs" Line="8" Column="45" />
+      <File FileName="Assets/Scripts/Pooling/Pool.cs" Line="8" Column="73" />
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="70" Column="12" />
+      <File FileName="Assets/Scripts/AsteroidIndicator.cs" Line="15" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

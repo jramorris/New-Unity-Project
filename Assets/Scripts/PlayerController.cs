@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         OnChargeChange += UpdateMovementModifier;
     }
 
-    void Destroy()
+    void OnDestroy()
     {
         OnChargeChange -= UpdateMovementModifier;
     }
