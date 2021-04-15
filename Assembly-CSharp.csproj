@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\BlackHole.cs" />
     <Compile Include="Assets\Scripts\Camera.cs" />
     <Compile Include="Assets\Scripts\Constants.cs" />
+    <Compile Include="Assets\Scripts\Countdown.cs" />
     <Compile Include="Assets\Scripts\HighScoreText.cs" />
     <Compile Include="Assets\Scripts\ICollectible.cs" />
     <Compile Include="Assets\Scripts\IndicatePowerCell.cs" />
