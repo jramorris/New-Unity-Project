@@ -17,6 +17,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] PooledMonoBehavior asteroidPrefab;
     [SerializeField] PooledMonoBehavior collectiblePrefab;
     GameObject _scoreTextObject;
+    private float _velocityMultiplier;
 
     private void Start()
     {
@@ -42,8 +43,7 @@ public class Spawner : MonoBehaviour
 
     private bool shouldSpawnAsteroid()
     {
-        // Debug.Log((1.8f - (1.8f/((Score.CurrentScore() * .25f )+1f))));
-        return _spawnTimer > (_spawnWaitTime - (1.8f - (1.8f/((Score.CurrentScore() * .25f )+1f))));
+        return _spawnTimer > (_spawnWaitTime - (1.8f - (1.8f / ((Score.CurrentScore() * .25f) + 1f))));
     }
 
     void Spawn(PooledMonoBehavior objectPrefab)
@@ -54,9 +54,10 @@ public class Spawner : MonoBehaviour
         var newPosition = RandomOnScreenEdge();
         var xVelocity = newPosition.x > 0 ? -1f : 1f;
         var yVelocity = newPosition.y > 0 ? -1f : 1f;
+        _velocityMultiplier = Random.Range(1, 1 + (1.01f * Score.CurrentScore() * .25f));
         objectPrefab.Get<PooledMonoBehavior>(newPosition,
                                              Quaternion.identity,
-                                             new Vector2(xVelocity, yVelocity));
+                                             new Vector2(xVelocity, yVelocity) * _velocityMultiplier);
     }
 
     Vector2 RandomOnScreenEdge()
