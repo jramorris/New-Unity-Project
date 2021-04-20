@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] InputAction moveAction;
     [SerializeField] float _maxOffMapTime = 2.5f;
     [SerializeField] Animator _shieldContainerAnim;
+    [SerializeField] SpriteRenderer _shieldRenderer;
+
 
     [SerializeField] public float _maxPower = 10;
     [SerializeField] public float _maxCharge = 10;
@@ -46,6 +48,7 @@ public class PlayerController : MonoBehaviour
     float _currentCharge;
     int _shieldCharges;
 
+    // random stuff
     Rigidbody2D _rb;
     Quaternion toQuaternion;
     Animator _playerAnim;
@@ -57,6 +60,7 @@ public class PlayerController : MonoBehaviour
     Coroutine shieldCoroutine;
     float _decrementMultiplier;
     Coroutine _dieCoroutine;
+    bool _shielding;
 
     private void Awake()
     {
@@ -160,7 +164,7 @@ public class PlayerController : MonoBehaviour
 
         // TODO update to account for floats here?
         if (_currentCharge % _powerToChargeShield == 0 && _shieldCharges < _maxShieldCharges)
-            ShieldsUp();
+            ShieldChargeUp();
         else
         {
             _chargeUpSound.PlayOneShot(_chargeUpSound.clip, 1f);
@@ -174,7 +178,7 @@ public class PlayerController : MonoBehaviour
         _movementModifier = 1 + (.1f * _currentCharge);
     }
 
-    public void ShieldsUp()
+    public void ShieldChargeUp()
     {
         _shieldCharges++;
         if (_shieldCharges == _maxShieldCharges)
@@ -204,6 +208,9 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage()
     {
+        if (_shielding)
+            return;
+
         if (_shieldCharges > 0)
             ShieldHit();
         else
@@ -217,14 +224,28 @@ public class PlayerController : MonoBehaviour
 
     private void ShieldHit()
     {
+        // does this need to consider already running routines?
+        StartCoroutine(ShieldForSeconds(1));
+
         _currentCharge -= _powerToChargeShield;
         OnChargeChange(_currentCharge);
 
         _shieldCharges--;
         SetShieldColor();
 
-        _shieldContainerAnim.SetTrigger("ShieldHit");
+        //_shieldContainerAnim.SetTrigger("ShieldHit");
         _shieldHitSound.Play();
+    }
+
+    IEnumerator ShieldForSeconds(int seconds)
+    {
+        _shielding = true;
+        _shieldRenderer.enabled = true;
+        Debug.Log("shield on");
+        yield return new WaitForSeconds(seconds);
+        _shieldRenderer.enabled = false;
+        Debug.Log("shield off");
+        _shielding = false;
     }
 
     void Explode()

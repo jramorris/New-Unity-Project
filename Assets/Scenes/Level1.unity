@@ -281,6 +281,12 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!212 &148690260 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 923071870, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
+    type: 3}
+  m_PrefabInstance: {fileID: 5584265109525971970}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &163651780
 GameObject:
   m_ObjectHideFlags: 0
@@ -21739,6 +21745,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShieldContainer
       objectReference: {fileID: 0}
+    - target: {fileID: 923071870, guid: 2445280d5eb1940cd8d8a88b6f0e3d25, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 923071870, guid: 2445280d5eb1940cd8d8a88b6f0e3d25, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 923071870, guid: 2445280d5eb1940cd8d8a88b6f0e3d25, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 923071870, guid: 2445280d5eb1940cd8d8a88b6f0e3d25, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 923071871, guid: 2445280d5eb1940cd8d8a88b6f0e3d25, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5584265109048467921, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
         type: 3}
       propertyPath: m_Name
@@ -21762,7 +21788,7 @@ PrefabInstance:
     - target: {fileID: 5584265109048467926, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
         type: 3}
       propertyPath: _powerToChargeShield
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5584265109048467926, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
         type: 3}
@@ -21794,6 +21820,11 @@ PrefabInstance:
       propertyPath: _maxShieldCharges
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5584265109048467926, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
+        type: 3}
+      propertyPath: _shieldRenderer
+      value: 
+      objectReference: {fileID: 148690260}
     - target: {fileID: 5584265109048467930, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
         type: 3}
       propertyPath: m_LocalPosition.x
