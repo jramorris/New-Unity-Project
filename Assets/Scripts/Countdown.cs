@@ -5,12 +5,13 @@ using UnityEngine;
 public class Countdown : MonoBehaviour
 {
     TextMeshProUGUI _tmp;
+    [SerializeField] int _countdownSeconds = 3;
 
     void Start()
     {
         Time.timeScale = 0;
         _tmp = GetComponent<TextMeshProUGUI>();
-        StartCoroutine(StartGame(3));
+        StartCoroutine(StartGame(_countdownSeconds));
     }
 
     IEnumerator StartGame(int seconds)

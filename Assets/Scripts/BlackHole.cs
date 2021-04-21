@@ -7,19 +7,35 @@ public class BlackHole : MonoBehaviour
     [SerializeField] GameObject _prefab;
     [SerializeField] int _spawnEveryInt = 5;
 
+    [SerializeField] int maxImpacts = 5;
+    int impacts;
+
     List<Collider2D> _bodiesToForce = new List<Collider2D>();
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         _bodiesToForce.Add(collision);
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    void OnTriggerExit2D(Collider2D collision)
     {
         _bodiesToForce.Remove(collision);
     }
 
-    private void FixedUpdate()
+    public void IncrementImpacts(int numImpacts)
+    {
+        impacts += numImpacts;
+
+        if (impacts >= maxImpacts)
+            Collapse();
+    }
+
+    void Collapse()
+    {
+        gameObject.SetActive(false);
+    }
+
+    void FixedUpdate()
     {
         foreach (Collider2D collision in _bodiesToForce)
         {
@@ -28,12 +44,6 @@ public class BlackHole : MonoBehaviour
             var gravityFactor = 1 / (normalizedDistance * normalizedDistance);
             collision.attachedRigidbody?.AddForce((transform.position - collision.transform.position) * (_gravityForce * gravityFactor));
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Player"))
-            Debug.Log("Damage, Captain");
     }
 
     public void Spawn()

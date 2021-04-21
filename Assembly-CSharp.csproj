@@ -71,6 +71,7 @@
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
     <Compile Include="Assets\Scripts\AlertVignette.cs" />
     <Compile Include="Assets\Scripts\AsteroidIndicator.cs" />
+    <Compile Include="Assets\Scripts\BHCollisionDetector.cs" />
     <Compile Include="Assets\Scripts\BaseEnemy.cs" />
     <Compile Include="Assets\Scripts\BlackHole.cs" />
     <Compile Include="Assets\Scripts\Camera.cs" />

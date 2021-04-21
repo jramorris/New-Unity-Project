@@ -233,18 +233,14 @@ public class PlayerController : MonoBehaviour
         _shieldCharges--;
         SetShieldColor();
 
-        //_shieldContainerAnim.SetTrigger("ShieldHit");
+        _shieldContainerAnim.SetTrigger("ShieldHit");
         _shieldHitSound.Play();
     }
 
     IEnumerator ShieldForSeconds(int seconds)
     {
         _shielding = true;
-        _shieldRenderer.enabled = true;
-        Debug.Log("shield on");
         yield return new WaitForSeconds(seconds);
-        _shieldRenderer.enabled = false;
-        Debug.Log("shield off");
         _shielding = false;
     }
 
