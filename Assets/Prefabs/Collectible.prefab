@@ -175,7 +175,7 @@ MonoBehaviour:
   _velocity: 3
   _collectibleDistance: 0.5
   _audioDamper: 0.7
-  _audioRadius: 4
+  _audioRadius: 5
   maxWallHits: 2
 --- !u!50 &1981774517
 Rigidbody2D:

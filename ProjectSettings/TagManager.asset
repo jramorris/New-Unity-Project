@@ -15,6 +15,9 @@ TagManager:
   - Asteroid
   - Score
   - IndicatorPanel
+  - Spawner
+  - DeathInterstitial
+  - UI
   layers:
   - Default
   - TransparentFX

@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
     float _decrementMultiplier;
     Coroutine _dieCoroutine;
     bool _shielding;
+    UIManager _UIManager;
 
     private void Awake()
     {
@@ -69,6 +70,7 @@ public class PlayerController : MonoBehaviour
         _particleSystem = GetComponent<ParticleSystem>();
         _spriteRenderer = gameObject.GetComponent<Renderer>();
         OnChargeChange += UpdateMovementModifier;
+        _UIManager = GameObject.FindGameObjectWithTag("UI").GetComponent<UIManager>();
     }
 
     void OnDestroy()
@@ -250,7 +252,6 @@ public class PlayerController : MonoBehaviour
         _explosionSound.Play();
         _dead = true;
         transform.localScale = new Vector3(1, 1, transform.localScale.z);
-        _dead = true;
         Die();
     }
 
@@ -269,7 +270,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator GoToMenu()
     {
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene(0);
+        _UIManager.LaunchDeathInterstitial();
     }
 
     private void OnTriggerExit2D(Collider2D collision)

@@ -16,13 +16,9 @@ public class Spawner : MonoBehaviour
 
     [SerializeField] PooledMonoBehavior asteroidPrefab;
     [SerializeField] PooledMonoBehavior collectiblePrefab;
-    GameObject _scoreTextObject;
-    float _velocityMultiplier;
+    [SerializeField] GameObject seekerPrefab;
 
-    private void Start()
-    {
-        _scoreTextObject = GameObject.FindGameObjectWithTag("ScoreText");
-    }
+    float _velocityMultiplier;
 
     void Update()
     {
@@ -81,5 +77,10 @@ public class Spawner : MonoBehaviour
             height = (bgSize.y / 2) * choices[randomInt];
         }
         return new Vector3(width, height, 0);
+    }
+
+    public void SpawnSeeker(Vector3 position)
+    {
+        Instantiate(seekerPrefab, position, Quaternion.identity);
     }
 }

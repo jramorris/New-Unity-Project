@@ -11,6 +11,12 @@ public class BlackHole : MonoBehaviour
     int impacts;
 
     List<Collider2D> _bodiesToForce = new List<Collider2D>();
+    Spawner _spawner;
+
+    private void Start()
+    {
+        _spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>();
+    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -33,6 +39,7 @@ public class BlackHole : MonoBehaviour
     void Collapse()
     {
         gameObject.SetActive(false);
+        _spawner.SpawnSeeker(transform.position);
     }
 
     void FixedUpdate()

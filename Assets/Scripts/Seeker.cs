@@ -27,12 +27,12 @@ public class Seeker : MonoBehaviour
         _rb.velocity = transform.right * _movementSpeed;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         Explode();
     }
 
-    private void Explode()
+    void Explode()
     {
         gameObject.SetActive(false);
     }
