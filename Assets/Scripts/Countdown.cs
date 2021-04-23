@@ -22,7 +22,6 @@ public class Countdown : MonoBehaviour
         {
 
             _tmp.SetText(count.ToString());
-            Debug.Log(_tmp);
             yield return new WaitForSecondsRealtime(1);
             count--;
         }
