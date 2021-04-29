@@ -11214,12 +11214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcb4953ffbb8e41a2a53ec6b8ea70729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!96 &764386100 stripped
-TrailRenderer:
-  m_CorrespondingSourceObject: {fileID: 1644389131, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
-    type: 3}
-  m_PrefabInstance: {fileID: 5584265109525971970}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &825796463
 GameObject:
   m_ObjectHideFlags: 0
@@ -11522,12 +11516,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 995418497}
   m_CullTransparentMesh: 0
---- !u!96 &1026566257 stripped
-TrailRenderer:
-  m_CorrespondingSourceObject: {fileID: 1169695589, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
-    type: 3}
-  m_PrefabInstance: {fileID: 5584265109525971970}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1128266380
 GameObject:
   m_ObjectHideFlags: 0
@@ -22272,16 +22260,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5584265109048467926, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
-        type: 3}
-      propertyPath: _leftTrail
-      value: 
-      objectReference: {fileID: 764386100}
-    - target: {fileID: 5584265109048467926, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
-        type: 3}
-      propertyPath: _rightTrail
-      value: 
-      objectReference: {fileID: 1026566257}
     - target: {fileID: 5584265109048467930, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
         type: 3}
       propertyPath: m_LocalPosition.x

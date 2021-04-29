@@ -844,6 +844,8 @@ MonoBehaviour:
   _maxShieldCharges: 2
   _baseDecrementMultiplier: 0.1
   _powerToChargeShield: 1
+  _leftTrail: {fileID: 1644389131}
+  _rightTrail: {fileID: 1169695589}
   _currentPower: 0
 --- !u!70 &736506510
 CapsuleCollider2D:

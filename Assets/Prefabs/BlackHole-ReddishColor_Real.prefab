@@ -267,7 +267,7 @@ MonoBehaviour:
   _gravityForce: 15
   _prefab: {fileID: 7928685435195019319}
   _spawnEveryInt: 5
-  maxImpacts: 1
+  maxImpacts: 10
 --- !u!58 &6695180446703784665
 CircleCollider2D:
   m_ObjectHideFlags: 0
