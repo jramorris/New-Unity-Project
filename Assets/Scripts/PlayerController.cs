@@ -23,12 +23,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Animator _shieldContainerAnim;
     [SerializeField] SpriteRenderer _shieldRenderer;
 
-
     [SerializeField] public float _maxPower = 10;
     [SerializeField] public float _maxCharge = 10;
     [SerializeField] public int _maxShieldCharges = 2;
     [SerializeField] float _baseDecrementMultiplier = .5f;
     [SerializeField] int _powerToChargeShield = 5;
+
+    [SerializeField] TrailRenderer _leftTrail;
+    [SerializeField] TrailRenderer _rightTrail;
 
     // movement
     float horizontal;
@@ -250,9 +252,16 @@ public class PlayerController : MonoBehaviour
     {
         _playerAnim.SetTrigger("Explode");
         _explosionSound.Play();
+        StopTrails();
         _dead = true;
         transform.localScale = new Vector3(1, 1, transform.localScale.z);
         Die();
+    }
+
+    private void StopTrails()
+    {
+        _leftTrail.emitting = false;
+        _rightTrail.emitting = false;
     }
 
     IEnumerator DieAfterSeconds(int numSeconds)

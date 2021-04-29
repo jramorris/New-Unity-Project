@@ -51,7 +51,7 @@ public class Spawner : MonoBehaviour
         var xVelocity = newPosition.x > 0 ? -1f : 1f;
         var yVelocity = newPosition.y > 0 ? -1f : 1f;
         // asteroids faster with higher score
-        _velocityMultiplier = asteroidPrefab == objectPrefab ? Random.Range(1, 1 + (1.01f * Score.CurrentScore() * .25f)) : 1;
+        _velocityMultiplier = asteroidPrefab == objectPrefab ? Random.Range(1, 1 + (0.05f * Score.CurrentScore() * .25f)) : 1;
         objectPrefab.Get<PooledMonoBehavior>(newPosition,
                                              Quaternion.identity,
                                              new Vector2(xVelocity, yVelocity) * _velocityMultiplier);
@@ -59,22 +59,24 @@ public class Spawner : MonoBehaviour
 
     Vector2 RandomOnScreenEdge()
     {
-        Vector2 bgSize = GameObject.FindGameObjectWithTag("Background").GetComponent<SpriteRenderer>().bounds.size;
+        Vector2 mapSize = GameObject.FindGameObjectWithTag("Map").GetComponent<SpriteRenderer>().bounds.size;
+        float mapWidth = (mapSize.x / 2) * 1.2f;
+        float mapHeight = (mapSize.y / 2) * 1.2f;
         int randomInt = Random.Range(0, 2);
 
         if (randomInt > 0)
         {
             // sides
             randomInt = Random.Range(0, 2);
-            width = (bgSize.x / 2) * choices[randomInt];
-            height = UnityEngine.Random.Range(-(bgSize.y / 2), (bgSize.y / 2));
+            width = mapWidth * choices[randomInt];
+            height = UnityEngine.Random.Range(-mapHeight, mapHeight);
         }
         else
         {
             // top | bottom
             randomInt = Random.Range(0, 2);
-            width = UnityEngine.Random.Range(-(bgSize.x / 2), (bgSize.x / 2));
-            height = (bgSize.y / 2) * choices[randomInt];
+            width = UnityEngine.Random.Range(-mapWidth, mapWidth);
+            height = mapHeight * choices[randomInt];
         }
         return new Vector3(width, height, 0);
     }
