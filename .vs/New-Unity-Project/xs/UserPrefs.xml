@@ -1,11 +1,10 @@
 ﻿<Properties StartupConfiguration="{C9DD0913-8C5E-8022-D26B-19159E3E69A2}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/RedEnemy.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="156" Column="1" />
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="175" Column="13" />
       <File FileName="Assets/Scripts/Countdown.cs" />
-      <File FileName="Assets/Scripts/Spawner.cs" Line="79" Column="31" />
-      <File FileName="Assets/Scripts/LoadLevel.cs" />
-      <File FileName="Assets/Scripts/UIManager.cs" />
+      <File FileName="Assets/Scripts/PowerIndicator.cs" Line="45" Column="42" />
+      <File FileName="Assets/Scripts/RedEnemy.cs" Line="56" Column="31" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -13,7 +12,7 @@
           <Node name="New-Unity-Project" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="PlayerController.cs" selected="True" />
+                <Node name="RedEnemy.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -23,7 +22,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="ffdbca8d-d139-4c6d-92bf-b45c9b4a6aaf" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="3abb13b7-25f4-4533-9d81-aea18ea21664" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -53,10 +53,10 @@ public class RedEnemy : BaseEnemy
     {
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;
-        int childCount = transform.childCount;
         if (collision != null)
         {
-            for (int i = 0; i < childCount; i++)
+            // the two smaller roids have to be the first two children here...
+            for (int i = 0; i < 2; i++)
             {
                 var child = transform.GetChild(0);
                 child.gameObject.SetActive(true);
