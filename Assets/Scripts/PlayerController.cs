@@ -65,6 +65,8 @@ public class PlayerController : MonoBehaviour
     bool _shielding;
     UIManager _UIManager;
 
+    const int EnemyLayer = 9;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -202,13 +204,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnParticleCollision(GameObject other)
+    void OnParticleCollision(GameObject other)
     {
         if (other.layer == 9)
         {
             other.GetComponent<RedEnemy>().BreakUp();
         }
     }
+
+
 
     public void TakeDamage()
     {
@@ -226,7 +230,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void ShieldHit()
+    void ShieldHit()
     {
         // does this need to consider already running routines?
         StartCoroutine(ShieldForSeconds(1));
@@ -250,6 +254,9 @@ public class PlayerController : MonoBehaviour
 
     void Explode()
     {
+        if (_dead == true)
+            return;
+
         _playerAnim.SetTrigger("Explode");
         _explosionSound.Play();
         StopTrails();
@@ -258,7 +265,7 @@ public class PlayerController : MonoBehaviour
         Die();
     }
 
-    private void StopTrails()
+    void StopTrails()
     {
         _leftTrail.emitting = false;
         _rightTrail.emitting = false;
@@ -282,24 +289,40 @@ public class PlayerController : MonoBehaviour
         _UIManager.LaunchDeathInterstitial();
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    void OnTriggerExit2D(Collider2D collider)
     {
-        if (collision.CompareTag("Map"))
+        if (collider.CompareTag("Map"))
         {
             offMap = true;
             StartCoroutine("CrashAfterSeconds");
         }
+
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collision.CompareTag("Map"))
+        if (collider.CompareTag("Map"))
         {
             StopCoroutine("CrashAfterSeconds");
             _offMapTime = 0;
             offMap = false;
         }
+
+        if (collider.gameObject.layer == EnemyLayer)
+        {
+            TakeDamage();
+        }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("player collision");
+        if (collision.collider.gameObject.layer == EnemyLayer)
+        {
+            TakeDamage();
+        }
+    }
+
 
     IEnumerator CrashAfterSeconds()
     {
