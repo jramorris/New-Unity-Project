@@ -8,6 +8,10 @@ public class Seeker : MonoBehaviour
 
     Transform _playerTransform;
     Rigidbody2D _rb;
+    ParticleSystem _particleSystem;
+    SpriteRenderer _spriteRenderer;
+    Collider2D _collider;
+    Transform _orb;
     Vector3 relativePosition;
     Quaternion toQuaternion;
 
@@ -15,6 +19,10 @@ public class Seeker : MonoBehaviour
     {
         _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         _rb = gameObject.GetComponent<Rigidbody2D>();
+        _particleSystem = GetComponent<ParticleSystem>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _collider = GetComponent<Collider2D>();
+        _orb = transform.GetChild(0);
     }
 
     void FixedUpdate()
@@ -34,6 +42,10 @@ public class Seeker : MonoBehaviour
 
     void Explode()
     {
-        gameObject.SetActive(false);
+        _particleSystem.Play();
+        _spriteRenderer.enabled = false;
+        _collider.enabled = false;
+        _orb.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        //gameObject.SetActive(false);
     }
 }

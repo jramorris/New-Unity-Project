@@ -13,17 +13,17 @@ public class RedEnemy : BaseEnemy
     {
         // adjust velocity after "Instantiated" from pool
         this.OnExitPool += SetVelocity;
-        this.OnExitPool += NotifyIndicatorManager;
-        this.OnReturnToPool += RemoveFromIndicator;
+        //this.OnExitPool += NotifyIndicatorManager;
+        //this.OnReturnToPool += RemoveFromIndicator;
         _particleSystem = GetComponent<ParticleSystem>();
-        indicatorPanel = GameObject.FindGameObjectWithTag("IndicatorPanel").GetComponent<ManageIndicators>();
+        //indicatorPanel = GameObject.FindGameObjectWithTag("IndicatorPanel").GetComponent<ManageIndicators>();
     }
 
     private void OnDestroy()
     {
         this.OnExitPool -= SetVelocity;
-        this.OnExitPool -= NotifyIndicatorManager;
-        this.OnReturnToPool -= RemoveFromIndicator;
+        //this.OnExitPool -= NotifyIndicatorManager;
+        //this.OnReturnToPool -= RemoveFromIndicator;
     }
 
     private void SetVelocity()
