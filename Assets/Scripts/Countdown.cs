@@ -26,7 +26,7 @@ public class Countdown : MonoBehaviour
             count--;
         }
 
-        // count down is finished...
+        // unpause
         _tmp.enabled = false;
         Time.timeScale = 1;
     }

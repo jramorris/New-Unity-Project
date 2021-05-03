@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class RedEnemy : BaseEnemy
 {
@@ -7,29 +8,65 @@ public class RedEnemy : BaseEnemy
     [SerializeField] GameObject enemyPrefab;
 
     ParticleSystem _particleSystem;
+    GameObject _spawnParticleChild;
+    SpriteRenderer _spriteRenderer;
+    CircleCollider2D _collider;
+    Rigidbody2D _rb;
     ManageIndicators indicatorPanel;
+    Vector2 spawnVelocity;
+    float timePassed;
 
     void Awake()
     {
         // adjust velocity after "Instantiated" from pool
-        this.OnExitPool += SetVelocity;
+        this.OnExitPool += Spawn;
+        _particleSystem = GetComponent<ParticleSystem>();
+        _spawnParticleChild = transform.GetChild(3).gameObject;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _collider = GetComponent<CircleCollider2D>();
+        _rb = GetComponent<Rigidbody2D>();
+
+        // all indicator related, functionality that's not being used
         //this.OnExitPool += NotifyIndicatorManager;
         //this.OnReturnToPool += RemoveFromIndicator;
-        _particleSystem = GetComponent<ParticleSystem>();
         //indicatorPanel = GameObject.FindGameObjectWithTag("IndicatorPanel").GetComponent<ManageIndicators>();
     }
 
-    private void OnDestroy()
+    void OnDestroy()
     {
-        this.OnExitPool -= SetVelocity;
+        this.OnExitPool -= Spawn;
+        // all indicator related, functionality that's not being used
         //this.OnExitPool -= NotifyIndicatorManager;
         //this.OnReturnToPool -= RemoveFromIndicator;
     }
 
-    private void SetVelocity()
+    void Spawn()
     {
-        Rigidbody2D _rb = GetComponent<Rigidbody2D>();
-        _rb.velocity = _rb.velocity * _velocityMagnitude;
+        spawnVelocity = _rb.velocity;
+        _rb.velocity = Vector2.zero;
+        _spriteRenderer.enabled = false;
+        _collider.enabled = false;
+        _spawnParticleChild.GetComponent<ParticleSystem>().Play();
+        StartCoroutine(StartAfterSeconds(.8f));
+    }
+
+    IEnumerator StartAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        _spriteRenderer.enabled = true;
+        _collider.enabled = true;
+        StartCoroutine("SetVelocity");
+    }
+
+    IEnumerator SetVelocity()
+    {
+        timePassed = 0;
+        while (_rb.velocity != (spawnVelocity * _velocityMagnitude))
+        {
+            timePassed += Time.deltaTime;
+            _rb.velocity = Vector2.Lerp(_rb.velocity, (spawnVelocity * _velocityMagnitude), timePassed * 0.08f);
+            yield return null;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -51,8 +88,8 @@ public class RedEnemy : BaseEnemy
 
     public void BreakUp(Collision2D collision = null)
     {
-        GetComponent<SpriteRenderer>().enabled = false;
-        GetComponent<CircleCollider2D>().enabled = false;
+        _spriteRenderer.enabled = false;
+        _collider.enabled = false;
         if (collision != null)
         {
             // the two smaller roids have to be the first two children here...
