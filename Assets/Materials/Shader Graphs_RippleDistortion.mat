@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_AnotherTest
+  m_Name: Shader Graphs_RippleDistortion
   m_Shader: {fileID: -6465566751694194690, guid: 122dd18bbd1d6466ead60e48dcb8654b,
     type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
@@ -24,8 +24,13 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _RenderTexture:
+        m_Texture: {fileID: 8400000, guid: d7d8dd1fd3026430fbdd71902a38b81a, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_8AB5CA02: 1
+    - _Frequency: 10
     m_Colors:
-    - Vector2_13CF07A7: {r: 1, g: 1, b: 0, a: 0}
-    - Vector2_7D344D11: {r: 1, g: 1, b: 0, a: 0}
+    - Vector2_13CF07A7: {r: 4, g: 3, b: 0, a: 0}
+    - Vector2_7D344D11: {r: 0, g: 0, b: 0, a: 0}
