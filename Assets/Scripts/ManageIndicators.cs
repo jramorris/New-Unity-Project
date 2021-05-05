@@ -38,7 +38,7 @@ public class ManageIndicators : MonoBehaviour
 
             Vector3 screenPosition = mainCamera.WorldToViewportPoint(asteroidTransform.position);
 
-            // if visible in game (via main camera)
+            // if not visible in game (via main camera)
             if (screenPosition.x < 0 || screenPosition.x > 1 || screenPosition.y < 0 || screenPosition.y > 1)
             {
                 indicator.gameObject.SetActive(true);

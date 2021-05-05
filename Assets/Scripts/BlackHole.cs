@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BlackHole : MonoBehaviour
@@ -12,10 +13,24 @@ public class BlackHole : MonoBehaviour
 
     List<Collider2D> _bodiesToForce = new List<Collider2D>();
     Spawner _spawner;
+    private ParticleSystem _particleSystem;
+    Collider2D[] _colliders;
+    private Collider2D _childCollider;
+    private SpriteRenderer _spriteRenderer;
 
     private void Start()
     {
         _spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>();
+    }
+
+    private void Awake()
+    {
+        _particleSystem = GetComponent<ParticleSystem>();
+        _colliders = GetComponents<Collider2D>();
+        _childCollider = transform.GetChild(0).gameObject.GetComponent<Collider2D>();
+        _childCollider.enabled = false;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer.enabled = false;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -56,7 +71,23 @@ public class BlackHole : MonoBehaviour
     public void Spawn()
     {
         if (Score.CurrentScore() %  _spawnEveryInt == 0)
-            Instantiate(_prefab, RandomOnScreen(), Quaternion.identity);
+        {
+            GameObject newObj = Instantiate(_prefab, RandomOnScreen(), Quaternion.identity);
+            newObj.GetComponent<BlackHole>().SpawnAnimation();
+        }
+    }
+
+    void SpawnAnimation()
+    {
+        _particleSystem.Play();
+        StartCoroutine(EnableAfterSeconds(.8f));
+    }
+
+    IEnumerator EnableAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        _childCollider.enabled = true;
+        _spriteRenderer.enabled = true;
     }
 
     Vector2 RandomOnScreen()

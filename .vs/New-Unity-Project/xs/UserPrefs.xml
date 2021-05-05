@@ -1,24 +1,17 @@
 ﻿<Properties StartupConfiguration="{C9DD0913-8C5E-8022-D26B-19159E3E69A2}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/RedEnemy.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BlackHole.cs">
     <Files>
       <File FileName="Assets/Scripts/PlayerController.cs" Line="251" Column="50" />
-      <File FileName="Assets/Scripts/Countdown.cs" Line="29" Column="19" />
-      <File FileName="Assets/Scripts/PowerIndicator.cs" Line="74" Column="10" />
+      <File FileName="Assets/Scripts/Countdown.cs" />
+      <File FileName="Assets/Scripts/PowerIndicator.cs" />
       <File FileName="Assets/Scripts/RedEnemy.cs" Line="59" Column="6" />
-      <File FileName="Assets/Scripts/ManageIndicators.cs" Line="34" Column="14" />
-      <File FileName="Assets/Scripts/Pooling/PooledMonoBehavior.cs" Line="27" Column="52" />
+      <File FileName="Assets/Scripts/Pooling/PooledMonoBehavior.cs" />
+      <File FileName="Assets/Scripts/BlackHole.cs" Line="15" Column="5" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="New-Unity-Project" expanded="True" selected="True" />
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="3abb13b7-25f4-4533-9d81-aea18ea21664" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="b4f8b856-bc33-481d-9042-5ab02ac0317e" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
