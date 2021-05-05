@@ -6,7 +6,7 @@
       <File FileName="Assets/Scripts/PowerIndicator.cs" />
       <File FileName="Assets/Scripts/RedEnemy.cs" Line="59" Column="6" />
       <File FileName="Assets/Scripts/Pooling/PooledMonoBehavior.cs" />
-      <File FileName="Assets/Scripts/BlackHole.cs" Line="15" Column="5" />
+      <File FileName="Assets/Scripts/BlackHole.cs" Line="31" Column="40" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
