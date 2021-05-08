@@ -13,10 +13,15 @@ public class BlackHole : MonoBehaviour
 
     List<Collider2D> _bodiesToForce = new List<Collider2D>();
     Spawner _spawner;
-    private ParticleSystem _particleSystem;
-    Collider2D[] _colliders;
-    private Collider2D _childCollider;
-    private SpriteRenderer _spriteRenderer;
+    GameObject _child;
+    ParticleSystem _waveParticles;
+    ParticleSystem _novaParticles;
+    SpriteRenderer _rippleRenderer;
+    Animator _lightAnimator;
+    GameObject _childTwo;
+    Animator _collisionAnimator;
+    Collider2D _childCollider;
+    SpriteRenderer _bhRenderer;
 
     private void Start()
     {
@@ -25,12 +30,22 @@ public class BlackHole : MonoBehaviour
 
     private void Awake()
     {
-        _particleSystem = GetComponent<ParticleSystem>();
-        _colliders = GetComponents<Collider2D>();
-        _childCollider = transform.GetChild(0).gameObject.GetComponent<Collider2D>();
+        _child = transform.GetChild(0).gameObject;
+        _childCollider = _child.GetComponent<Collider2D>();
+        _waveParticles = _child.GetComponent<ParticleSystem>();
+        _collisionAnimator = _child.GetComponent<Animator>();
+        _collisionAnimator.SetTrigger("Spawn");
+        _bhRenderer = _child.GetComponent<SpriteRenderer>();
+
+        _lightAnimator = transform.GetChild(1).gameObject.GetComponent<Animator>();
+
+        _childTwo = transform.GetChild(2).gameObject;
+        _novaParticles = _childTwo.GetComponent<ParticleSystem>();
+        _rippleRenderer = _childTwo.GetComponent<SpriteRenderer>();
+
         _childCollider.enabled = false;
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _spriteRenderer.enabled = false;
+        //_bhRenderer.enabled = false;
+        SpawnAnimation();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -46,6 +61,7 @@ public class BlackHole : MonoBehaviour
     public void IncrementImpacts(int numImpacts)
     {
         impacts += numImpacts;
+        _lightAnimator.SetTrigger("Impact");
 
         if (impacts >= maxImpacts)
             Collapse();
@@ -53,8 +69,22 @@ public class BlackHole : MonoBehaviour
 
     void Collapse()
     {
-        gameObject.SetActive(false);
+        _bhRenderer.enabled = false;
+        _rippleRenderer.enabled = false;
+        _novaParticles.Play();
+        _childCollider.enabled = false;
+        StartCoroutine(InactiveAfterSeconds(2f));
+    }
+
+    IEnumerator InactiveAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(.5f);
         _spawner.SpawnSeeker(transform.position);
+
+        while (_novaParticles.isPlaying == true)
+            yield return null;
+
+        gameObject.SetActive(false);
     }
 
     void FixedUpdate()
@@ -79,7 +109,7 @@ public class BlackHole : MonoBehaviour
 
     void SpawnAnimation()
     {
-        _particleSystem.Play();
+        _waveParticles.Play();
         StartCoroutine(EnableAfterSeconds(.8f));
     }
 
@@ -87,7 +117,7 @@ public class BlackHole : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         _childCollider.enabled = true;
-        _spriteRenderer.enabled = true;
+        _bhRenderer.enabled = true;
     }
 
     Vector2 RandomOnScreen()

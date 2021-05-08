@@ -22,6 +22,7 @@ public class Seeker : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<Collider2D>();
         _orb = transform.GetChild(0);
+        _particleSystem.Play();
     }
 
     void FixedUpdate()
