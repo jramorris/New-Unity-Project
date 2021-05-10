@@ -21,16 +21,21 @@ public class SimpleCollectible : Collectible
     GameObject _player;
     SpriteRenderer _spriteRenderer;
     private Coroutine _becomeInactiveCoroutine;
+    private Rigidbody2D _rb;
+    private ParticleSystem _particles;
+    private Vector2 _spawnVelocity;
 
     void Awake()
     {
         // adjust velocity after "Instantiated" from pool
-        this.OnExitPool += SetVelocityAndTag;
+        this.OnExitPool += Spawn;
         _audioSource = GetComponent<AudioSource>();
         _light = GetComponentInChildren<Light2D>();
         _collider = GetComponent<Collider2D>();
         _player = GameObject.FindGameObjectWithTag("Player");
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _rb = GetComponent<Rigidbody2D>();
+        _particles = GetComponent<ParticleSystem>();
         OnCollected.AddListener(_player.GetComponent<PlayerController>().CollectPower);
     }
 
@@ -47,6 +52,7 @@ public class SimpleCollectible : Collectible
 
     protected override void Collect()
     {
+        _particles.Play();
         SetInactive();
         Score.IncrementScore(pointsToGive);
         OnCollected?.Invoke();
@@ -79,6 +85,7 @@ public class SimpleCollectible : Collectible
 
     void SetInactive()
     {
+        _rb.velocity = Vector2.zero;
         _collider.enabled = false;
         _light.enabled = false;
         _spriteRenderer.enabled = false;
@@ -89,14 +96,34 @@ public class SimpleCollectible : Collectible
 
     private void OnDestroy()
     {
-        this.OnExitPool -= SetVelocityAndTag;
+        this.OnExitPool -= Spawn;
     }
 
-    private void SetVelocityAndTag()
+    private void Enable()
     {
-        Rigidbody2D _rb = GetComponent<Rigidbody2D>();
-        _rb.velocity = _rb.velocity * _velocity;
+        _collider.enabled = true;
+        _light.enabled = true;
+        _spriteRenderer.enabled = true;
+        _rb.velocity = _spawnVelocity;
         gameObject.tag = "Collectible";
+    }
+
+    void Spawn()
+    {
+        _collider.enabled = false;
+        _light.enabled = false;
+        _spriteRenderer.enabled = false;
+        _spawnVelocity = _rb.velocity * _velocity;
+        _rb.velocity = Vector2.zero;
+        _particles.Play();
+        StartCoroutine(EnableAfterSeconds(.5f));
+    }
+
+    IEnumerator EnableAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        Enable();
+
     }
 
     IEnumerator VolumeToZero()
@@ -107,6 +134,7 @@ public class SimpleCollectible : Collectible
             yield return null;
 
         }
+        yield return new WaitForSeconds(.5f);
         gameObject.SetActive(false);
     }
 }
