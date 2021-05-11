@@ -7,8 +7,9 @@ public class RedEnemy : BaseEnemy
     [SerializeField] int _smallRockSpawnVelocityMagnifier = 5;
     [SerializeField] GameObject enemyPrefab;
 
-    ParticleSystem _particleSystem;
-    GameObject _spawnParticleChild;
+    ParticleSystem _asteroidParticles;
+    ParticleSystem _lightParticles;
+    private ParticleSystem _spawnParticles;
     SpriteRenderer _spriteRenderer;
     CircleCollider2D _collider;
     Rigidbody2D _rb;
@@ -20,8 +21,9 @@ public class RedEnemy : BaseEnemy
     {
         // adjust velocity after "Instantiated" from pool
         this.OnExitPool += Spawn;
-        _particleSystem = GetComponent<ParticleSystem>();
-        _spawnParticleChild = transform.GetChild(3).gameObject;
+        _lightParticles = transform.GetChild(2).gameObject.GetComponent<ParticleSystem>();
+        _spawnParticles = transform.GetChild(3).gameObject.GetComponent<ParticleSystem>();
+        _asteroidParticles = transform.GetChild(4).gameObject.GetComponent<ParticleSystem>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<CircleCollider2D>();
         _rb = GetComponent<Rigidbody2D>();
@@ -46,7 +48,7 @@ public class RedEnemy : BaseEnemy
         _rb.velocity = Vector2.zero;
         _spriteRenderer.enabled = false;
         _collider.enabled = false;
-        _spawnParticleChild.GetComponent<ParticleSystem>().Play();
+        _spawnParticles.GetComponent<ParticleSystem>().Play();
         StartCoroutine(StartAfterSeconds(.8f));
     }
 
@@ -101,7 +103,8 @@ public class RedEnemy : BaseEnemy
                 child.parent = null;
             }
         }
-        _particleSystem.Play();
+        _asteroidParticles.Play();
+        _lightParticles.Play();
     }
 
     void NotifyIndicatorManager()
