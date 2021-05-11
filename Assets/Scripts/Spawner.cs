@@ -13,7 +13,8 @@ public class Spawner : MonoBehaviour
     float width;
     float height;
     Vector2 randomizer;
-    private PooledMonoBehavior newObj;
+    PooledMonoBehavior newObj;
+    PooledMonoBehavior _currentCollectible;
     public static bool shouldSpawnCollectible;
 
     [SerializeField] PooledMonoBehavior asteroidPrefab;
@@ -37,8 +38,12 @@ public class Spawner : MonoBehaviour
 
         if (shouldSpawnCollectible)
         {
-            shouldSpawnCollectible = false;
-            Spawn(collectiblePrefab);
+            // verify there isn't an active collectible
+            if (_currentCollectible == null || !_currentCollectible.isActiveAndEnabled)
+            {
+                shouldSpawnCollectible = false;
+                _currentCollectible = Spawn(collectiblePrefab);
+            }
         }
     }
 
@@ -72,9 +77,9 @@ public class Spawner : MonoBehaviour
     public void SpawnSmallAsteroid(Vector2 position, Collision2D collision = null)
     {
         randomizer = Random.Range(0, 2) > 0 ? new Vector2(0, Random.Range(-2, 3)) : new Vector2(Random.Range(-2, 3), 0);
-        newObj = Spawn(smallAsteroidPrefab,
-                       position,
-                       randomizer + (collision.contacts[0].normal * (1f + (collision.relativeVelocity.magnitude * .1f))));
+        Spawn(smallAsteroidPrefab,
+              position,
+              randomizer + (collision.contacts[0].normal * (1f + (collision.relativeVelocity.magnitude * .1f))));
     }
 
     Vector2 RandomOnScreenEdge()

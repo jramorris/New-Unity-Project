@@ -56,7 +56,6 @@ public class SimpleCollectible : Collectible
         SetInactive();
         Score.IncrementScore(pointsToGive);
         OnCollected?.Invoke();
-        Spawner.shouldSpawnCollectible = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -73,7 +72,7 @@ public class SimpleCollectible : Collectible
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Map"))
+        if (collision.CompareTag("Map") && gameObject.activeSelf)
             _becomeInactiveCoroutine = StartCoroutine("BecomeInactive");
     }
 
@@ -89,9 +88,9 @@ public class SimpleCollectible : Collectible
         _collider.enabled = false;
         _light.enabled = false;
         _spriteRenderer.enabled = false;
-        StartCoroutine("VolumeToZero");
         wallHits = 0;
         Spawner.shouldSpawnCollectible = true;
+        StartCoroutine("VolumeToZero");
     }
 
     private void OnDestroy()

@@ -19,7 +19,6 @@ public class SmallAsteroid : BaseEnemy
     private void OnEnable()
     {
         _collider.enabled = false;
-        Debug.Log(gameObject.GetComponent<Rigidbody2D>().velocity);
         StartCoroutine("EnableCollider");
     }
 
