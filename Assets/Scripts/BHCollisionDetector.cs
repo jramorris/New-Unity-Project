@@ -4,6 +4,8 @@ public class BHCollisionDetector : MonoBehaviour
 {
     BlackHole blackHoleScript;
 
+    const int CollidableLayer = 9;
+
     private void Awake()
     {
         blackHoleScript = GetComponentInParent<BlackHole>();
@@ -14,7 +16,7 @@ public class BHCollisionDetector : MonoBehaviour
         if (collision.CompareTag("Player"))
             collision.GetComponent<PlayerController>().TakeDamage();
 
-        if (collision.CompareTag("Asteroid"))
+        else if (collision.gameObject.layer == CollidableLayer)
             blackHoleScript.IncrementImpacts(1);
     }
 }

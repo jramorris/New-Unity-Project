@@ -5129,7 +5129,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.38682172
 --- !u!114 &526393742513124331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10052,7 +10052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb1b479f3a77a444dab00372a82d767f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gravityForce: 15
+  _gravityForce: 25
   _prefab: {fileID: 7928685435195019319}
   _spawnEveryInt: 1
   maxImpacts: 1

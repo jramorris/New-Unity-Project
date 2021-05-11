@@ -16812,10 +16812,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 751328614, guid: f3493adf3ade54cf3bb34eece0add342, type: 3}
-      propertyPath: InheritVelocityModule.enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5970599132266227320, guid: f3493adf3ade54cf3bb34eece0add342,
         type: 3}
       propertyPath: m_Name
@@ -16824,12 +16820,12 @@ PrefabInstance:
     - target: {fileID: 5970599132266227324, guid: f3493adf3ade54cf3bb34eece0add342,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.94
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 5970599132266227324, guid: f3493adf3ade54cf3bb34eece0add342,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.06
+      value: -1.62
       objectReference: {fileID: 0}
     - target: {fileID: 5970599132266227324, guid: f3493adf3ade54cf3bb34eece0add342,
         type: 3}

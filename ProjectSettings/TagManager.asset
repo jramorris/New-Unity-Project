@@ -28,7 +28,7 @@ TagManager:
   - 
   - 
   - Background
-  - Enemy
+  - Collidable
   - PostProcess
   - SmallEnemy
   - Effects

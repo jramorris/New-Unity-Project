@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -206,7 +205,7 @@ public class PlayerController : MonoBehaviour
 
     void OnParticleCollision(GameObject other)
     {
-        if (other.layer == 9)
+        if (other.layer == EnemyLayer)
         {
             other.GetComponent<RedEnemy>().BreakUp();
         }

@@ -17,13 +17,15 @@ public class RedEnemy : BaseEnemy
     Vector2 spawnVelocity;
     float timePassed;
 
+    const int CollidableLayer = 9;
+
     void Awake()
     {
         // adjust velocity after "Instantiated" from pool
         this.OnExitPool += Spawn;
-        _lightParticles = transform.GetChild(2).gameObject.GetComponent<ParticleSystem>();
-        _spawnParticles = transform.GetChild(3).gameObject.GetComponent<ParticleSystem>();
-        _asteroidParticles = transform.GetChild(4).gameObject.GetComponent<ParticleSystem>();
+        _lightParticles = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
+        _spawnParticles = transform.GetChild(2).gameObject.GetComponent<ParticleSystem>();
+        _asteroidParticles = transform.GetChild(3).gameObject.GetComponent<ParticleSystem>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<CircleCollider2D>();
         _rb = GetComponent<Rigidbody2D>();
@@ -73,16 +75,12 @@ public class RedEnemy : BaseEnemy
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Player"))
-        {
-            collision.collider.GetComponent<PlayerController>().TakeDamage();
-            BreakUp(collision);
-        }
+        BreakUp(collision);
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.CompareTag("BlackHole"))
+        if (collider.gameObject.layer == CollidableLayer)
         {
             BreakUp();
         }
@@ -95,7 +93,8 @@ public class RedEnemy : BaseEnemy
         if (collision != null)
         {
             // the two smaller roids have to be the first two children here...
-            for (int i = 0; i < 2; i++)
+            // this is where the pooling can happen
+            for (int i = 0; i < 1; i++)
             {
                 var child = transform.GetChild(0);
                 child.gameObject.SetActive(true);
