@@ -12,13 +12,18 @@ public class Spawner : MonoBehaviour
     int[] choices = new int[] { -1, 1 };
     float width;
     float height;
+    Vector2 randomizer;
+    private PooledMonoBehavior newObj;
     public static bool shouldSpawnCollectible;
 
     [SerializeField] PooledMonoBehavior asteroidPrefab;
+    [SerializeField] PooledMonoBehavior smallAsteroidPrefab;
     [SerializeField] PooledMonoBehavior collectiblePrefab;
     [SerializeField] GameObject seekerPrefab;
 
     float _velocityMultiplier;
+    private Vector2 spawnPosition;
+    private Vector2 spawnVelocity;
 
     void Update()
     {
@@ -42,19 +47,34 @@ public class Spawner : MonoBehaviour
         return _spawnTimer > (_spawnWaitTime - (1.8f - (1.8f / ((Score.CurrentScore() * .25f) + 1f))));
     }
 
-    void Spawn(PooledMonoBehavior objectPrefab)
+    PooledMonoBehavior Spawn(PooledMonoBehavior objectPrefab, Vector2? position = null, Vector2? velocity = null)
     {
         _spawnTimer = 0f;
         _spawnWaitTime = UnityEngine.Random.Range(2f, 4f);
 
-        var newPosition = RandomOnScreenEdge();
-        var xVelocity = newPosition.x > 0 ? -1f : 1f;
-        var yVelocity = newPosition.y > 0 ? -1f : 1f;
+        if (position == null)
+            spawnPosition = RandomOnScreenEdge();
+        else
+            spawnPosition = (Vector2)position;
+
+        if (velocity == null)
+            spawnVelocity = new Vector2(spawnPosition.x > 0 ? -1f : 1f, spawnPosition.y > 0 ? -1f : 1f);
+        else
+            spawnVelocity = (Vector2)velocity;
+
         // asteroids faster with higher score
         _velocityMultiplier = asteroidPrefab == objectPrefab ? Random.Range(1, 1 + (0.05f * Score.CurrentScore() * .25f)) : 1;
-        objectPrefab.Get<PooledMonoBehavior>(newPosition,
-                                             Quaternion.identity,
-                                             new Vector2(xVelocity, yVelocity) * _velocityMultiplier);
+        return objectPrefab.Get<PooledMonoBehavior>(spawnPosition,
+                                                    Quaternion.identity,
+                                                    spawnVelocity * _velocityMultiplier);
+    }
+
+    public void SpawnSmallAsteroid(Vector2 position, Collision2D collision = null)
+    {
+        randomizer = Random.Range(0, 2) > 0 ? new Vector2(0, Random.Range(-2, 3)) : new Vector2(Random.Range(-2, 3), 0);
+        newObj = Spawn(smallAsteroidPrefab,
+                       position,
+                       randomizer + (collision.contacts[0].normal * (1f + (collision.relativeVelocity.magnitude * .1f))));
     }
 
     Vector2 RandomOnScreenEdge()

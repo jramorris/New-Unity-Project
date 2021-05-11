@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class SmallAsteroid : BaseEnemy
 {
@@ -11,8 +12,21 @@ public class SmallAsteroid : BaseEnemy
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _collider = GetComponent<Collider2D>();
         _particles = GetComponent<ParticleSystem>();
+        _collider = GetComponent<Collider2D>();
+    }
+
+    private void OnEnable()
+    {
+        _collider.enabled = false;
+        Debug.Log(gameObject.GetComponent<Rigidbody2D>().velocity);
+        StartCoroutine("EnableCollider");
+    }
+
+    IEnumerator EnableCollider()
+    {
+        yield return new WaitForSeconds(.5f);
+        _collider.enabled = true;
     }
 
     void OnCollisionEnter2D(Collision2D collision)

@@ -5,30 +5,33 @@ public class RedEnemy : BaseEnemy
 {
     [SerializeField] int _velocityMagnitude = 5;
     [SerializeField] int _smallRockSpawnVelocityMagnifier = 5;
+    [SerializeField] int numAsteroidsToSpawn = 2;
     [SerializeField] GameObject enemyPrefab;
+
 
     ParticleSystem _asteroidParticles;
     ParticleSystem _lightParticles;
-    private ParticleSystem _spawnParticles;
+    ParticleSystem _spawnParticles;
     SpriteRenderer _spriteRenderer;
     CircleCollider2D _collider;
     Rigidbody2D _rb;
+    Spawner _spawner;
     ManageIndicators indicatorPanel;
     Vector2 spawnVelocity;
     float timePassed;
-
     const int CollidableLayer = 9;
 
     void Awake()
     {
         // adjust velocity after "Instantiated" from pool
         this.OnExitPool += Spawn;
-        _lightParticles = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
-        _spawnParticles = transform.GetChild(2).gameObject.GetComponent<ParticleSystem>();
-        _asteroidParticles = transform.GetChild(3).gameObject.GetComponent<ParticleSystem>();
+        _lightParticles = transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
+        _spawnParticles = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
+        _asteroidParticles = transform.GetChild(2).gameObject.GetComponent<ParticleSystem>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<CircleCollider2D>();
         _rb = GetComponent<Rigidbody2D>();
+        _spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>();
 
         // all indicator related, functionality that's not being used
         //this.OnExitPool += NotifyIndicatorManager;
@@ -75,7 +78,9 @@ public class RedEnemy : BaseEnemy
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        BreakUp(collision);
+        BreakUp();
+        for (int i = 0; i < numAsteroidsToSpawn; i++)
+            _spawner.SpawnSmallAsteroid(transform.position, collision);
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -86,22 +91,10 @@ public class RedEnemy : BaseEnemy
         }
     }
 
-    public void BreakUp(Collision2D collision = null)
+    public void BreakUp()
     {
         _spriteRenderer.enabled = false;
         _collider.enabled = false;
-        if (collision != null)
-        {
-            // the two smaller roids have to be the first two children here...
-            // this is where the pooling can happen
-            for (int i = 0; i < 1; i++)
-            {
-                var child = transform.GetChild(0);
-                child.gameObject.SetActive(true);
-                child.GetComponent<Rigidbody2D>().velocity = collision.contacts[0].normal * (1f + (collision.relativeVelocity.magnitude * .1f));
-                child.parent = null;
-            }
-        }
         _asteroidParticles.Play();
         _lightParticles.Play();
     }
