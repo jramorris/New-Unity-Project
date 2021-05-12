@@ -10054,8 +10054,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gravityForce: 25
   _prefab: {fileID: 7928685435195019319}
-  _spawnEveryInt: 1
-  maxImpacts: 1
+  _spawnEveryInt: 5
+  maxImpacts: 3
 --- !u!58 &6695180446703784665
 CircleCollider2D:
   m_ObjectHideFlags: 0

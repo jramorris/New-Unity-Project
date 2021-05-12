@@ -56,7 +56,6 @@ public class PlayerController : MonoBehaviour
     ParticleSystem _particleSystem;
     Renderer _spriteRenderer;
     float _offMapTime;
-
     Color _shieldColor = new Color(0, 181, 195);
     Coroutine shieldCoroutine;
     float _decrementMultiplier;
@@ -353,9 +352,11 @@ public class PlayerController : MonoBehaviour
 
     private void SetShieldColor()
     {
+        if (shieldCoroutine != null)
+            StopCoroutine(shieldCoroutine);
         // Found through trial and error
         if (_shieldCharges == 0)
-            shieldCoroutine = StartCoroutine(ChargeShield(0f));
+            _spriteRenderer.material.SetColor("_Color", _shieldColor * 0f);
         else if (_shieldCharges == 1)
             shieldCoroutine = StartCoroutine(ChargeShield(.01f));
         else

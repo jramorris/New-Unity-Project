@@ -15,6 +15,7 @@ public class RedEnemy : BaseEnemy
     SpriteRenderer _spriteRenderer;
     CircleCollider2D _collider;
     Rigidbody2D _rb;
+    private AudioSource _audio;
     Spawner _spawner;
     ManageIndicators indicatorPanel;
     Vector2 spawnVelocity;
@@ -31,6 +32,7 @@ public class RedEnemy : BaseEnemy
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<CircleCollider2D>();
         _rb = GetComponent<Rigidbody2D>();
+        _audio = GetComponent<AudioSource>();
         _spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>();
 
         // all indicator related, functionality that's not being used
@@ -93,6 +95,7 @@ public class RedEnemy : BaseEnemy
 
     public void BreakUp()
     {
+        _audio.Play();
         _spriteRenderer.enabled = false;
         _collider.enabled = false;
         _asteroidParticles.Play();
