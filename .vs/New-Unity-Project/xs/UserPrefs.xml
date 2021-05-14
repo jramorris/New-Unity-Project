@@ -1,10 +1,10 @@
 ﻿<Properties StartupConfiguration="{C9DD0913-8C5E-8022-D26B-19159E3E69A2}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/RedEnemy.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerController.cs">
     <Files>
       <File FileName="Assets/Scripts/BHCollisionDetector.cs" Line="3" Column="49" />
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="356" Column="45" />
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="180" Column="10" />
       <File FileName="Assets/Scripts/PowerIndicator.cs" Line="16" Column="15" />
-      <File FileName="Assets/Scripts/RedEnemy.cs" Line="34" Column="14" />
+      <File FileName="Assets/Scripts/RedEnemy.cs" Line="98" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
