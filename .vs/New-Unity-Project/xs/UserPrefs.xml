@@ -1,15 +1,16 @@
 ﻿<Properties StartupConfiguration="{C9DD0913-8C5E-8022-D26B-19159E3E69A2}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Score.cs">
     <Files>
       <File FileName="Assets/Scripts/BHCollisionDetector.cs" Line="3" Column="49" />
       <File FileName="Assets/Scripts/PlayerController.cs" Line="180" Column="10" />
-      <File FileName="Assets/Scripts/PowerIndicator.cs" Line="16" Column="15" />
-      <File FileName="Assets/Scripts/RedEnemy.cs" Line="98" Column="20" />
+      <File FileName="Assets/Scripts/PowerIndicator.cs" />
+      <File FileName="Assets/Scripts/RedEnemy.cs" />
+      <File FileName="Assets/Scripts/Score.cs" Line="13" Column="12" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="01d9d1db-1072-409b-a49b-e41cd1d2f8f9" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="7067fdbe-e5be-49cd-9c95-6c60adb9f900" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

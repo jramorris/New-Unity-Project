@@ -10,6 +10,9 @@ public class Score : MonoBehaviour
 
     private void Awake()
     {
+        // overwrite iOS default 30fps
+        Application.targetFrameRate = 60;
+
         if (Instance == null)
         {
             this.tag = "Score";
