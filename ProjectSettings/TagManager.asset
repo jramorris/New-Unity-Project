@@ -18,6 +18,7 @@ TagManager:
   - Spawner
   - DeathInterstitial
   - UI
+  - SmallAsteroid
   layers:
   - Default
   - TransparentFX

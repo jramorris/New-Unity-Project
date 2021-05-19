@@ -24,7 +24,7 @@ public class PowerIndicator : MonoBehaviour
         _maxPower = _playerController._maxPower;
         _maxCharge = _playerController._maxCharge;
         _pulseButton = GetComponentInChildren<Button>();
-        _pulseButton.interactable = false;
+        //_pulseButton.interactable = false;
     }
 
     private void Update()

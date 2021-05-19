@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
     bool _shielding;
     UIManager _UIManager;
 
-    const int EnemyLayer = 9;
+    const int CollidableLayer = 9;
 
     private void Awake()
     {
@@ -194,42 +194,52 @@ public class PlayerController : MonoBehaviour
 
     public void PulseBomb()
     {
-        if (_currentCharge == _maxCharge)
-        {
-            _particleSystem.Play();
-            _pulseSoundEffect.PlayDelayed(.1f);
-            ResetPower();
-        }
+        _particleSystem.Play();
+        _pulseSoundEffect.PlayDelayed(.1f);
+        ResetPower();
+
+        //if (_currentCharge == _maxCharge)
+        //{
+        //    _particleSystem.Play();
+        //    _pulseSoundEffect.PlayDelayed(.1f);
+        //    ResetPower();
+        //}
     }
 
     void OnParticleCollision(GameObject other)
     {
-        if (other.layer == EnemyLayer)
+        if (other.layer == CollidableLayer)
         {
+            if (other.CompareTag("BlackHole"))
+                other.GetComponent<BHCollisionDetector>().BreakUp();
+
+            else if (other.CompareTag("SmallAsteroid"))
+                other.GetComponent<SmallAsteroid>().BreakUp();
+
             other.GetComponent<RedEnemy>().BreakUp();
         }
     }
 
-
+    private void OnParticleTrigger()
+    {
+        Debug.Log("trgiggered");
+    }
 
     public void TakeDamage()
     {
         if (_shielding)
             return;
 
-        if (_shieldCharges > 0)
-            ShieldHit();
-        else
-        {
-            _healthRemaining--;
-            if (_healthRemaining == 0)
-                Explode();
-        }
-
+        _healthRemaining--;
+        if (_healthRemaining == 0)
+            Explode();
     }
 
-    void ShieldHit()
+    public void ShieldsUp()
     {
+        if (_shieldCharges < 1 || _dead == true)
+            return;
+
         // does this need to consider already running routines?
         StartCoroutine(ShieldForSeconds(1));
 
@@ -306,7 +316,7 @@ public class PlayerController : MonoBehaviour
             offMap = false;
         }
 
-        if (collider.gameObject.layer == EnemyLayer)
+        if (collider.gameObject.layer == CollidableLayer)
         {
             TakeDamage();
         }
@@ -314,7 +324,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.gameObject.layer == EnemyLayer)
+        if (collision.collider.gameObject.layer == CollidableLayer)
         {
             TakeDamage();
         }

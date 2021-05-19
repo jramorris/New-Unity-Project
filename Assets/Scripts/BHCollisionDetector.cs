@@ -19,4 +19,19 @@ public class BHCollisionDetector : MonoBehaviour
         else if (collision.gameObject.layer == CollidableLayer)
             blackHoleScript.IncrementImpacts(1);
     }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        Debug.Log("bh collide");
+    }
+
+    private void OnParticleTrigger()
+    {
+        Debug.Log("part trig");
+    }
+
+    public void BreakUp()
+    {
+        blackHoleScript.Collapse();
+    }
 }

@@ -67,7 +67,7 @@ public class BlackHole : MonoBehaviour
             Collapse();
     }
 
-    void Collapse()
+    public void Collapse()
     {
         _bhRenderer.enabled = false;
         _rippleRenderer.enabled = false;
