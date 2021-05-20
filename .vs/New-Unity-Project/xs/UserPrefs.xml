@@ -1,11 +1,12 @@
 ﻿<Properties StartupConfiguration="{C9DD0913-8C5E-8022-D26B-19159E3E69A2}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SimpleCollectible.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerController.cs">
     <Files>
-      <File FileName="Assets/Scripts/BlackHole.cs" Line="25" Column="1" />
-      <File FileName="Assets/Scripts/Spawner.cs" Line="116" Column="37" />
+      <File FileName="Assets/Scripts/Spawner.cs" Line="113" Column="1" />
       <File FileName="Assets/Scripts/RedEnemy.cs" />
       <File FileName="Assets/Scripts/Pooling/PooledMonoBehavior.cs" />
-      <File FileName="Assets/Scripts/SimpleCollectible.cs" Line="88" Column="1" />
+      <File FileName="Assets/Scripts/SimpleCollectible.cs" Line="34" Column="61" />
+      <File FileName="Assets/Scripts/BlackHole.cs" Line="25" Column="1" />
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="42" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

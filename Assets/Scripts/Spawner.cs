@@ -38,11 +38,8 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         mapSize = GameObject.FindGameObjectWithTag("Map").GetComponent<SpriteRenderer>().bounds.size;
-        Debug.Log(mapSize);
         mapWidth = (mapSize.x / 2);
         mapHeight = (mapSize.y / 2);
-        Debug.Log(mapWidth);
-        Debug.Log(mapHeight);
         offEdgeWidth = mapWidth * 1.2f;
         offEdgeHeight = mapHeight * 1.2f;
     }
@@ -110,11 +107,10 @@ public class Spawner : MonoBehaviour
 
     public void SpawnBlackHole()
     {
-        Debug.Log("spawn bh called");
         if (Score.CurrentScore() % _spawnEveryInt == 0)
         {
             Spawn(blackHolePrefab,
-                  RandomOnScreenEdge());
+                  RandomOnScreen());
         }
     }
 

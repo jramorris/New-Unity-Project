@@ -95,6 +95,7 @@
     <Compile Include="Assets\Scripts\SimpleCollectible.cs" />
     <Compile Include="Assets\Scripts\SmallAsteroid.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
+    <Compile Include="Assets\Scripts\UIActionsManager.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />

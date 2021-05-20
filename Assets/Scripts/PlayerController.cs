@@ -32,9 +32,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] TrailRenderer _rightTrail;
 
     // movement
+    [SerializeField] float _maxMovementModifier = 1.5f;
+    [SerializeField] float _chargeToSpeedUp = 2f;
     float horizontal;
     float vertical;
     float _movementModifier = 1;
+
 
     // health
     bool _dead = false;
@@ -62,7 +65,6 @@ public class PlayerController : MonoBehaviour
     Coroutine _dieCoroutine;
     bool _shielding;
     UIManager _UIManager;
-
     const int CollidableLayer = 9;
 
     private void Awake()
@@ -71,13 +73,7 @@ public class PlayerController : MonoBehaviour
         _playerAnim = GetComponent<Animator>();
         _particleSystem = GetComponent<ParticleSystem>();
         _spriteRenderer = gameObject.GetComponent<Renderer>();
-        OnChargeChange += UpdateMovementModifier;
         _UIManager = GameObject.FindGameObjectWithTag("UI").GetComponent<UIManager>();
-    }
-
-    void OnDestroy()
-    {
-        OnChargeChange -= UpdateMovementModifier;
     }
 
     private void Start()
@@ -196,7 +192,7 @@ public class PlayerController : MonoBehaviour
     {
         _particleSystem.Play();
         _pulseSoundEffect.PlayDelayed(.1f);
-        ResetPower();
+        //ResetPower();
 
         //if (_currentCharge == _maxCharge)
         //{
@@ -204,6 +200,21 @@ public class PlayerController : MonoBehaviour
         //    _pulseSoundEffect.PlayDelayed(.1f);
         //    ResetPower();
         //}
+    }
+
+    public void IncreaseMovementSpeed()
+    {
+        if (_movementModifier < _maxMovementModifier && _currentCharge >= _chargeToSpeedUp)
+            _movementModifier += .05f;
+
+        // TODOS
+
+        // do nothing if at max speed √
+        // do nothing if not enough charge √
+        // sound effect
+        // update UI
+        // ResetPower();
+        // remove update movement modifier (from event)
     }
 
     void OnParticleCollision(GameObject other)
