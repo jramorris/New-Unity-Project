@@ -1,15 +1,16 @@
 ﻿<Properties StartupConfiguration="{C9DD0913-8C5E-8022-D26B-19159E3E69A2}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Spawner.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SimpleCollectible.cs">
     <Files>
-      <File FileName="Assets/Scripts/Spawner.cs" Line="112" Column="10" />
-      <File FileName="Assets/Scripts/BlackHole.cs" Line="39" Column="1" />
-      <File FileName="Assets/Scripts/RedEnemy.cs" Line="4" Column="29" />
-      <File FileName="Assets/Scripts/Pooling/PooledMonoBehavior.cs" Line="4" Column="14" />
+      <File FileName="Assets/Scripts/BlackHole.cs" Line="25" Column="1" />
+      <File FileName="Assets/Scripts/Spawner.cs" Line="116" Column="37" />
+      <File FileName="Assets/Scripts/RedEnemy.cs" />
+      <File FileName="Assets/Scripts/Pooling/PooledMonoBehavior.cs" />
+      <File FileName="Assets/Scripts/SimpleCollectible.cs" Line="88" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="d447f782-4d6a-4cf9-9a1d-3e213ac7e8e6" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="27c50016-d3a4-46a5-acd4-e1a8617d5ddb" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -5416,7 +5416,7 @@ GameObject:
   m_Component:
   - component: {fileID: 204352755}
   m_Layer: 5
-  m_Name: PowerBarHead
+  m_Name: PowerBarHeader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11262,18 +11262,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 751328614, guid: f3493adf3ade54cf3bb34eece0add342, type: 3}
-      propertyPath: CollisionModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 751328614, guid: f3493adf3ade54cf3bb34eece0add342, type: 3}
-      propertyPath: CollisionModule.type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 751328614, guid: f3493adf3ade54cf3bb34eece0add342, type: 3}
-      propertyPath: CollisionModule.collisionMode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5970599132266227320, guid: f3493adf3ade54cf3bb34eece0add342,
         type: 3}
       propertyPath: m_Name
@@ -12077,7 +12065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d48e2485802947778fc8210c04112b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _countdownSeconds: 3
+  _countdownSeconds: 0
 --- !u!114 &977906362
 MonoBehaviour:
   m_ObjectHideFlags: 0

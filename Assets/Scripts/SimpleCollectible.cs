@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Experimental.Rendering.Universal;
@@ -11,19 +10,18 @@ public class SimpleCollectible : Collectible
     [SerializeField] float _collectibleDistance = .5f;
     [SerializeField] float _audioDamper = .5f; // lessen audio output
     [SerializeField] float _audioRadius = 2;
-    [SerializeField] int maxWallHits = 2;
 
     public override int pointsToGive => 1;
     AudioSource _audioSource;
     Light2D _light;
     Collider2D _collider;
-    int wallHits;
     GameObject _player;
+    GameObject _spawner;
     SpriteRenderer _spriteRenderer;
-    private Coroutine _becomeInactiveCoroutine;
-    private Rigidbody2D _rb;
-    private ParticleSystem _particles;
-    private Vector2 _spawnVelocity;
+    Coroutine _becomeInactiveCoroutine;
+    Rigidbody2D _rb;
+    ParticleSystem _particles;
+    Vector2 _spawnVelocity;
 
     void Awake()
     {
@@ -33,10 +31,12 @@ public class SimpleCollectible : Collectible
         _light = GetComponentInChildren<Light2D>();
         _collider = GetComponent<Collider2D>();
         _player = GameObject.FindGameObjectWithTag("Player");
+        _spawner = GameObject.FindGameObjectWithTag("Spawner");
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _rb = GetComponent<Rigidbody2D>();
         _particles = GetComponent<ParticleSystem>();
         OnCollected.AddListener(_player.GetComponent<PlayerController>().CollectPower);
+        OnCollected.AddListener(_spawner.GetComponent<Spawner>().SpawnBlackHole);
     }
 
     private void Update()
@@ -88,7 +88,6 @@ public class SimpleCollectible : Collectible
         _collider.enabled = false;
         _light.enabled = false;
         _spriteRenderer.enabled = false;
-        wallHits = 0;
         Spawner.shouldSpawnCollectible = true;
         StartCoroutine("VolumeToZero");
     }

@@ -35,11 +35,14 @@ public class Spawner : MonoBehaviour
     Collider2D overlap;
 
 
-    void Awake()
+    void Start()
     {
         mapSize = GameObject.FindGameObjectWithTag("Map").GetComponent<SpriteRenderer>().bounds.size;
+        Debug.Log(mapSize);
         mapWidth = (mapSize.x / 2);
         mapHeight = (mapSize.y / 2);
+        Debug.Log(mapWidth);
+        Debug.Log(mapHeight);
         offEdgeWidth = mapWidth * 1.2f;
         offEdgeHeight = mapHeight * 1.2f;
     }
@@ -70,7 +73,7 @@ public class Spawner : MonoBehaviour
         _spawnTimer = 0f;
         _spawnWaitTime = UnityEngine.Random.Range(2f, 4f);
 
-        spawnPosition = RandomOnScreenEdge();
+        spawnPosition = RandomOnScreen();
         _velocityMultiplier = Random.Range(1, 1 + (0.05f * Score.CurrentScore() * .25f));
         Spawn(asteroidPrefab,
               spawnPosition,
@@ -79,6 +82,7 @@ public class Spawner : MonoBehaviour
 
     PooledMonoBehavior SpawnCollectible()
     {
+        spawnPosition = RandomOnScreenEdge();
         return Spawn(collectiblePrefab,
                      spawnPosition,
                      new Vector2(spawnPosition.x > 0 ? -1f : 1f, spawnPosition.y > 0 ? -1f : 1f));
@@ -106,11 +110,11 @@ public class Spawner : MonoBehaviour
 
     public void SpawnBlackHole()
     {
+        Debug.Log("spawn bh called");
         if (Score.CurrentScore() % _spawnEveryInt == 0)
         {
             Spawn(blackHolePrefab,
-                  RandomOnScreen(),
-                  null);
+                  RandomOnScreenEdge());
         }
     }
 
@@ -142,7 +146,8 @@ public class Spawner : MonoBehaviour
         // we find a spot that doesn't have a collider, spawn the black hole
         for (int i = 0; i < 10; i++)
         {
-            Debug.Log($"width: {xPos}; height: {yPos}");
+            xPos = UnityEngine.Random.Range(-mapWidth, mapWidth);
+            yPos = UnityEngine.Random.Range(-mapHeight, mapHeight);
             overlap = Physics2D.OverlapCircle(new Vector2(xPos, yPos), 2f);
             if (overlap == null)
                 return new Vector2(xPos, yPos);

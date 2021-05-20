@@ -22,7 +22,6 @@ public class BlackHole : PooledMonoBehavior
 
     private void Awake()
     {
-        Debug.Log("awake called");
         _child = transform.GetChild(0).gameObject;
         _childCollider = _child.GetComponent<Collider2D>();
         _waveParticles = _child.GetComponent<ParticleSystem>();

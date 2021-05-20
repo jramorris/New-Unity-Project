@@ -158,27 +158,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb4653e5d1950469d81818a8bb1de5d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialPoolSize: 50
+  initialPoolSize: 10
   OnCollected:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1375532525486652972, guid: 536b535a665ca4c95925146c9c9f971a,
-          type: 3}
-        m_MethodName: SpawnBlackHole
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _velocity: 3
   _collectibleDistance: 0.5
   _audioDamper: 0.7
   _audioRadius: 5
-  maxWallHits: 2
 --- !u!50 &1981774517
 Rigidbody2D:
   serializedVersion: 4
