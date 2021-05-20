@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlackHole : MonoBehaviour
+public class BlackHole : PooledMonoBehavior
 {
     [SerializeField] float _gravityForce = 5f;
-    [SerializeField] GameObject _prefab;
-    [SerializeField] int _spawnEveryInt = 5;
-
     [SerializeField] int maxImpacts = 5;
     int impacts;
 
@@ -23,18 +20,13 @@ public class BlackHole : MonoBehaviour
     Collider2D _childCollider;
     SpriteRenderer _bhRenderer;
 
-    private void Start()
-    {
-        _spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>();
-    }
-
     private void Awake()
     {
+        Debug.Log("awake called");
         _child = transform.GetChild(0).gameObject;
         _childCollider = _child.GetComponent<Collider2D>();
         _waveParticles = _child.GetComponent<ParticleSystem>();
         _collisionAnimator = _child.GetComponent<Animator>();
-        _collisionAnimator.SetTrigger("Spawn");
         _bhRenderer = _child.GetComponent<SpriteRenderer>();
 
         _lightAnimator = transform.GetChild(1).gameObject.GetComponent<Animator>();
@@ -42,10 +34,20 @@ public class BlackHole : MonoBehaviour
         _childTwo = transform.GetChild(2).gameObject;
         _novaParticles = _childTwo.GetComponent<ParticleSystem>();
         _rippleRenderer = _childTwo.GetComponent<SpriteRenderer>();
+        _spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>();
+        this.OnExitPool += Spawn;
+    }
 
-        _childCollider.enabled = false;
-        //_bhRenderer.enabled = false;
+    void OnDestroy()
+    {
+        this.OnExitPool -= Spawn;
+    }
+
+    public void Spawn()
+    {
         SpawnAnimation();
+        _collisionAnimator.SetTrigger("Spawn");
+        _childCollider.enabled = false;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -73,10 +75,10 @@ public class BlackHole : MonoBehaviour
         _rippleRenderer.enabled = false;
         _novaParticles.Play();
         _childCollider.enabled = false;
-        StartCoroutine(InactiveAfterSeconds(2f));
+        StartCoroutine(InactiveAfterSeconds());
     }
 
-    IEnumerator InactiveAfterSeconds(float seconds)
+    IEnumerator InactiveAfterSeconds()
     {
         yield return new WaitForSeconds(.5f);
         _spawner.SpawnSeeker(transform.position);
@@ -98,15 +100,6 @@ public class BlackHole : MonoBehaviour
         }
     }
 
-    public void Spawn()
-    {
-        if (Score.CurrentScore() %  _spawnEveryInt == 0)
-        {
-            GameObject newObj = Instantiate(_prefab, RandomOnScreen(), Quaternion.identity);
-            newObj.GetComponent<BlackHole>().SpawnAnimation();
-        }
-    }
-
     void SpawnAnimation()
     {
         _waveParticles.Play();
@@ -118,23 +111,5 @@ public class BlackHole : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         _childCollider.enabled = true;
         _bhRenderer.enabled = true;
-    }
-
-    Vector2 RandomOnScreen()
-    {
-        // this checks to see if we are spawning the black hole in a place with a collider within the radius of the black hole 10 times and if 
-        // we find a spot that doesn't have a collider, spawn the black hole
-        var width = UnityEngine.Random.Range(-20, 20);
-        var height = UnityEngine.Random.Range(-15, 15);
-        var overlap = Physics2D.OverlapCircle(new Vector2(width, height), 2f);
-        for (int i = 0; i < 10; i++)
-        {
-            width = UnityEngine.Random.Range(-20, 20);
-            height = UnityEngine.Random.Range(-15, 15);
-            overlap = Physics2D.OverlapCircle(new Vector2(width, height), 2f);
-            if (overlap == null)
-                return new Vector3(width, height, 0);
-        }
-        return new Vector3(width, height, 0);
     }
 }

@@ -162,9 +162,9 @@ MonoBehaviour:
   OnCollected:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -8668614183104720973, guid: d93f33b7696fd364db1d01a5fd3db112,
+      - m_Target: {fileID: 1375532525486652972, guid: 536b535a665ca4c95925146c9c9f971a,
           type: 3}
-        m_MethodName: Spawn
+        m_MethodName: SpawnBlackHole
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

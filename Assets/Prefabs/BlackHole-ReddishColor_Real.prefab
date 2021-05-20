@@ -10052,9 +10052,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb1b479f3a77a444dab00372a82d767f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialPoolSize: 10
   _gravityForce: 25
-  _prefab: {fileID: 7928685435195019319}
-  _spawnEveryInt: 5
   maxImpacts: 3
 --- !u!58 &6695180446703784665
 CircleCollider2D:

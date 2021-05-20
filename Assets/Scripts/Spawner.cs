@@ -10,21 +10,39 @@ public class Spawner : MonoBehaviour
 
     // spawn vars
     int[] choices = new int[] { -1, 1 };
-    float width;
-    float height;
+    float xPos;
+    float yPos;
     Vector2 randomizer;
-    PooledMonoBehavior newObj;
     PooledMonoBehavior _currentCollectible;
     public static bool shouldSpawnCollectible;
 
     [SerializeField] PooledMonoBehavior asteroidPrefab;
     [SerializeField] PooledMonoBehavior smallAsteroidPrefab;
     [SerializeField] PooledMonoBehavior collectiblePrefab;
+    [SerializeField] PooledMonoBehavior blackHolePrefab;
     [SerializeField] GameObject seekerPrefab;
 
     float _velocityMultiplier;
     private Vector2 spawnPosition;
-    private Vector2 spawnVelocity;
+
+    // spawn func vars
+    [SerializeField] int _spawnEveryInt = 5;
+    Vector2 mapSize;
+    float mapWidth;
+    float mapHeight;
+    float offEdgeWidth;
+    float offEdgeHeight;
+    Collider2D overlap;
+
+
+    void Awake()
+    {
+        mapSize = GameObject.FindGameObjectWithTag("Map").GetComponent<SpriteRenderer>().bounds.size;
+        mapWidth = (mapSize.x / 2);
+        mapHeight = (mapSize.y / 2);
+        offEdgeWidth = mapWidth * 1.2f;
+        offEdgeHeight = mapHeight * 1.2f;
+    }
 
     void Update()
     {
@@ -34,7 +52,7 @@ public class Spawner : MonoBehaviour
         _spawnTimer += Time.deltaTime;
 
         if (shouldSpawnAsteroid())
-            Spawn(asteroidPrefab);
+            SpawnAsteroid();
 
         if (shouldSpawnCollectible)
         {
@@ -42,9 +60,28 @@ public class Spawner : MonoBehaviour
             if (_currentCollectible == null || !_currentCollectible.isActiveAndEnabled)
             {
                 shouldSpawnCollectible = false;
-                _currentCollectible = Spawn(collectiblePrefab);
+                _currentCollectible = SpawnCollectible();
             }
         }
+    }
+
+    public void SpawnAsteroid()
+    {
+        _spawnTimer = 0f;
+        _spawnWaitTime = UnityEngine.Random.Range(2f, 4f);
+
+        spawnPosition = RandomOnScreenEdge();
+        _velocityMultiplier = Random.Range(1, 1 + (0.05f * Score.CurrentScore() * .25f));
+        Spawn(asteroidPrefab,
+              spawnPosition,
+              new Vector2(spawnPosition.x > 0 ? -1f : 1f, spawnPosition.y > 0 ? -1f : 1f) * _velocityMultiplier);
+    }
+
+    PooledMonoBehavior SpawnCollectible()
+    {
+        return Spawn(collectiblePrefab,
+                     spawnPosition,
+                     new Vector2(spawnPosition.x > 0 ? -1f : 1f, spawnPosition.y > 0 ? -1f : 1f));
     }
 
     private bool shouldSpawnAsteroid()
@@ -52,26 +89,11 @@ public class Spawner : MonoBehaviour
         return _spawnTimer > (_spawnWaitTime - (1.8f - (1.8f / ((Score.CurrentScore() * .25f) + 1f))));
     }
 
-    PooledMonoBehavior Spawn(PooledMonoBehavior objectPrefab, Vector2? position = null, Vector2? velocity = null)
+    PooledMonoBehavior Spawn(PooledMonoBehavior objectPrefab, Vector2 position, Vector2? velocity = null)
     {
-        _spawnTimer = 0f;
-        _spawnWaitTime = UnityEngine.Random.Range(2f, 4f);
-
-        if (position == null)
-            spawnPosition = RandomOnScreenEdge();
-        else
-            spawnPosition = (Vector2)position;
-
-        if (velocity == null)
-            spawnVelocity = new Vector2(spawnPosition.x > 0 ? -1f : 1f, spawnPosition.y > 0 ? -1f : 1f);
-        else
-            spawnVelocity = (Vector2)velocity;
-
-        // asteroids faster with higher score
-        _velocityMultiplier = asteroidPrefab == objectPrefab ? Random.Range(1, 1 + (0.05f * Score.CurrentScore() * .25f)) : 1;
-        return objectPrefab.Get<PooledMonoBehavior>(spawnPosition,
+        return objectPrefab.Get<PooledMonoBehavior>(position,
                                                     Quaternion.identity,
-                                                    spawnVelocity * _velocityMultiplier);
+                                                    velocity);
     }
 
     public void SpawnSmallAsteroid(Vector2 position, Collision2D collision = null)
@@ -82,28 +104,50 @@ public class Spawner : MonoBehaviour
               randomizer + (collision.contacts[0].normal * (1f + (collision.relativeVelocity.magnitude * .1f))));
     }
 
+    public void SpawnBlackHole()
+    {
+        if (Score.CurrentScore() % _spawnEveryInt == 0)
+        {
+            Spawn(blackHolePrefab,
+                  RandomOnScreen(),
+                  null);
+        }
+    }
+
     Vector2 RandomOnScreenEdge()
     {
-        Vector2 mapSize = GameObject.FindGameObjectWithTag("Map").GetComponent<SpriteRenderer>().bounds.size;
-        float mapWidth = (mapSize.x / 2) * 1.2f;
-        float mapHeight = (mapSize.y / 2) * 1.2f;
+        // spawn just off map
         int randomInt = Random.Range(0, 2);
-
         if (randomInt > 0)
         {
             // sides
             randomInt = Random.Range(0, 2);
-            width = mapWidth * choices[randomInt];
-            height = UnityEngine.Random.Range(-mapHeight, mapHeight);
+            xPos = offEdgeWidth * choices[randomInt];
+            yPos = UnityEngine.Random.Range(-offEdgeHeight, offEdgeHeight);
         }
         else
         {
             // top | bottom
             randomInt = Random.Range(0, 2);
-            width = UnityEngine.Random.Range(-mapWidth, mapWidth);
-            height = mapHeight * choices[randomInt];
+            xPos = UnityEngine.Random.Range(-offEdgeWidth, offEdgeWidth);
+            yPos = offEdgeHeight * choices[randomInt];
         }
-        return new Vector3(width, height, 0);
+        return new Vector2(xPos, yPos);
+    }
+
+    Vector2 RandomOnScreen()
+    {
+        // spawn in map
+        // this checks to see if we are spawning the black hole in a place with a collider within the radius of the black hole 10 times and if 
+        // we find a spot that doesn't have a collider, spawn the black hole
+        for (int i = 0; i < 10; i++)
+        {
+            Debug.Log($"width: {xPos}; height: {yPos}");
+            overlap = Physics2D.OverlapCircle(new Vector2(xPos, yPos), 2f);
+            if (overlap == null)
+                return new Vector2(xPos, yPos);
+        }
+        return new Vector2(xPos, yPos);
     }
 
     public void SpawnSeeker(Vector3 position)
