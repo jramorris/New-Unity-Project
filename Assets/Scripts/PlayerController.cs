@@ -32,7 +32,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] TrailRenderer _rightTrail;
 
     // movement
-    [SerializeField] public int _chargeToSpeedUp = 2;
+    [SerializeField] public int _requiredSpeedUpCharge = 2;
+    [SerializeField] public int _requiredNovaCharge = 10;
     [SerializeField] float _maxMovementModifier = 1.5f;
     float horizontal;
     float vertical;
@@ -186,7 +187,7 @@ public class PlayerController : MonoBehaviour
     {
         _particleSystem.Play();
         _pulseSoundEffect.PlayDelayed(.1f);
-        //ResetPower();
+        ResetPower();
 
         //if (_currentCharge == _maxCharge)
         //{
@@ -198,11 +199,11 @@ public class PlayerController : MonoBehaviour
 
     public void IncreaseMovementSpeed()
     {
-        if (_movementModifier < _maxMovementModifier && _currentCharge >= _chargeToSpeedUp)
+        if (_movementModifier < _maxMovementModifier && _currentCharge >= _requiredSpeedUpCharge)
         {
             _shieldsUpSound.PlayOneShot(_fullyChargedSound, 1f);
             _movementModifier += .05f;
-            _currentCharge -= _chargeToSpeedUp;
+            _currentCharge -= _requiredSpeedUpCharge;
             OnChargeChange(_currentCharge);
         }
 
@@ -358,9 +359,9 @@ public class PlayerController : MonoBehaviour
     void ResetPower()
     {
         _currentPower = _maxPower;
-        _currentCharge = 0;
+        _currentCharge = 0f;
         _shieldCharges = 0;
-        OnCollectPower(_currentCharge);
+        //OnCollectPower(_currentCharge);
         OnChargeChange(_currentCharge);
         SetShieldColor();
     }

@@ -79,7 +79,6 @@
     <Compile Include="Assets\Scripts\Countdown.cs" />
     <Compile Include="Assets\Scripts\HighScoreText.cs" />
     <Compile Include="Assets\Scripts\ICollectible.cs" />
-    <Compile Include="Assets\Scripts\IndicatePowerCell.cs" />
     <Compile Include="Assets\Scripts\LoadLevel.cs" />
     <Compile Include="Assets\Scripts\ManageIndicators.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
@@ -87,7 +86,6 @@
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Pooling\Pool.cs" />
     <Compile Include="Assets\Scripts\Pooling\PooledMonoBehavior.cs" />
-    <Compile Include="Assets\Scripts\PowerIndicator.cs" />
     <Compile Include="Assets\Scripts\RedEnemy.cs" />
     <Compile Include="Assets\Scripts\Score.cs" />
     <Compile Include="Assets\Scripts\ScoreText.cs" />
@@ -95,8 +93,11 @@
     <Compile Include="Assets\Scripts\SimpleCollectible.cs" />
     <Compile Include="Assets\Scripts\SmallAsteroid.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
-    <Compile Include="Assets\Scripts\UIActionsManager.cs" />
-    <Compile Include="Assets\Scripts\UIManager.cs" />
+    <Compile Include="Assets\Scripts\UI Scripts\IndicatePowerCell.cs" />
+    <Compile Include="Assets\Scripts\UI Scripts\PowerIndicator.cs" />
+    <Compile Include="Assets\Scripts\UI Scripts\UIActionsManager.cs" />
+    <Compile Include="Assets\Scripts\UI Scripts\UIBarManager.cs" />
+    <Compile Include="Assets\Scripts\UI Scripts\UIManager.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

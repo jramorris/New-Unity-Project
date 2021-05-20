@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PowerIndicator : MonoBehaviour
 {
+    // unused script!
     [SerializeField] Image _powerIndicator;
     [SerializeField] Image _chargeIndicator;
 
@@ -34,9 +35,9 @@ public class PowerIndicator : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerController.OnCollectPower += UpdatePowerIndicator;
-        PlayerController.OnFullCharge += UpdatePulseButton;
-        PlayerController.OnChargeChange += UpdateChargeIndicator;
+        //PlayerController.OnCollectPower += UpdatePowerIndicator;
+        //PlayerController.OnFullCharge += UpdatePulseButton;
+        //PlayerController.OnChargeChange += UpdateChargeIndicator;
     }
 
     private void OnDisable()
