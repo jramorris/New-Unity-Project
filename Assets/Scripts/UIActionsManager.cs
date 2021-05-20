@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class UIActionsManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private PlayerController _playerController;
+    private float _maxCharge;
+
+    void Awake()
     {
-        
+
+        _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        _maxCharge = _playerController._maxCharge;
+        //_pulseButton = GetComponentInChildren<Button>();
+        //_pulseButton.interactable = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        //UpdatePowerIndicator(_playerController._currentPower);
+    }
+
+    private void OnEnable()
+    {
+        //PlayerController.OnCollectPower += UpdatePowerIndicator;
+        //PlayerController.OnFullCharge += UpdatePulseButton;
+        //PlayerController.OnChargeChange += UpdateChargeIndicator;
     }
 }

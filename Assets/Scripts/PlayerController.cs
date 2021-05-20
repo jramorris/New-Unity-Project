@@ -26,14 +26,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float _maxCharge = 10;
     [SerializeField] public int _maxShieldCharges = 2;
     [SerializeField] float _baseDecrementMultiplier = .5f;
-    [SerializeField] int _powerToChargeShield = 5;
+    [SerializeField] public int _powerToChargeShield = 5;
 
     [SerializeField] TrailRenderer _leftTrail;
     [SerializeField] TrailRenderer _rightTrail;
 
     // movement
+    [SerializeField] public int _chargeToSpeedUp = 2;
     [SerializeField] float _maxMovementModifier = 1.5f;
-    [SerializeField] float _chargeToSpeedUp = 2f;
     float horizontal;
     float vertical;
     float _movementModifier = 1;
@@ -170,12 +170,6 @@ public class PlayerController : MonoBehaviour
             _chargeUpSound.PlayOneShot(_chargeUpSound.clip, 1f);
             OnFullCharge();
         }
-
-    }
-
-    void UpdateMovementModifier(float currentCharge)
-    {
-        _movementModifier = 1 + (.1f * _currentCharge);
     }
 
     public void ShieldChargeUp()
@@ -205,7 +199,12 @@ public class PlayerController : MonoBehaviour
     public void IncreaseMovementSpeed()
     {
         if (_movementModifier < _maxMovementModifier && _currentCharge >= _chargeToSpeedUp)
+        {
+            _shieldsUpSound.PlayOneShot(_fullyChargedSound, 1f);
             _movementModifier += .05f;
+            _currentCharge -= _chargeToSpeedUp;
+            OnChargeChange(_currentCharge);
+        }
 
         // TODOS
 
@@ -213,8 +212,8 @@ public class PlayerController : MonoBehaviour
         // do nothing if not enough charge √
         // sound effect
         // update UI
-        // ResetPower();
-        // remove update movement modifier (from event)
+        // remove update movement modifier (from event) √
+        // motion blur
     }
 
     void OnParticleCollision(GameObject other)
@@ -229,11 +228,6 @@ public class PlayerController : MonoBehaviour
 
             other.GetComponent<RedEnemy>().BreakUp();
         }
-    }
-
-    private void OnParticleTrigger()
-    {
-        Debug.Log("trgiggered");
     }
 
     public void TakeDamage()
