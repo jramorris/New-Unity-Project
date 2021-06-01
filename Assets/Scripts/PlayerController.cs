@@ -169,7 +169,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             _chargeUpSound.PlayOneShot(_chargeUpSound.clip, 1f);
-            OnFullCharge();
+            //OnFullCharge();
         }
     }
 

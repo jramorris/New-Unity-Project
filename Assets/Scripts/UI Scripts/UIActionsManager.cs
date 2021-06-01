@@ -53,15 +53,11 @@ public class UIActionsManager : MonoBehaviour
     private void OnEnable()
     {
         PlayerController.OnChargeChange += UpdateButtons;
-        //PlayerController.OnFullCharge += UpdatePulseButton;
-        //PlayerController.OnChargeChange += UpdateChargeIndicator;
     }
 
     private void OnDisable()
     {
         PlayerController.OnChargeChange -= UpdateButtons;
-        //PlayerController.OnFullCharge -= UpdatePulseButton;
-        //PlayerController.OnChargeChange -= UpdateChargeIndicator;
     }
 
     void UpdateButtons(float currentCharge)
