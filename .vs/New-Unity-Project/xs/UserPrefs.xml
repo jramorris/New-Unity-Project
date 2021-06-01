@@ -1,15 +1,15 @@
 ﻿<Properties StartupConfiguration="{C9DD0913-8C5E-8022-D26B-19159E3E69A2}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/UI Scripts/UIBarManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SimpleCollectible.cs">
     <Files>
-      <File FileName="Assets/Scripts/UIActionsManager.cs" Line="95" Column="1" />
-      <File FileName="Assets/Scripts/PowerIndicator.cs" Line="9" Column="22" />
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="365" Column="23" />
-      <File FileName="Assets/Scripts/UI Scripts/UIBarManager.cs" Line="7" Column="23" />
+      <File FileName="Assets/Scripts/UI Scripts/PowerIndicator.cs" Line="64" Column="53" />
+      <File FileName="Assets/Scripts/UI Scripts/UIBarManager.cs" Line="28" Column="1" />
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="49" Column="39" />
+      <File FileName="Assets/Scripts/SimpleCollectible.cs" Line="24" Column="28" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="27c50016-d3a4-46a5-acd4-e1a8617d5ddb" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="c9122df8-d4d3-41fe-9d68-a7aa3d060ac6" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
