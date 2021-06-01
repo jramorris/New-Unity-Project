@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class UIBarManager : MonoBehaviour
 {
+    [SerializeField] float _chargeFillDuration = 1f;
     private PlayerController _playerController;
     private float _maxCharge;
     private float _maxPower;
@@ -10,7 +12,10 @@ public class UIBarManager : MonoBehaviour
     private Material _fuelBarMaterial;
     private Image _chargeBarImage;
     private Material _chargeBarMaterial;
-    private float _fillAmount;
+    private float _startUpdateChargeTime;
+    private float _chargeFillAmount;
+    private float _decimalTimePassed;
+    private float _fuelFillAmount;
 
     void Awake()
     {
@@ -42,27 +47,43 @@ public class UIBarManager : MonoBehaviour
 
     void UpdateFuelBar(float currentPower)
     {
-        _fillAmount = currentPower / _maxPower;
+        _fuelFillAmount = currentPower / _maxPower;
 
-        _fuelBarMaterial.SetFloat("_fuelFillAmount", _fillAmount);
-        _fuelBarImage.fillAmount = _fillAmount;
+        // set color via shader
+        _fuelBarMaterial.SetFloat("_fuelFillAmount", _fuelFillAmount);
 
-        if (_fuelBarImage.fillAmount < _fillAmount)
+        if (_fuelBarImage.fillAmount < _fuelFillAmount)
             _fuelBarImage.fillAmount += (Time.deltaTime * .1f * 3f);
         else
-            _fuelBarImage.fillAmount = _fillAmount;
+            _fuelBarImage.fillAmount = _fuelFillAmount;
     }
 
     void UpdateChargeBar(float currentCharge)
     {
-        _fillAmount = currentCharge / _maxCharge;
+        _chargeFillAmount = currentCharge / _maxCharge;
 
-        _chargeBarMaterial.SetFloat("_fuelFillAmount", _fillAmount);
-        _chargeBarImage.fillAmount = _fillAmount;
+        // set color via shader
+        _chargeBarMaterial.SetFloat("_fuelFillAmount", _chargeFillAmount);
 
-        if (_chargeBarImage.fillAmount < _fillAmount)
-            _chargeBarImage.fillAmount += (Time.deltaTime * .1f * 3f);
+        if (_chargeBarImage.fillAmount < _chargeFillAmount)
+        {
+            _startUpdateChargeTime = Time.time;
+            StartCoroutine(FillChargeBar());
+        }
         else
-            _chargeBarImage.fillAmount = _fillAmount;
+            _chargeBarImage.fillAmount = _chargeFillAmount;
+    }
+
+    IEnumerator FillChargeBar()
+    {
+        _decimalTimePassed = 0f;
+        while (_decimalTimePassed < _chargeFillDuration)
+        {
+            _decimalTimePassed = (Time.time - _startUpdateChargeTime) / _chargeFillDuration;
+            _chargeBarImage.fillAmount = Mathf.SmoothStep(_chargeBarImage.fillAmount, _chargeFillAmount, _decimalTimePassed);
+            yield return null;
+        }
+        Debug.Log("exited");
+        _chargeBarImage.fillAmount = _chargeFillAmount;
     }
 }
