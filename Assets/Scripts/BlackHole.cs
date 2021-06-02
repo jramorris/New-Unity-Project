@@ -19,6 +19,7 @@ public class BlackHole : PooledMonoBehavior
     GameObject _childTwo;
     Animator _collisionAnimator;
     SpriteRenderer _bhRenderer;
+    AudioSource _novaSound;
 
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class BlackHole : PooledMonoBehavior
         _waveParticles = _child.GetComponent<ParticleSystem>();
         _collisionAnimator = _child.GetComponent<Animator>();
         _bhRenderer = _child.GetComponent<SpriteRenderer>();
+        _novaSound = GetComponent<AudioSource>();
 
         _lightAnimator = transform.GetChild(1).gameObject.GetComponent<Animator>();
 
@@ -71,6 +73,7 @@ public class BlackHole : PooledMonoBehavior
 
     public void Collapse(bool spawnSeeker = true)
     {
+        _novaSound.Play();
         _bhRenderer.enabled = false;
         _rippleRenderer.enabled = false;
         _novaParticles.Play();

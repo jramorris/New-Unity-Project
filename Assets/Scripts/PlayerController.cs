@@ -54,19 +54,23 @@ public class PlayerController : MonoBehaviour
     int _shieldCharges;
 
     // random stuff
+    [SerializeField] float maxEmissionIntensity = 0.8f;
     Rigidbody2D _rb;
     Quaternion toQuaternion;
     Animator _playerAnim;
     ParticleSystem _particleSystem;
     Renderer _spriteRenderer;
     float _offMapTime;
-    Color _shieldColor = new Color(0, 181, 195);
+    Color _shieldColor = new Color(190, 10, 0);
     Coroutine shieldCoroutine;
     float _decrementMultiplier;
     Coroutine _dieCoroutine;
     bool _shielding;
     UIManager _UIManager;
     private GameObject _blackHole;
+    private float currentIntensity;
+    private float _desiredIntensity;
+    private float wiggleDistance;
     const int CollidableLayer = 9;
 
     private void Awake()
@@ -162,6 +166,7 @@ public class PlayerController : MonoBehaviour
 
         // charge increment
         _currentCharge = Mathf.Clamp(_currentCharge + 1f, 0f, _maxCharge);
+        SetShipColor();
         OnChargeChange(_currentCharge);
 
         // TODO update to account for floats here?
@@ -181,7 +186,7 @@ public class PlayerController : MonoBehaviour
             _shieldsUpSound.PlayOneShot(_fullyChargedSound, 1f);
         else
             _shieldsUpSound.PlayOneShot(_shieldsUpSound.clip, 1f);
-        SetShieldColor();
+        SetShipColor();
     }
 
     public void PulseBomb()
@@ -189,13 +194,6 @@ public class PlayerController : MonoBehaviour
         _particleSystem.Play();
         _pulseSoundEffect.PlayDelayed(.1f);
         ResetPower();
-
-        //if (_currentCharge == _maxCharge)
-        //{
-        //    _particleSystem.Play();
-        //    _pulseSoundEffect.PlayDelayed(.1f);
-        //    ResetPower();
-        //}
     }
 
     public void IncreaseMovementSpeed()
@@ -258,7 +256,7 @@ public class PlayerController : MonoBehaviour
         OnChargeChange(_currentCharge);
 
         _shieldCharges--;
-        SetShieldColor();
+        SetShipColor();
 
         _shieldContainerAnim.SetTrigger("ShieldHit");
         _shieldHitSound.Play();
@@ -347,7 +345,7 @@ public class PlayerController : MonoBehaviour
         while (_offMapTime < _maxOffMapTime)
         {
             _offMapTime += Time.deltaTime;
-            float wiggleDistance = UnityEngine.Random.Range(-.05f, .05f);
+            wiggleDistance = UnityEngine.Random.Range(-.05f, .05f);
             transform.position = new Vector3(transform.position.x + wiggleDistance, transform.position.y + wiggleDistance);
             yield return null;
 
@@ -358,44 +356,37 @@ public class PlayerController : MonoBehaviour
     // set initial game states
     void Initialize()
     {
+        _currentPower = _maxPower;
         ResetPower();
     }
 
     void ResetPower()
     {
-        _currentPower = _maxPower;
         _currentCharge = 0f;
         _shieldCharges = 0;
-        //OnCollectPower(_currentCharge);
         OnChargeChange(_currentCharge);
-        SetShieldColor();
+        SetShipColor();
     }
 
-    private void SetShieldColor()
+    void SetShipColor()
     {
         if (shieldCoroutine != null)
             StopCoroutine(shieldCoroutine);
 
-        // Found through trial and error
-        if (_shieldCharges == 0)
-            _spriteRenderer.material.SetColor("_Color", _shieldColor * 0f);
-        else if (_shieldCharges == 1)
-            shieldCoroutine = StartCoroutine(ChargeShield(.01f));
-        else
-            shieldCoroutine = StartCoroutine(ChargeShield(.1f));
-
+        shieldCoroutine = StartCoroutine(UpdateEmissionColor(_currentCharge / _maxCharge));
     }
 
-    IEnumerator ChargeShield(float intensityMultiplier)
+    IEnumerator UpdateEmissionColor(float intensityMultiplier)
     {
-        float currentIntensity = 0f;
+        // ship outline color
+        _desiredIntensity = intensityMultiplier * maxEmissionIntensity;
 
-        while (currentIntensity < intensityMultiplier)
+        while (currentIntensity < _desiredIntensity)
         {
-            currentIntensity += intensityMultiplier * .01f;
+            currentIntensity += _desiredIntensity * .01f;
             _spriteRenderer.material.SetColor("_Color", _shieldColor * currentIntensity);
             yield return null;
         }
-        _spriteRenderer.material.SetColor("_Color", _shieldColor * intensityMultiplier);
+        _spriteRenderer.material.SetColor("_Color", _shieldColor * _desiredIntensity);
     }
 }
