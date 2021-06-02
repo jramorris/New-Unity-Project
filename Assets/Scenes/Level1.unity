@@ -5998,6 +5998,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5584265109525971970}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &442266956 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1666774606, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
+    type: 3}
+  m_PrefabInstance: {fileID: 5584265109525971970}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &442266960 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5584265109525971974, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
+    type: 3}
+  m_PrefabInstance: {fileID: 5584265109525971970}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &442266963
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -28524,6 +28536,26 @@ PrefabInstance:
       propertyPath: maxEmissionIntensity
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5584265109048467926, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
+        type: 3}
+      propertyPath: _maxCharge
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5584265109048467926, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
+        type: 3}
+      propertyPath: _collectChargeSound
+      value: 
+      objectReference: {fileID: 442266960}
+    - target: {fileID: 5584265109048467926, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
+        type: 3}
+      propertyPath: _fullChargeSound
+      value: 
+      objectReference: {fileID: 442266956}
+    - target: {fileID: 5584265109048467926, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
+        type: 3}
+      propertyPath: _speedUpSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3f456a128955e43f79ad6e8531da6e02, type: 3}
     - target: {fileID: 5584265109048467930, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
         type: 3}
       propertyPath: m_LocalPosition.x

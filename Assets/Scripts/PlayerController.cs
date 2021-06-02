@@ -9,11 +9,11 @@ public class PlayerController : MonoBehaviour
     public static bool offMap = false;
 
     [SerializeField] AudioSource _explosionSound;
-    [SerializeField] AudioSource _chargeUpSound;
+    [SerializeField] AudioSource _fullChargeSound;
     [SerializeField] AudioSource _pulseSoundEffect;
     [SerializeField] AudioSource _shieldHitSound;
-    [SerializeField] AudioSource _shieldsUpSound;
-    [SerializeField] AudioClip _fullyChargedSound;
+    [SerializeField] AudioSource _collectChargeSound;
+    [SerializeField] AudioClip _speedUpSound;
 
     [SerializeField] float _movementSpeed = 5f;
     [SerializeField] float _acceleration = 5f;
@@ -174,24 +174,11 @@ public class PlayerController : MonoBehaviour
         SetShipColor();
         OnChargeChange(_currentCharge);
 
-        // TODO update to account for floats here?
-        if (_currentCharge % _powerToChargeShield == 0 && _shieldCharges < _maxShieldCharges)
-            ShieldChargeUp();
-        else
-        {
-            _chargeUpSound.PlayOneShot(_chargeUpSound.clip, 1f);
-            //OnFullCharge();
-        }
-    }
 
-    public void ShieldChargeUp()
-    {
-        _shieldCharges++;
-        if (_shieldCharges == _maxShieldCharges)
-            _shieldsUpSound.PlayOneShot(_fullyChargedSound, 1f);
+        if (_currentCharge == _maxCharge)
+            _fullChargeSound.PlayOneShot(_fullChargeSound.clip, 1f);
         else
-            _shieldsUpSound.PlayOneShot(_shieldsUpSound.clip, 1f);
-        SetShipColor();
+            _collectChargeSound.PlayOneShot(_collectChargeSound.clip, 1f);
     }
 
     public void PulseBomb()
@@ -205,7 +192,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_movementModifier < _maxMovementModifier && _currentCharge >= _requiredSpeedUpCharge)
         {
-            _shieldsUpSound.PlayOneShot(_fullyChargedSound, 1f);
+            _collectChargeSound.PlayOneShot(_speedUpSound, 1f);
             _movementModifier += .05f;
             _currentCharge -= _requiredSpeedUpCharge;
             OnChargeChange(_currentCharge);
