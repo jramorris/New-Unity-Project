@@ -5755,7 +5755,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &415209118
 GameObject:
@@ -27773,6 +27773,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlackHole-ReddishColor_Real
       objectReference: {fileID: 0}
+    - target: {fileID: 7928685435195019319, guid: d93f33b7696fd364db1d01a5fd3db112,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d93f33b7696fd364db1d01a5fd3db112, type: 3}
 --- !u!4 &1687578072 stripped
@@ -28072,12 +28077,12 @@ PrefabInstance:
     - target: {fileID: 5970599132266227324, guid: f3493adf3ade54cf3bb34eece0add342,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.9693737
+      value: 1.59
       objectReference: {fileID: 0}
     - target: {fileID: 5970599132266227324, guid: f3493adf3ade54cf3bb34eece0add342,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7339795
+      value: 0.71
       objectReference: {fileID: 0}
     - target: {fileID: 5970599132266227324, guid: f3493adf3ade54cf3bb34eece0add342,
         type: 3}
@@ -28245,7 +28250,7 @@ PrefabInstance:
     - target: {fileID: 4044605095859939923, guid: 68a1dda669b2c4b61902dba16f4b5814,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4044605095859939923, guid: 68a1dda669b2c4b61902dba16f4b5814,
         type: 3}
@@ -28517,17 +28522,17 @@ PrefabInstance:
     - target: {fileID: 5584265109048467926, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
         type: 3}
       propertyPath: maxEmissionIntensity
-      value: 0.1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5584265109048467930, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.04
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 5584265109048467930, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.57
+      value: -0.98
       objectReference: {fileID: 0}
     - target: {fileID: 5584265109048467930, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
         type: 3}
@@ -28557,7 +28562,7 @@ PrefabInstance:
     - target: {fileID: 5584265109048467930, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5584265109048467930, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
         type: 3}

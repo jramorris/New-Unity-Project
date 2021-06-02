@@ -3,9 +3,11 @@
 public class IndicatePowerCell : MonoBehaviour
 {
     GameObject target;
+    SpriteRenderer _arrowRenderer;
 
-    private void Start()
+    private void Awake()
     {
+        _arrowRenderer = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
         FindTarget();
     }
 
@@ -18,9 +20,13 @@ public class IndicatePowerCell : MonoBehaviour
     {
         if (target == null || !target.activeSelf)
             FindTarget();
-        if (target == null)
-            return;
 
-        transform.right = target.transform.position - transform.position;
+        if (target == null || !target.GetComponent<SimpleCollectible>()._activeSelf)
+            _arrowRenderer.enabled = false;
+        else
+        {
+            _arrowRenderer.enabled = true;
+            transform.right = target.transform.position - transform.position;
+        }
     }
 }

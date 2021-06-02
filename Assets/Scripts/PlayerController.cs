@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
     Animator _playerAnim;
     ParticleSystem _particleSystem;
     Renderer _spriteRenderer;
+    private GameObject _indicatorContainer;
     float _offMapTime;
     Color _shieldColor = new Color(190, 10, 0);
     Coroutine shieldCoroutine;
@@ -79,6 +80,7 @@ public class PlayerController : MonoBehaviour
         _playerAnim = GetComponent<Animator>();
         _particleSystem = GetComponent<ParticleSystem>();
         _spriteRenderer = gameObject.GetComponent<Renderer>();
+        _indicatorContainer = transform.GetChild(0).gameObject;
         _UIManager = GameObject.FindGameObjectWithTag("UI").GetComponent<UIManager>();
     }
 
@@ -161,6 +163,9 @@ public class PlayerController : MonoBehaviour
 
     public void CollectPower()
     {
+        if (_dieCoroutine != null)
+            StopCoroutine(_dieCoroutine);
+
         // power increment
         _currentPower = Mathf.Clamp(_currentPower + 2.5f, 0f, _maxPower);
 
@@ -277,7 +282,6 @@ public class PlayerController : MonoBehaviour
         _playerAnim.SetTrigger("Explode");
         _explosionSound.Play();
         StopTrails();
-        _dead = true;
         transform.localScale = new Vector3(1, 1, transform.localScale.z);
         Die();
     }
@@ -296,6 +300,8 @@ public class PlayerController : MonoBehaviour
 
     void Die()
     {
+        _dead = true;
+        _indicatorContainer.SetActive(false);
         StartCoroutine("GoToMenu");
         GameObject.FindGameObjectWithTag("Score").GetComponent<Score>().ZeroScore();
     }

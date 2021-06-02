@@ -12,6 +12,7 @@ public class SimpleCollectible : Collectible
     [SerializeField] float _audioRadius = 2;
 
     public override int pointsToGive => 1;
+    public bool _activeSelf = true;
     AudioSource _audioSource;
     Light2D _light;
     Collider2D _collider;
@@ -52,6 +53,7 @@ public class SimpleCollectible : Collectible
 
     protected override void Collect()
     {
+        _activeSelf = false;
         _particles.Play();
         SetInactive();
         Score.IncrementScore(pointsToGive);
