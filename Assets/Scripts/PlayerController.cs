@@ -35,9 +35,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public int _requiredSpeedUpCharge = 2;
     [SerializeField] public int _requiredNovaCharge = 10;
     [SerializeField] float _maxMovementModifier = 1.5f;
+    public float _movementModifier = 1;
     float horizontal;
     float vertical;
-    float _movementModifier = 1;
 
 
     // health
@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
     Coroutine _dieCoroutine;
     bool _shielding;
     UIManager _UIManager;
+    private GameObject _blackHole;
     const int CollidableLayer = 9;
 
     private void Awake()
@@ -211,8 +212,8 @@ public class PlayerController : MonoBehaviour
 
         // do nothing if at max speed √
         // do nothing if not enough charge √
-        // sound effect
-        // update UI
+        // sound effect √
+        // update UI if (other.CompareTag("BlackHole")) ?
         // remove update movement modifier (from event) √
         // motion blur
     }
@@ -221,13 +222,17 @@ public class PlayerController : MonoBehaviour
     {
         if (other.layer == CollidableLayer)
         {
-            if (other.CompareTag("BlackHole"))
-                other.GetComponent<BHCollisionDetector>().BreakUp();
-
-            else if (other.CompareTag("SmallAsteroid"))
+            if (other.CompareTag("SmallAsteroid"))
                 other.GetComponent<SmallAsteroid>().BreakUp();
 
-            other.GetComponent<RedEnemy>().BreakUp();
+            else if (other.CompareTag("Asteroid"))
+                other.GetComponent<RedEnemy>().BreakUp();
+
+            else if (other.CompareTag("Seeker"))
+                other.GetComponent<Seeker>().Explode();
+
+            else if (other.CompareTag("BlackHole"))
+                other.GetComponent<BHCollisionDetector>().BreakUp();
         }
     }
 
@@ -370,6 +375,7 @@ public class PlayerController : MonoBehaviour
     {
         if (shieldCoroutine != null)
             StopCoroutine(shieldCoroutine);
+
         // Found through trial and error
         if (_shieldCharges == 0)
             _spriteRenderer.material.SetColor("_Color", _shieldColor * 0f);

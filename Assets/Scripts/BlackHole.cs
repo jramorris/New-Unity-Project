@@ -11,19 +11,19 @@ public class BlackHole : PooledMonoBehavior
     List<Collider2D> _bodiesToForce = new List<Collider2D>();
     Spawner _spawner;
     GameObject _child;
+    Collider2D[] _childColliders;
     ParticleSystem _waveParticles;
     ParticleSystem _novaParticles;
     SpriteRenderer _rippleRenderer;
     Animator _lightAnimator;
     GameObject _childTwo;
     Animator _collisionAnimator;
-    Collider2D _childCollider;
     SpriteRenderer _bhRenderer;
 
     private void Awake()
     {
         _child = transform.GetChild(0).gameObject;
-        _childCollider = _child.GetComponent<Collider2D>();
+        _childColliders = _child.GetComponents<Collider2D>();
         _waveParticles = _child.GetComponent<ParticleSystem>();
         _collisionAnimator = _child.GetComponent<Animator>();
         _bhRenderer = _child.GetComponent<SpriteRenderer>();
@@ -46,7 +46,8 @@ public class BlackHole : PooledMonoBehavior
     {
         SpawnAnimation();
         _collisionAnimator.SetTrigger("Spawn");
-        _childCollider.enabled = false;
+        foreach (Collider2D _childCollider in _childColliders)
+            _childCollider.enabled = false;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -68,19 +69,23 @@ public class BlackHole : PooledMonoBehavior
             Collapse();
     }
 
-    public void Collapse()
+    public void Collapse(bool spawnSeeker = true)
     {
         _bhRenderer.enabled = false;
         _rippleRenderer.enabled = false;
         _novaParticles.Play();
-        _childCollider.enabled = false;
-        StartCoroutine(InactiveAfterSeconds());
+        foreach (Collider2D _childCollider in _childColliders)
+            _childCollider.enabled = false;
+        StartCoroutine(InactiveAfterSeconds(spawnSeeker));
     }
 
-    IEnumerator InactiveAfterSeconds()
+    IEnumerator InactiveAfterSeconds(bool spawnSeeker)
     {
-        yield return new WaitForSeconds(.5f);
-        _spawner.SpawnSeeker(transform.position);
+        if (spawnSeeker == true)
+        {
+            yield return new WaitForSeconds(.5f);
+            _spawner.SpawnSeeker(transform.position);
+        }
 
         while (_novaParticles.isPlaying == true)
             yield return null;
@@ -108,7 +113,8 @@ public class BlackHole : PooledMonoBehavior
     IEnumerator EnableAfterSeconds(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        _childCollider.enabled = true;
+        foreach (Collider2D _childCollider in _childColliders)
+            _childCollider.enabled = true;
         _bhRenderer.enabled = true;
     }
 }

@@ -8,7 +8,7 @@ public class BHCollisionDetector : MonoBehaviour
 
     private void Awake()
     {
-        blackHoleScript = GetComponentInParent<BlackHole>();
+        blackHoleScript = transform.parent.GetComponent<BlackHole>();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -20,18 +20,8 @@ public class BHCollisionDetector : MonoBehaviour
             blackHoleScript.IncrementImpacts(1);
     }
 
-    private void OnParticleCollision(GameObject other)
-    {
-        Debug.Log("bh collide");
-    }
-
-    private void OnParticleTrigger()
-    {
-        Debug.Log("part trig");
-    }
-
     public void BreakUp()
     {
-        blackHoleScript.Collapse();
+        blackHoleScript.Collapse(false);
     }
 }

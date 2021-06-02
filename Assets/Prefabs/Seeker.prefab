@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 475458207}
   m_Layer: 9
   m_Name: Seeker
-  m_TagString: Untagged
+  m_TagString: Seeker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

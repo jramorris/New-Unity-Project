@@ -40,7 +40,7 @@ public class Seeker : MonoBehaviour
         Explode();
     }
 
-    void Explode()
+    public void Explode()
     {
         _particleSystem.Play();
         _spriteRenderer.enabled = false;

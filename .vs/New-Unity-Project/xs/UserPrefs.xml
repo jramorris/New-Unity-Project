@@ -1,11 +1,10 @@
 ﻿<Properties StartupConfiguration="{C9DD0913-8C5E-8022-D26B-19159E3E69A2}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/UI Scripts/UIActionsManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/UI Scripts/UIBarManager.cs">
     <Files>
       <File FileName="Assets/Scripts/UI Scripts/PowerIndicator.cs" Line="26" Column="45" />
-      <File FileName="Assets/Scripts/UI Scripts/UIBarManager.cs" Line="21" Column="80" />
-      <File FileName="Assets/Scripts/PlayerController.cs" />
-      <File FileName="Assets/Scripts/SimpleCollectible.cs" />
-      <File FileName="Assets/Scripts/UI Scripts/UIActionsManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/UI Scripts/UIBarManager.cs" Line="88" Column="2" />
+      <File FileName="Assets/Scripts/SimpleCollectible.cs" Line="42" Column="26" />
+      <File FileName="Assets/Scripts/UI Scripts/UIActionsManager.cs" Line="96" Column="70" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

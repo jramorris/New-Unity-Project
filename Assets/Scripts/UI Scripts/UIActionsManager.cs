@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +24,7 @@ public class UIActionsManager : MonoBehaviour
     private GameObject _speedObj;
     private Button _speedButton;
     private Image _speedImage;
+    private TextMeshProUGUI _speedTextObj;
     Coroutine speedCoroutine;
 
     void Awake()
@@ -48,6 +50,7 @@ public class UIActionsManager : MonoBehaviour
         _speedObj = transform.GetChild(2).gameObject;
         _speedButton = _speedObj.GetComponent<Button>();
         _speedImage = _speedObj.GetComponent<Image>();
+        _speedTextObj = _speedObj.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>();
     }
 
     private void OnEnable()
@@ -86,6 +89,11 @@ public class UIActionsManager : MonoBehaviour
         if (speedCoroutine != null)
             StopCoroutine(speedCoroutine);
         speedCoroutine = StartCoroutine(FillIndicator(currentCharge / _requiredSpeedCharge, _speedImage, 7f));
+    }
+
+    public void UpdateSpeedText()
+    {
+        _speedTextObj.text = $"{_playerController._movementModifier}x";
     }
 
     IEnumerator FillIndicator(float fillAmount, Image indicatorImage, float rateMultiplier)

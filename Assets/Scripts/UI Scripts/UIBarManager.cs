@@ -83,7 +83,6 @@ public class UIBarManager : MonoBehaviour
             _chargeBarImage.fillAmount = Mathf.SmoothStep(_chargeBarImage.fillAmount, _chargeFillAmount, _decimalTimePassed);
             yield return null;
         }
-        Debug.Log("exited");
         _chargeBarImage.fillAmount = _chargeFillAmount;
     }
 }

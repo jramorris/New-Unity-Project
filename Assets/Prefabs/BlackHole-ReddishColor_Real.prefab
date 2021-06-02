@@ -5087,6 +5087,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2217895410633855872}
   - component: {fileID: 9220110669104946756}
+  - component: {fileID: 4780723770139213331}
   - component: {fileID: 526393742513124331}
   - component: {fileID: 10981704}
   - component: {fileID: 326864614}
@@ -5130,6 +5131,22 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38682172
+--- !u!58 &4780723770139213331
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7580313308725757163}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.15
 --- !u!114 &526393742513124331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5343,12 +5360,12 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 2
       minColor: {r: 1, g: 1, b: 1, a: 1}
       maxColor: {r: 1, g: 0, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 1}
+        key0: {r: 1, g: 0, b: 0, a: 1}
         key1: {r: 1, g: 1, b: 1, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}

@@ -8,7 +8,6 @@ TagManager:
   - Collectible
   - Background
   - ScoreText
-  - Wall
   - Map
   - PostProcessing
   - ProgressBar
@@ -19,6 +18,7 @@ TagManager:
   - DeathInterstitial
   - UI
   - SmallAsteroid
+  - Seeker
   layers:
   - Default
   - TransparentFX
