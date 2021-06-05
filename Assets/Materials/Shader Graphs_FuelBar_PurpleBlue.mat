@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_FuelBar_RedYellow
+  m_Name: Shader Graphs_FuelBar_PurpleBlue
   m_Shader: {fileID: -6465566751694194690, guid: 84ad1b2ab6b5b4544aea1863c2e618fc,
     type: 3}
   m_ShaderKeywords: 
@@ -25,13 +25,17 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_C9F1AED5:
-        m_Texture: {fileID: 2800000, guid: e8868badd1ed14dec9c0bf1d5aff34bd, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4af758fef0eb24dfe89514ee61fa4c02, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: d4d865636b6e142cd9bb2caf277f2ec2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_2506B2E: 0.25
-    - Vector1_2BA60ACE: 3
+    - Vector1_2506B2E: 0
+    - Vector1_2BA60ACE: 0
     - Vector1_5F719DA: 1
-    - _fuelFillAmount: 0.9629738
+    - _fuelFillAmount: 1
     m_Colors:
     - _intensity: {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 1}

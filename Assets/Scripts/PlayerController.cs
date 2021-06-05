@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 
     public static bool offMap = false;
 
+    // audio
     [SerializeField] AudioSource _explosionSound;
     [SerializeField] AudioSource _fullChargeSound;
     [SerializeField] AudioSource _pulseSoundEffect;
@@ -15,9 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AudioSource _collectChargeSound;
     [SerializeField] AudioClip _speedUpSound;
 
-    [SerializeField] float _movementSpeed = 5f;
-    [SerializeField] float _acceleration = 5f;
-    [SerializeField] InputAction moveAction;
+    [SerializeField] bool _inTutorial;
     [SerializeField] float _maxOffMapTime = 2.5f;
     [SerializeField] Animator _shieldContainerAnim;
     [SerializeField] SpriteRenderer _shieldRenderer;
@@ -30,10 +29,13 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] TrailRenderer _leftTrail;
     [SerializeField] TrailRenderer _rightTrail;
-
-    // movement
     [SerializeField] public int _requiredSpeedUpCharge = 2;
     [SerializeField] public int _requiredNovaCharge = 10;
+
+    // movement
+    [SerializeField] float _movementSpeed = 5f;
+    [SerializeField] float _acceleration = 5f;
+    [SerializeField] InputAction moveAction;
     [SerializeField] float _maxMovementModifier = 1.5f;
     public float _movementModifier = 1;
     float horizontal;
@@ -53,8 +55,17 @@ public class PlayerController : MonoBehaviour
     float _currentCharge;
     int _shieldCharges;
 
-    // random stuff
+    // emission
     [SerializeField] float maxEmissionIntensity = 0.8f;
+    private float currentIntensity;
+    private float _desiredIntensity;
+    Color _emissionColor = new Color(190, 10, 0);
+
+    // shielding
+    bool _shielding;
+    Coroutine shieldCoroutine;
+
+    // random stuff
     Rigidbody2D _rb;
     Quaternion toQuaternion;
     Animator _playerAnim;
@@ -62,15 +73,10 @@ public class PlayerController : MonoBehaviour
     Renderer _spriteRenderer;
     private GameObject _indicatorContainer;
     float _offMapTime;
-    Color _shieldColor = new Color(190, 10, 0);
-    Coroutine shieldCoroutine;
     float _decrementMultiplier;
     Coroutine _dieCoroutine;
-    bool _shielding;
     UIManager _UIManager;
-    private GameObject _blackHole;
-    private float currentIntensity;
-    private float _desiredIntensity;
+    
     private float wiggleDistance;
     const int CollidableLayer = 9;
 
@@ -138,6 +144,9 @@ public class PlayerController : MonoBehaviour
 
     private void DecrementPower()
     {
+        if (_inTutorial)
+            return;
+
         if (horizontal != 0 || vertical != 0)
             _decrementMultiplier = _baseDecrementMultiplier * 5f;
         else
@@ -196,6 +205,7 @@ public class PlayerController : MonoBehaviour
             _movementModifier += .05f;
             _currentCharge -= _requiredSpeedUpCharge;
             OnChargeChange(_currentCharge);
+            SetShipColor();
         }
 
         // TODOS
@@ -357,8 +367,8 @@ public class PlayerController : MonoBehaviour
     {
         _currentCharge = 0f;
         _shieldCharges = 0;
-        OnChargeChange(_currentCharge);
         SetShipColor();
+        OnChargeChange(_currentCharge);
     }
 
     void SetShipColor()
@@ -377,9 +387,9 @@ public class PlayerController : MonoBehaviour
         while (currentIntensity < _desiredIntensity)
         {
             currentIntensity += _desiredIntensity * .01f;
-            _spriteRenderer.material.SetColor("_Color", _shieldColor * currentIntensity);
+            _spriteRenderer.material.SetColor("_Color", _emissionColor * currentIntensity);
             yield return null;
         }
-        _spriteRenderer.material.SetColor("_Color", _shieldColor * _desiredIntensity);
+        _spriteRenderer.material.SetColor("_Color", _emissionColor * _desiredIntensity);
     }
 }

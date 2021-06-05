@@ -53,4 +53,4 @@ MonoBehaviour:
     type: 3}
   seekerPrefab: {fileID: 1849747732618501877, guid: 6ed155475b205453a9a2a5e1d5b73b4d,
     type: 3}
-  _spawnEveryInt: 2
+  _spawnEveryInt: 5

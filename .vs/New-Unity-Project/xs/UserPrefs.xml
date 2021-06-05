@@ -1,17 +1,15 @@
 ﻿<Properties StartupConfiguration="{C9DD0913-8C5E-8022-D26B-19159E3E69A2}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/UI Scripts/IndicatePowerCell.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/TutorialScripts/HowToInpurReader.cs">
     <Files>
-      <File FileName="Assets/Scripts/SimpleCollectible.cs" Line="42" Column="26" />
-      <File FileName="Assets/Scripts/UI Scripts/UIActionsManager.cs" Line="96" Column="70" />
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="391" Column="1" />
-      <File FileName="Assets/Scripts/BlackHole.cs" Line="97" Column="6" />
-      <File FileName="Assets/Scripts/Seeker.cs" Line="19" Column="5" />
-      <File FileName="Assets/Scripts/UI Scripts/IndicatePowerCell.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="362" Column="1" />
+      <File FileName="Assets/Scripts/UI Scripts/UIActionsManager.cs" Line="53" Column="100" />
+      <File FileName="Assets/Scripts/Spawner.cs" Line="44" Column="42" />
+      <File FileName="Assets/Scripts/TutorialScripts/HowToInpurReader.cs" Line="6" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="376f90a6-5d4d-4b6e-9d60-29d51a69781b" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="53bde115-1b0a-4e3a-8596-c7b0b8663178" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

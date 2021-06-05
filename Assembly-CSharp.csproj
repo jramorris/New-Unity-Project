@@ -93,6 +93,7 @@
     <Compile Include="Assets\Scripts\SimpleCollectible.cs" />
     <Compile Include="Assets\Scripts\SmallAsteroid.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
+    <Compile Include="Assets\Scripts\TutorialScripts\HowToSteer.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\IndicatePowerCell.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\PowerIndicator.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\UIActionsManager.cs" />
@@ -103,6 +104,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\Shaders\UIFuelBar.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\Shaders\Shader1.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
