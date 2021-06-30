@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
     public static event Action<float> OnChargeChange;
     public static event Action OnFullCharge;
     public float _currentPower;
-    float _currentCharge;
+    public float _currentCharge;
     int _shieldCharges;
 
     // emission
@@ -248,7 +248,7 @@ public class PlayerController : MonoBehaviour
 
     public void ShieldsUp()
     {
-        if (_shieldCharges < 1 || _dead == true)
+        if (_currentCharge < _powerToChargeShield || _dead == true)
             return;
 
         // does this need to consider already running routines?
@@ -391,5 +391,11 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         _spriteRenderer.material.SetColor("_Color", _emissionColor * _desiredIntensity);
+    }
+
+    public void InvokeChargeChangeEvent()
+    {
+        // another tutorial hack
+        OnChargeChange(_currentCharge);
     }
 }

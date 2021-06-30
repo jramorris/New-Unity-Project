@@ -7,7 +7,8 @@ public class RedEnemy : BaseEnemy
     [SerializeField] int _smallRockSpawnVelocityMagnifier = 5;
     [SerializeField] int numAsteroidsToSpawn = 2;
     [SerializeField] GameObject enemyPrefab;
-
+    [SerializeField] Vector2 spawnVelocity;
+    private bool _spawning;
 
     ParticleSystem _asteroidParticles;
     ParticleSystem _lightParticles;
@@ -18,7 +19,6 @@ public class RedEnemy : BaseEnemy
     private AudioSource _audio;
     Spawner _spawner;
     ManageIndicators indicatorPanel;
-    Vector2 spawnVelocity;
     float timePassed;
     const int CollidableLayer = 9;
 
@@ -35,10 +35,22 @@ public class RedEnemy : BaseEnemy
         _audio = GetComponent<AudioSource>();
         _spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>();
 
+        OverrideSpawnVelocity();
+
         // all indicator related, functionality that's not being used
         //this.OnExitPool += NotifyIndicatorManager;
         //this.OnReturnToPool += RemoveFromIndicator;
         //indicatorPanel = GameObject.FindGameObjectWithTag("IndicatorPanel").GetComponent<ManageIndicators>();
+    }
+
+    void OverrideSpawnVelocity()
+    {
+        // Tutorial hack to spawn roids with preset velocity
+        // set via the editor
+        if (_rb.velocity.x == 0 && _rb.velocity.y == 0)
+        {
+            _rb.velocity = spawnVelocity;
+        }
     }
 
     void OnDestroy()
@@ -51,6 +63,7 @@ public class RedEnemy : BaseEnemy
 
     void Spawn()
     {
+        _spawning = true;
         spawnVelocity = _rb.velocity;
         _rb.velocity = Vector2.zero;
         _spriteRenderer.enabled = false;

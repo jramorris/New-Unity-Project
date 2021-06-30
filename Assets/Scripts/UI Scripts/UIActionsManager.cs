@@ -100,7 +100,7 @@ public class UIActionsManager : MonoBehaviour
     {
         while (indicatorImage.fillAmount < fillAmount)
         {
-            indicatorImage.fillAmount += (Time.deltaTime * .1f * rateMultiplier);
+            indicatorImage.fillAmount += (Time.unscaledDeltaTime * .1f * rateMultiplier);
             yield return null;
         }
         if (indicatorImage.fillAmount > fillAmount)

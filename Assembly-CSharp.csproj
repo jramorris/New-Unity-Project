@@ -93,6 +93,9 @@
     <Compile Include="Assets\Scripts\SimpleCollectible.cs" />
     <Compile Include="Assets\Scripts\SmallAsteroid.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
+    <Compile Include="Assets\Scripts\TutorialScripts\HowToCharge.cs" />
+    <Compile Include="Assets\Scripts\TutorialScripts\HowToCollect.cs" />
+    <Compile Include="Assets\Scripts\TutorialScripts\HowToShield.cs" />
     <Compile Include="Assets\Scripts\TutorialScripts\HowToSteer.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\IndicatePowerCell.cs" />
     <Compile Include="Assets\Scripts\UI Scripts\PowerIndicator.cs" />

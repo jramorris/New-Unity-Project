@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,9 +9,10 @@ public class HowToSteer : MonoBehaviour
     // to get the tutorial to work.
 
     [SerializeField] InputAction moveAction;
+    [SerializeField] TextMeshProUGUI _centralText;
+    [SerializeField] GameObject _nextButton;
     private float horizontal;
     private float vertical;
-    [SerializeField] TextMeshProUGUI _centralText;
 
     private void OnDisable()
     {
@@ -41,5 +43,12 @@ public class HowToSteer : MonoBehaviour
     void Step()
     {
         _centralText.text = "Nice.";
+        StartCoroutine(EnableButton());
+    }
+
+    IEnumerator EnableButton()
+    {
+        yield return new WaitForSeconds(2f);
+        _nextButton.SetActive(true);
     }
 }

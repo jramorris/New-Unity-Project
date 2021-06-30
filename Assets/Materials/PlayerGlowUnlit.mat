@@ -44,7 +44,7 @@ Material:
     - _EnableExternalAlpha: 0
     m_Colors:
     - Color_4A114FE0: {r: 0, g: 1, b: 0.8862745, a: 0}
-    - _Color: {r: 48.188236, g: 2.0078433, b: 0, a: 1}
+    - _Color: {r: 0.010919688, g: 0, b: 0, a: 1}
     - _ColorTest: {r: 0, g: 0.7098039, b: 0.7647059, a: 0}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
