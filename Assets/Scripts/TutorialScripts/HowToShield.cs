@@ -1,8 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using TMPro;
+using UnityEngine;
 
 public class HowToShield : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI _centralText;
     [SerializeField] UIActionsManager _manager;
+    [SerializeField] GameObject _nextButton;
     private PlayerController _playerController;
 
     private void Awake()
@@ -29,5 +33,14 @@ public class HowToShield : MonoBehaviour
     public void Unpause()
     {
         Time.timeScale = 1;
+        StartCoroutine(Next());
+    }
+
+    IEnumerator Next()
+    {
+        yield return new WaitForSeconds(1.5f);
+        _centralText.text = "good.";
+        yield return new WaitForSeconds(2f);
+        _nextButton.SetActive(true);
     }
 }
