@@ -696,7 +696,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 8
-  m_Sprite: {fileID: 21300000, guid: ac940745a4efb45c49d15f760842a67d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0ac18a797d7724a5c99408f62ae9371b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -852,6 +852,7 @@ MonoBehaviour:
   _maxMovementModifier: 1.5
   _movementModifier: 1
   _currentPower: 0
+  _currentCharge: 0
   maxEmissionIntensity: 0.5
 --- !u!70 &736506510
 CapsuleCollider2D:
