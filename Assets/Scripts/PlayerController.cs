@@ -383,6 +383,7 @@ public class PlayerController : MonoBehaviour
     {
         // ship outline color
         _desiredIntensity = intensityMultiplier * maxEmissionIntensity;
+        // for mike 0.1875f(intensityMultiplier * intensityMultiplier) + 0.875(intensityMultiplier);
 
         while (currentIntensity < _desiredIntensity)
         {

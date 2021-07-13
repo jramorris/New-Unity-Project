@@ -1,17 +1,17 @@
 ﻿<Properties StartupConfiguration="{C9DD0913-8C5E-8022-D26B-19159E3E69A2}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/TutorialScripts/HowToShield.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerController.cs">
     <Files>
       <File FileName="Assets/Scripts/Countdown.cs" Line="32" Column="6" />
-      <File FileName="Assets/Scripts/RedEnemy.cs" Line="38" Column="33" />
-      <File FileName="Assets/Scripts/UI Scripts/UIActionsManager.cs" Line="52" Column="55" />
+      <File FileName="Assets/Scripts/RedEnemy.cs" />
+      <File FileName="Assets/Scripts/UI Scripts/UIActionsManager.cs" />
       <File FileName="Assets/Scripts/PlayerController.cs" Line="251" Column="51" />
-      <File FileName="Assets/Scripts/TutorialScripts/HowToSteer.cs" Line="13" Column="5" />
+      <File FileName="Assets/Scripts/TutorialScripts/HowToSteer.cs" />
       <File FileName="Assets/Scripts/TutorialScripts/HowToShield.cs" Line="44" Column="37" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="68fe8987-8ce2-47da-951a-8609985293f5" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="03fca3b3-e74e-40c5-91bf-cdd6c3d425e4" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
