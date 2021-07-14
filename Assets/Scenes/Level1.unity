@@ -12180,6 +12180,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12ce11d81d5034532a380de255591cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &1099349138 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 6695180446703784665, guid: d93f33b7696fd364db1d01a5fd3db112,
+    type: 3}
+  m_PrefabInstance: {fileID: 1658237124}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1128266380
 GameObject:
   m_ObjectHideFlags: 0
@@ -23049,6 +23055,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8668614183104720973, guid: d93f33b7696fd364db1d01a5fd3db112,
+        type: 3}
+      propertyPath: _gravityCollider
+      value: 
+      objectReference: {fileID: 1099349138}
+    - target: {fileID: -8668614183104720973, guid: d93f33b7696fd364db1d01a5fd3db112,
+        type: 3}
+      propertyPath: maxImpacts
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7928685435195019314, guid: d93f33b7696fd364db1d01a5fd3db112,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -23265,6 +23281,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!70 &1833031073 stripped
+CapsuleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 736506510, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
+    type: 3}
+  m_PrefabInstance: {fileID: 5584265109525971970}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1858377342
 GameObject:
   m_ObjectHideFlags: 0
@@ -23776,6 +23798,11 @@ PrefabInstance:
       propertyPath: maxEmissionIntensity
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 5584265109048467926, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
+        type: 3}
+      propertyPath: _shipCollider
+      value: 
+      objectReference: {fileID: 1833031073}
     - target: {fileID: 5584265109048467930, guid: 2445280d5eb1940cd8d8a88b6f0e3d25,
         type: 3}
       propertyPath: m_LocalPosition.x

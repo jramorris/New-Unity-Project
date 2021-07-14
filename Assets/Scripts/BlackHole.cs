@@ -20,6 +20,7 @@ public class BlackHole : PooledMonoBehavior
     Animator _collisionAnimator;
     SpriteRenderer _bhRenderer;
     AudioSource _novaSound;
+    [SerializeField] Collider2D _gravityCollider;
 
     private void Awake()
     {
@@ -77,6 +78,7 @@ public class BlackHole : PooledMonoBehavior
         _bhRenderer.enabled = false;
         _rippleRenderer.enabled = false;
         _novaParticles.Play();
+        _gravityCollider.enabled = false;
         foreach (Collider2D _childCollider in _childColliders)
             _childCollider.enabled = false;
         StartCoroutine(InactiveAfterSeconds(spawnSeeker));

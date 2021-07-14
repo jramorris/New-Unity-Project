@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public static bool offMap = false;
 
     // audio
+    [Header("Audio Settings")]
     [SerializeField] AudioSource _explosionSound;
     [SerializeField] AudioSource _fullChargeSound;
     [SerializeField] AudioSource _pulseSoundEffect;
@@ -16,23 +17,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AudioSource _collectChargeSound;
     [SerializeField] AudioClip _speedUpSound;
 
-    [SerializeField] bool _inTutorial;
-    [SerializeField] float _maxOffMapTime = 2.5f;
-    [SerializeField] Animator _shieldContainerAnim;
-    [SerializeField] SpriteRenderer _shieldRenderer;
-
+    [Header("Charge Settings")]
     [SerializeField] public float _maxPower = 10;
     [SerializeField] public float _maxCharge = 10;
     [SerializeField] public int _maxShieldCharges = 2;
     [SerializeField] float _baseDecrementMultiplier = .5f;
     [SerializeField] public int _powerToChargeShield = 5;
 
+    [Header("Animation Settings")]
     [SerializeField] TrailRenderer _leftTrail;
     [SerializeField] TrailRenderer _rightTrail;
     [SerializeField] public int _requiredSpeedUpCharge = 2;
     [SerializeField] public int _requiredNovaCharge = 10;
+    [SerializeField] Collider2D _shipCollider;
+    [SerializeField] Animator _shieldContainerAnim;
+    [SerializeField] SpriteRenderer _shieldRenderer;
 
-    // movement
+    [Header("Movement Settings")]
     [SerializeField] float _movementSpeed = 5f;
     [SerializeField] float _acceleration = 5f;
     [SerializeField] InputAction moveAction;
@@ -40,6 +41,10 @@ public class PlayerController : MonoBehaviour
     public float _movementModifier = 1;
     float horizontal;
     float vertical;
+
+    [Header("Misc")]
+    [SerializeField] bool _inTutorial;
+    [SerializeField] float _maxOffMapTime = 2.5f;
 
 
     // health
@@ -299,6 +304,7 @@ public class PlayerController : MonoBehaviour
     {
         _dead = true;
         _indicatorContainer.SetActive(false);
+        _shipCollider.enabled = false;
         StartCoroutine("GoToMenu");
         GameObject.FindGameObjectWithTag("Score").GetComponent<Score>().ZeroScore();
     }
@@ -311,7 +317,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.CompareTag("Map"))
+        if (collider.CompareTag("Map") && _shipCollider.enabled == true)
         {
             offMap = true;
             StartCoroutine("CrashAfterSeconds");
