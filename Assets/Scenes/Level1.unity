@@ -23063,7 +23063,7 @@ PrefabInstance:
     - target: {fileID: -8668614183104720973, guid: d93f33b7696fd364db1d01a5fd3db112,
         type: 3}
       propertyPath: maxImpacts
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7928685435195019314, guid: d93f33b7696fd364db1d01a5fd3db112,
         type: 3}

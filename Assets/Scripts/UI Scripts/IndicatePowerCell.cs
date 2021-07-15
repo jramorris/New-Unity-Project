@@ -18,7 +18,7 @@ public class IndicatePowerCell : MonoBehaviour
 
     void Update()
     {
-        if (target == null || !target.activeSelf)
+        if (target == null || !target.GetComponent<SimpleCollectible>()._activeSelf)
             FindTarget();
 
         if (target == null || !target.GetComponent<SimpleCollectible>()._activeSelf)

@@ -10073,6 +10073,7 @@ MonoBehaviour:
   initialPoolSize: 10
   _gravityForce: 25
   maxImpacts: 3
+  _gravityCollider: {fileID: 6695180446703784665}
 --- !u!58 &6695180446703784665
 CircleCollider2D:
   m_ObjectHideFlags: 0

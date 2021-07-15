@@ -90,6 +90,7 @@ public class SimpleCollectible : Collectible
         _collider.enabled = false;
         _light.enabled = false;
         _spriteRenderer.enabled = false;
+        _activeSelf = false;
         Spawner.shouldSpawnCollectible = true;
         StartCoroutine("VolumeToZero");
     }
@@ -110,6 +111,7 @@ public class SimpleCollectible : Collectible
 
     void Spawn()
     {
+        _activeSelf = true;
         _collider.enabled = false;
         _light.enabled = false;
         _spriteRenderer.enabled = false;
